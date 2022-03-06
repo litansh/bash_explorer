@@ -1,0 +1,130 @@
+SELECT 'http://anahats.rng.marketing/wp-content/uploads/2019/04/background-pros.jpg' FROM annahats4u.wp_options ; 
+
+
+
+
+
+UPDATE wp_options SET option_value = replace(option_value, '$OLDDOMAIN', '$NEWDOMAIN') WHERE option_name = 'home' OR option_name = 'siteurl';
+
+
+
+$string = 'mysqldump --compact --skip-extended-insert -u ' . $db_user . ' -p' . $db_password . ' dbname 2>&1 | grep "particular string" 2>&1';
+$result = shell_exec ( $string );
+
+
+
+
+
+$database = new ridona\Database('mysql:dbname=database_name;host=127.0.0.1', 'db_user','db_pass');
+
+foreach ($database->tables(['table_name1','table_name2'])->by_entire() as $row) {
+
+  do...
+
+}
+
+
+
+mysql -uroot -pPassWd111 --compact --skip-extended-insert  'show databases;
+
+http://anahats.rng.marketing/wp-content/uploads/2019/04/background-pros.jpg
+
+
+
+cat annahats4u-06-04-2020.sql | grep -e "http://anahats.rng.marketing/wp-content/uploads/2019/04/background-pros.jpg"
+
+sed -i 's/utf8mb4_unicode_520_ci/utf8mb4_unicode_ci/g' your_sql_file.sql
+
+
+mysql -uYour_User -p'Your_Password' annahats4u < annahats4u-06-04-2020.sql
+
+
+Restore
+mysql -uroot -pPassWd111 annahats4u < annahats4u-06-04-2020.sql
+
+
+Backup
+mysqldump -uroot -pNewPass123$ annahats4u > annahats4u-08-04.sql
+
+
+select table_schema as database_name,
+    table_name
+from information_schema.tables
+where table_type = 'BASE TABLE'
+    and table_name like '%anahats%'
+order by table_schema,
+    table_name;
+
+SELECT * 
+FROM annahats4u.wp_posts
+WHERE 'anahats.rng.marketing' LIKE CONCAT('%', anahats.rng.marketing, '%') ;
+
+SELECT * FROM annahats4u.wp_postmeta WHERE binary meta_value = 'http://anahats.rng.marketing';
+SELECT * FROM annahats4u.wp_posts WHERE binary post_content = 'http://anahats.rng.marketing';
+
+
+SELECT * FROM annahats4u.wp_options WHERE binary option_value = 'http://anahats.rng.marketing';
+
+
+
+
+
+
+
+cat annahats4u-06-04-2020.sql | grep -e "http://anahats.rng.marketing/wp-content/uploads/2019/04/background-pros.jpg"
+
+
+
+cat annahats4u-06-04-2020.sql | grep -e "http://anahats.rng.marketing/wp-content/uploads/2019/04/background-pros.jpg"
+
+-----SELECT * FROM annahats4u.wp_posts WHERE guid LIKE 'https://%';
+
+
+
+
+SELECT * FROM clockin.users WHERE guid LIKE 'https://%';
+
+
+
+
+http://anahats.rng.marketing/wp-content/uploads/2019/04/background-pros.jpg
+
+
+
+
+http://anahats.rng
+https://anahats.rng.marketing
+
+
+
+
+http://annahats4u.co.il
+https://annahats4u.co.il
+
+
+
+mysql -ucreator -p'crlcmssw2!qazx!qazxsw2' -e 
+"USE ${DB};
+UPDATE wp_users SET option_value='DEV' WHERE option_name = 'user_login';
+UPDATE wp_users SET option_value='${VMP}' WHERE option_name = 'user_pass';
+UPDATE wp_users SET option_value='DEV' WHERE option_name = 'user_nicename'; 
+UPDATE wp_users SET option_value='${DEVM}' WHERE option_name = 'user_email';"
+
+
+MYSQL="/usr/bin/mysql --skip-column-names -u${db_user} -p${db_passwd}"
+ 
+echo "SHOW TABLES;" | $MYSQL $db_name | while read db_table
+do
+ echo "SHOW COLUMNS FROM $db_table;" | $MYSQL $db_name| 
+ awk -F't' '{print $1}' | while read tbl_column
+ do
+ echo "update $db_table set ${tbl_column} = replace(${tbl_column}, '${search_string}', '{replacement_string}');" |
+ $MYSQL $db_name
+ done
+done
+httpss://anahats.rng.marketing
+
+https://anahats.rng.marketing
+
+http://anahats.rng
+https://anahats.rng

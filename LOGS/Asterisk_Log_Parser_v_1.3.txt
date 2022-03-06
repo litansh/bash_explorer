@@ -1,0 +1,570 @@
+#!/bin/bash
+#!/bin/sh -
+
+mkdir -p /usr/lib/findme
+
+cat > /usr/lib/findme/parsme <<- "EOF"
+#!/bin/bash
+#!/bin/sh -
+## --------------------------------------
+# Step #1: Define variables
+# --------------------------------------
+#EDITOR=vim
+#PASSWD=/etc/passwd
+RED='\033[0;41;30m'
+STD='\033[0;0;39m'
+mkdir -p /tmp/mysql-tmp
+chmod 777 /tmp/mysql-tmp
+#Tmp for pass
+TMP=/tmp/mysql-tmp/mysql-tmp23455.log
+#Tmp for user
+TMP0=/tmp/mysql-tmp/mysql-tmp-validator.log
+TMP1=/tmp/mysql-tmp/mysql-tmp455.log
+TMP2=/tmp/mysql-tmp
+HISTORY=/tmp/mysql-tmp/script_history
+mkdir -p /tmp/findme/
+mkdir -p /tmp/findme/cron
+CRONDIR=/tmp/findme/cron
+findmepath=/tmp/findme/
+CATTMP1=/tmp/findme/.srch.log
+EDITORTMP1=/tmp/findme/.editorfind.log
+LOGO=/tmp/findme/.logo.log
+LOGO1=/tmp/findme/.logo1.log
+export normal=`echo "\033[m"`
+export menu=`echo "\033[36m"` #Blue
+export number=`echo "\033[33m"` #yellow
+export bgred=`echo "\033[41m"`
+export fgred=`echo "\033[31m"`
+export green=`echo "\033[32m"`
+export blink=`echo "\033[5m" `
+export lightbggrey=`echo "\033[47m" `
+export bggrey=`echo "\033[100m" `
+export grey=`echo "\033[90m" `
+export menu1=`echo -e "\033[100m"`
+export black=`echo -e "\033[30m"`
+export bggreen=`echo -e "\033[42m"`
+export bgwhite=`echo -e "\033[100m"`
+export bold=`echo -e "\033[1m"`
+
+export under=`echo -e "\033[4m"`
+#sed -i -e 's/\r$//' findme && chmod +x findme
+whoami=`whoami`
+h1=`date +%R:%M%p`
+#true > script_history
+history -w script_history
+hostname=`hostname | cut -d"." -f1`
+SRVLIST=pwd/serverlist.log
+export du=`df -h /`
+PATH1=/
+export EDITORTMP1=/tmp/findme/.editorfind.log
+export ROOTUSERSTMPLOG=/tmp/findme/.rootuserstmplog.log
+export ROOTUSERSTMPLOG1=/tmp/findme/.rootuserstmplog1.log
+export TIMETMPLOG=/tmp/findme/.timetmplog.log
+export TIMETMPLOG1=/tmp/findme/.timetmplog1.log
+export CHMODTMPLOG1=/tmp/findme/.chmodtmp1.log
+export EDIPREF=`cat $EDITORTMP1`
+export VIM=`ls /usr/bin | grep "vim$" | wc -l`
+export NANO=`ls /usr/bin | grep nano | wc -l`
+export UBUNTU=`awk -F= '/^NAME/{print $2}' /etc/os-release | grep -o Ubuntu | wc -l`
+export CENTOS0=`awk -F= '/^NAME/{print $2}' /etc/os-release | grep -o CentOS | wc -l `
+export SANGOMA=`awk -F= '/^NAME/{print $2}' /etc/os-release | grep -o Sangoma | wc -l`
+export SANGOMA1=`awk -F= '/^NAME/{print $2}' /etc/os-release | grep -o Sangoma`
+export CENTOS1=`awk -F= '/^NAME/{print $2}' /etc/os-release | grep -o CentOS `
+export UBUNTU1=`awk -F= '/^NAME/{print $2}' /etc/os-release | grep -o Ubuntu `
+HIDENOFFBAN="${menu}OFF${normal}"
+HIDENONBAN="${menu}ON${normal}"
+DIRLOCATION="$(printf "[$whoami@$hostname $PWD]#")"
+MAIN="\n${number}1.${menu}New dir [${number}d${menu}] or [${number}1${menu}] ${number}6.${menu}Find file or dir [${number}i${menu}] or [${number}6${menu}]\n${number}2.${menu}New file [${number}f${menu}] or [${number}2${menu}] ${number}7.${menu}Find pattern [${number}p${menu}] or [${number}7${menu}]\n${number}3.${menu}Delete [${number}delete${menu}] or [${number}3${menu}]${normal} ${number}8.${menu}Last file search [${number}v${menu}] or [${number}8${menu}]${normal}\n${number}4.${menu}Edit file [${number}e${menu}] or [${number}4${menu}] ${number}9.${menu}Hidden items ON [${number}H${menu}] or [${number}L${menu}] OFF\n${number}5.${menu}Rename [${number}r${menu}] or [${number}5${menu}]\n${number}*.${menu}Editor [${number}a${menu}] ${normal}VI${menu} [${number}b${menu}] ${normal}VIM${menu} [${number}c${menu}] ${normal}NANO${menu}${normal}"
+D="$(date +"Date:%d.%m.%Y")"
+T="$(date +"Time:%H:%M:%S")"
+#MAIN="\n${number}1.${menu}New dir [${number}d${menu}] or [${number}1${menu}] ${number}6.${menu}Find file or dir [${number}i${menu}] or [${number}6${menu}]\n${number}2.${menu}New file [${number}f${menu}] or [${number}2${menu}] ${number}7.${menu}Find pattern [${number}p${menu}] or [${number}7${menu}]\n${number}3.${menu}Delete [${number}delete${menu}] or [${number}3${menu}]${normal} ${number}8.${menu}Last file search [${number}v${menu}] or [${number}8${menu}]${normal}\n${number}4.${menu}Edit file [${number}e${menu}] or [${number}4${menu}] ${number}9.${menu}Hidden items ON [${number}H${menu}] or [${number}L${menu}] OFF\n${number}5.${menu}Rename [${number}r${menu}] or [${number}5${menu}]\n${number}*.${menu}Editor ${normal}VI${menu} [${number}a${menu}] ${normal}VIM${menu} [${number}b${menu}] "$NANO"${menu} [${number}c${menu}]"
+lockedusers=/tmp/findme/.lockedusers.log
+ITEMS50="\n${normal}This folder have more then ${menu}50 ${normal}items.\nPlease use ${menu}mouse left click${normal} to select and paste item or ${menu}type${normal} item name.${normal}\n\n"
+C1itemchoice=`printf "${menu}Press [${number}Enter${menu}] to back / \n\n${menu}Use mouse to ${number}paste ${menu}or ${number}type ${menu}item use ${number}TAB${menu}:${normal}"`
+n=100
+
+history -r script_history
+#SLEEP2=`sleep 2`
+SLEEP2=`echo`
+export SYNCCHK=`timedatectl status | grep -o -P '(?<=(synchronized: )).*(?=$)' | sed 's/ //g' | wc -m`
+#General
+
+function kill_pbx_log_parser_ () {
+echo > /tmp/findme/asterisk-full.log
+chk123=`ps -ef | grep copypbxfulllogp`
+echo "$chk123"
+PKILS=`echo "$chk123" | awk '{print $2} '`
+kill -9 $PKILS
+wait $PKILS 2>/dev/null
+# chk1234=`ps -ef | grep asterisk-full.log`
+# echo "$chk1234"
+# PKILS1=`echo "$chk1234" | awk '{print $2} '`
+# kill -9 $PKILS1
+wait $PKILS1 2>/dev/null
+chk12344=`ps -ef | grep parsepbxfulllogp`
+echo "$chk1234"
+PKILS2=`echo "$chk12344" | awk '{print $2} '`
+kill -9 $PKILS2
+wait $PKILS2 2>/dev/null
+pkill -9 copypbxfulllogp
+pkill -9 parsepbxfulllogp
+}
+
+# function kill_pbx_log_parser_ () {
+# chk123=`ps -ef | grep pbxfulllogp`
+# echo "$chk123"
+# PKILS=`echo "$chk123" | awk '{print $2} '`
+# kill -9 $PKILS
+# chk1234=`ps -ef | grep pbxoutput.log`
+# echo "$chk1234"
+# PKILS1=`echo "$chk1234" | awk '{print $2} '`
+# kill -9 $PKILS2
+# chk12344=`ps -ef | grep findmepbx`
+# echo "$chk1234"
+# PKILS1=`echo "$chk12344" | awk '{print $2} '`
+# pkill -9 $PKILS2
+# pkill -9 findmepbx
+# }
+
+function greetgusr_ () {
+local h=`date +%H`
+if [ $h -lt 12 ];
+then
+greet="Good morning"
+#echo $greet
+elif [ $h -lt 18 ];
+then
+greet="Good afternoon"
+# echo $greet
+else
+greet="Good evening"
+# echo $greet
+fi
+
+}
+
+function back_to_root_ () {
+if [[ "$counter" == 0 ]] && [[ "$selector" == 0 ]] ;
+# whatever you want to do when arr contains value
+then
+
+menu0_
+elif [[ "$counter" == 0 ]] && [[ "$selector" == 1 ]];
+then
+menu0_
+
+elif [[ "$counter" == 0 ]] && [[ "$selector" == 2 ]];
+then
+menu1_
+elif [[ "$counter" == 0 ]] && [[ "$selector" == 3 ]];
+then
+menu2_
+elif [[ "$counter" == 0 ]] && [[ "$selector" == 4 ]];
+then
+menu3_
+elif [[ "$counter" == 0 ]] && [[ "$selector" == 5 ]];
+then
+menu4_
+elif [[ "$counter" == 0 ]] && [[ "$selector" == 6 ]];
+then
+menu5_
+elif [[ "$counter" == 0 ]] && [[ "$selector" == 7 ]];
+then
+menu6_
+elif [[ "$counter" == 0 ]] && [[ "$selector" == 8 ]];
+then
+menu7_
+elif [[ "$counter" == 0 ]] && [[ "$selector" == 9 ]];
+then
+menu8_
+elif [[ "$counter" == 0 ]] && [[ "$selector" == 10 ]];
+then
+menu9_
+elif [[ "$counter" == 0 ]] && [[ "$selector" == 11 ]];
+then
+menu10_
+elif [[ "$counter" == 0 ]] && [[ "$selector" == 12 ]];
+then
+menu11_
+
+fi
+}
+
+function color_ () {
+printf %b '\033[m'
+break
+}
+
+function kill_ () {
+pkill -9 -P -f $$ > /dev/null 2>&1
+pkill -9 -f $$ > /dev/null 2>&1
+pkill -9 findme > /dev/null 2>&1
+pkill -9 -f listdirubuntu.sh > /dev/null 2>&1 &
+pkill -9 -f listdirubuntu.sh &
+pkill -9 -f listdir.sh &
+
+}
+
+function exit_ () {
+
+printf %b '\033[m'
+echo
+echo -e "${menu}Thank you ${number}"$whoami" ${menu}for use explorer managment system${normal}"
+logo2_
+echo
+clear
+clear
+echo > $LOGO
+printf "$EDITOR" > $EDITORTMP1
+printf %b '\033[m'
+kill_pbx_log_parser_
+clear && kill_ && exit 0 && kill_ && exit 0 && kill_
+kill_ && clear
+}
+
+function confirm_ () {
+local C1="$(printf "${menu} Please Confirm (y/n) or ${number}[ Enter ] ${menu}to Y ${menu}:${normal}\n")"
+echo
+read -sn 1 -p "$C1 " confirmn
+if [ "$confirmn" == "n" ];
+then
+menu0_
+fi
+
+}
+
+function counter30_ () {
+secs=$((1 * 20))
+while [ $secs -gt 0 ]; do
+echo -ne "${fgred} "
+echo -ne "\tPlease wait i will parsin log for you... " && echo -ne "$secs\033[0K\r${normal}"
+sleep 1
+: $((secs--))
+done
+printf %b '\033[m'
+}
+
+function 1counter_ () {
+secs=$((1 * 20))
+while [ $secs -gt 0 ]; do
+
+echo -ne "Exiting ...... " && echo -ne "$secs\033[0K\r${normal}"
+sleep 1
+: $((secs--))
+done
+}
+
+function counter_ () {
+stty -echo
+echo -e "${fgred}"
+secs=$((1 * 6))
+while [ $secs -gt 0 ]; do
+echo -ne "${fgred} "
+echo -ne "\tYou will be back in ... " && echo -ne "$secs\033[0K\r${normal}"
+sleep 1
+: $((secs--))
+done
+stty echo
+printf %b '\033[m'
+}
+
+function counter3_ () {
+
+echo -e "${fgred}"
+secs=$((1 * 3))
+stty -echo
+while [ $secs -gt 0 ]; do
+echo -ne "${fgred} "
+echo -ne "\t You will be back in ... " && echo -ne "$secs\033[0K\r${normal}"
+sleep 1
+: $((secs--))
+done
+stty echo
+printf %b '\033[m'
+}
+
+function pause_ () {
+local C1="$(printf "\n${menu}Press [ ${number}Enter ${menu}] ${menu}to continue... ${normal}\n")"
+
+read -s -p "$C1" fackEnterKey
+if [ "$fackEnterKey" == "i" ] || [ "$fackEnterKey" == "6" ];then
+find_file_folder_
+else
+menu0_
+fi
+
+}
+
+function unset_banner_ (){
+unset BANNER
+unset FIND
+unset GREPBANN
+unset COUNTFIND
+}
+
+function pause_find_ () {
+
+if [ "$finds" == 0 ];
+then
+printf "\n\t${menu}${menu1}Press [ ${number}Enter ${menu}] ${menu} to try again \n\tPress [${number}q${menu}] or [${number}x${menu}] back to main menu \n${normal}"
+local C1="$(printf "\t${normal}${menu}===> : ${normal}")"
+read -sn 1 -p "$C1" fackEnterKey
+if [ "$fackEnterKey" == 0 ] || [ "$fackEnterKey" == "O" ] ;
+then
+find_and_replace_
+fi
+fi
+
+if [ "$finds" == 1 ];
+then
+printf "\n\t${menu}${menu1}Press [ ${number}Enter ${menu}] ${menu} to try again \n\tPress [${number}q${menu}] or [${number}x${menu}] back to main menu \n${normal}"
+local C1="$(printf "\t${normal}${menu}===> : ${normal}")"
+read -sn 1 -p "$C1" fackEnterKey
+if [ "$fackEnterKey" == 7 ] || [ "$fackEnterKey" == "p" ] ;
+then
+find_pattern_
+fi
+fi
+
+if [ "$finds" == 2 ];
+then
+printf "\n\t${menu}${menu1}Press [ ${number}Enter ${menu}] ${menu} to try again \n\tPress [${number}q${menu}] or [${number}x${menu}] back to main menu \n${normal}"
+local C1="$(printf "\t${normal}${menu}===> : ${normal}")"
+read -sn 1 -p "$C1" fackEnterKey
+if [ "$fackEnterKey" == "" ] ;
+then
+find_file_folder_
+elif [ "$fackEnterKey" == "q" ] || [ "$fackEnterKey" == "x" ];
+then
+menu0_
+fi
+fi
+}
+
+function pause_witout_exit_ () {
+local C1="$(printf "\n\t${menu}[ ${number}Enter ${menu}] ${menu}${normal}\n")"
+
+read -sn 1 -p "$C1" fackEnterKey
+
+}
+
+function pause_witout1_exit_ () {
+
+read -sn 1 -p "$C1" fackEnterKey
+
+}
+
+function pause_find_old_ () {
+echo
+local C1="$(printf "${menu}Press [ ${number}Enter ${menu}] ${menu}key to continue... or press [${fgred}i ${menu}or${fgred} 6${menu}] then press [ ${number}Enter ${menu}]: ${normal}\n")"
+
+read -n1 -p "$C1" fackEnterKey
+if [ "$fackEnterKey" == "i" ] || [ "$fackEnterKey" == "6" ];then
+find_file_folder_
+else
+menu0_
+fi
+
+}
+
+function pause_file_check_ () {
+local ENT=`echo -e "\n\n\n${menu}Press [${number}Enter${menu}] to continue or [${number}e${menu}] to edit file:${normal}\n"`
+read -n 1 -p "$ENT " choice
+}
+
+function border_logparser_wrong_ () {
+IFS=$'\n'
+echo
+echo -e " \t\t${blink}${number}====>${normal} Please check and fix extensions ASAP!!! ${blink}${number}<====${normal} "
+FULL111=`tail -n 5000 $FULL1 |  awk '/failed for/ {print $12, $13, $9,  $7 ,"",  $10  } ' | sed -r '/failed/ s/^(.*)$/for \1/g' |  grep -v NoOp | sed  's/for/Failed ==>/g' | sed  's/Wrong password //g' |  sed "s/:5060'/]/g" | sed 's/"/X/g'  | sed -e 's/\(X\).*\(<sip:\)/\1\2/' | sed "s/'X<sip:/From Ext-[/g" | sed "s/> '/> From IP--[/g" | sed "s/>'  '/] From IP-[/g" | sed 's/@/] Host-[/g' |  sed 's/- <sip:/ From Ext-[/g' |  sed "s/:5060>'/]/g" | sed 's/X<sip:/ From Ext-[/g' | sed 's/:.*$/:/g' | sed 's/  failed/]/g'  | sed "s/'X/[/g"  | sed 's/:/]/g'  | sort | uniq  `
+longstr=`(echo "$FULL111" | awk '{if(length>x){x=length;y=$0}}END{print y}')`
+longlen=${#longstr}
+edge=$(echo "$longstr" | sed 's/./-/g')
+#echo -e "\t${menu} Users ${normal}\n"
+echo -e "\t${menu1}+$edge---+${normal}"
+while IFS= read -r line; do
+strlen=${#line}
+echo -e -n "\t${menu1}|${normal} $line${normal}"
+gap=$((longlen - strlen))
+if [ "$gap" > 0 ]; then
+for i in $(seq 1 $gap); do echo -n " "; done
+echo -e "  ${menu1}|${normal}"
+else
+echo -e "  ${menu1}|${normal}"
+fi
+done < <(printf '%s\n' "$FULL111")
+echo -e "\t${menu1}+$edge---+${normal}"
+
+}
+
+function monitor_pbx_title_ () {
+clear && echo && clear
+echo -e "\t\t${menu}${menu1}------------------------------------------------------------${normal}"
+echo -e "\t\t${menu}${menu1}                        ${bgwhite}${menu}Monitor PBX Log${menu}${menu1}                     ${normal}"
+echo -e "\t\t${menu}${menu1}                                                            ${normal}"
+echo -e "\t\t${menu}${menu1}                       ${black}${blink}====>${normal}${menu}${menu1}FindMe${menu1}${black}${blink}<====${normal}${menu1}                     ${normal}"
+echo -e "\t\t${menu}${menu1}------------------------------------------------------------${normal}"
+echo -e "\t${menu}$BANNER${normal}${green}${normal}${green}$GREPBANN${normal}"
+unset TIMEMENUBANNER
+}
+
+function border_logparser_ () {
+IFS=$'\n'
+
+FULL11=`cat /tmp/findme/pbxoutput.log | uniq | more `
+longstr=`(echo "$FULL11" | awk '{if(length>x){x=length;y=$0}}END{print y}')`
+longlen=${#longstr}
+edge=$(echo "$longstr" | sed 's/./-/g')
+#echo -e "\t${menu} Users ${normal}\n"
+echo -e "\t${menu1}+$edge---+${normal}"
+while IFS= read -r line; do
+strlen=${#line}
+echo -e -n "\t${menu1}|${normal} $line${normal}"
+gap=$((longlen - strlen))
+if [ "$gap" > 0 ]; then
+for i in $(seq 1 $gap); do echo -n " "; done
+echo -e "  ${menu1}|${normal}"
+else
+echo -e "  ${menu1}|${normal}"
+fi
+done < <(printf '%s\n' "$FULL11")
+echo -e "\t${menu1}+$edge---+${normal}"
+
+}
+
+function main_pbx_logparser_ () {
+
+function parse_log_asterisk_ () {
+IFS=$'\n'
+
+asterisktmplog=/tmp/findme/pbxoutput.log
+sed -i '/from-trunk/i\ \n------------------Incomming Call log------------------\n******************************************************' $asterisktmplog
+sed -i '/language/d' $asterisktmplog
+sed -n -i '/Wait_For/{x;n;d;};1h;1!{x;p;};${x;p;}' $asterisktmplog
+sed -n -i '/OUTBOUND_GROUP/{x;n;};1h;1!{x;p;};${x;p;}' $asterisktmplog #Delete line before and after pattern
+sed -i '/"")/,+1 d' $asterisktmplog #remove whole line if match pattern
+sed -i '/?start")/d' $asterisktmplog
+sed -i "s/]//g" $asterisktmplog
+sed -i 's/in]//g' $asterisktmplog
+sed -i 's/in//g' $asterisktmplog
+sed -i 's+__RECORD_ID=SIP/+Incoming Trunk_______________[+g' $asterisktmplog
+sed -i '/"0?customtrunk")/d' $asterisktmplog
+sed -i '/"AMPUSERCIDNAME=")/d' $asterisktmplog
+sed -i '/startrec/d' $asterisktmplog
+sed -i '/Hidden/d' $asterisktmplog #If pattern matche remove whole line
+sed -i "s/]//g" $asterisktmplog
+sed -i '/php/d' $asterisktmplog #Find pattern and delete whole line
+sed -i "s/'//g" $asterisktmplog
+sed -i 's/simple_bridge/Call reached destination!!!/g' $asterisktmplog
+sed -i 's/__DIRECTION=/Direction____________________[/g' $asterisktmplog
+sed -i 's/"CONNECTEDLINE(name)=/Outbound CID (Rep Number)____[/g' $asterisktmplog
+sed -i 's/)")/]/g' $asterisktmplog
+sed -i 's/")/]/g' $asterisktmplog
+sed -i 's/,1//' $asterisktmplog
+sed -i 's/,2//' $asterisktmplog
+sed -i "s/,//g" $asterisktmplog
+sed -i 's+"CONNECTEDLINE(numi)=+In call belong to ext_________[+g' $asterisktmplog
+sed -i 's/start/User dialing now ..../g' $asterisktmplog
+sed -i 's/(CONNECTEDLINE(numi)=/Destination (Client Number)___[/g' $asterisktmplog
+sed -i 's/(CONNECTEDLINE(namei)=CID:/Outbound User Number__________[/g' $asterisktmplog
+sed -i 's/"//g' $asterisktmplog
+sed -i 's/TECH=/Driver________________________[/g' $asterisktmplog
+sed -i "/MASTER_CHANNEL(CFIGNORE)=]/d" $asterisktmplog
+sed -i 's/MASTER_CHANNEL(FORWARD_CONTEXT)=/Called from Context__________[/g' $asterisktmplog
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(num))=/Call answared by ext_________[/g" $asterisktmplog
+sed -i "/CONNECTEDLINE(name))/ s/$/]/" $asterisktmplog #find pattern and append somthing to end of line
+sed -i "/In call belong to user/ s/$/]/" $asterisktmplog
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(name))=/Call answared by user________[/g" $asterisktmplog
+sed -i 's/RECMODE=/Record Mode___________________[/g' $asterisktmplog
+sed -i 's/(TRUNKCIDOVERRIDE=/User Caller ID_______________[/g' $asterisktmplog
+sed -i 's/AMPUSERCID=/Now calling ext_______________[/g' $asterisktmplog
+sed -i 's/AMPUSERCIDNAME=/Now calling user______________[/g' $asterisktmplog
+sed -i 's/from-trunk/Incomming Client Number______[/g' $asterisktmplog
+sed -i "/Now calling user/i\ \n \n------------------Outgoing Call log------------------\n******************************************************" $asterisktmplog #Add line after before pattern match #Add lane after pattern is mattch
+sed -i '/Now calling user/ s/$/]/' $asterisktmplog
+sed -i "s+0?Set++g" $asterisktmplog
+sed -i "s+]]+]+g" $asterisktmplog
+sed -i 's/1?Set//g' $asterisktmplog
+sed -i 's+custom=IAX2/+Outbound Trunk________________[+g' $asterisktmplog
+sed -i 's+custom=SIP/+Outbound Trunk________________[+g' $asterisktmplog
+sed -i 's+IVR_MSG=custom/+IVR Recording file___________[+g' $asterisktmplog
+sed -i 's/completed/Call to IVR or Group_________[Answared by user]/g' $asterisktmplog
+sed -i 's/on INVITE/Trunk authentication failed_[Check Trunk Conf|User|Pass] /g' $asterisktmplog
+sed -i 's/503 Invalid/Dial failed maybe ____________[wrong number]/g' $asterisktmplog
+sed -i 's/"s-INVALIDNMBR1")/Dial failed maybe ____________[wrong number]/g' $asterisktmplog
+sed -i '/OUTBOUND_GROUP/d' $asterisktmplog
+sed -i '/__RECORD_ID=/d' $asterisktmplog
+sed -i '/1?New call is starting now ....]/d' $asterisktmplog
+sed -i '/0?New call is starting now ....]/d' $asterisktmplog
+sed -i '/GROUP/d' $asterisktmplog && echo
+sed -i 's/\(.*\RandomCID\).*/\1/g' $asterisktmplog
+sed -i '/Background/d' $asterisktmplog
+sed -i 's/-RandomCID/_________________[Used Random Call]/g' $asterisktmplog
+sed -i 's/TRUNKCIDOVERRIDE=/Used Number from roulette_____[/g' $asterisktmplog && echo
+sed -i 's/basic-bridge//g' $asterisktmplog
+sed -i 's/1)/______________[If user used any prefix]/g' $asterisktmplog
+sed -i 's/s-INVALIDNMBR]/Invalid Number________________[Please check the number]/g' $asterisktmplog
+sed -i '/CRM_DIRECTION/d' $asterisktmplog
+sed -i '/to/d' $asterisktmplog
+sed -i 's/ ]//g' $asterisktmplog
+sed -i 's/^\(Set\)*//' $asterisktmplog
+
+}
+
+function grepegreen () {
+GREP_COLOR='5;01;32' grep --color -E -i "$1|$" $2
+}
+
+function grepered () {
+GREP_COLOR='5;01;31' grep --color -E -i "$1|$" $2
+}
+
+monitor_pbx_title_
+printf "\t\t ${number}${menu}Please provide pattern you want to search [q] to quit${normal}\n"
+local C1="$(printf "\t\t ${menu}===> : ${normal}")"
+read -e -p "$C1" FULLPBXLOG
+if [ "$FULLPBXLOG" == "q" ] || [ "$FULLPBXLOG" == "b" ] || [ "$FULLPBXLOG" == "q" ];
+then
+main_menu0_
+fi
+
+#CHKWRONGP=`tail -n 5000 $FULL1 | awk '/failed for/ {print $12, $13, $9,  $7 ,"that trying connect from IP",  $10  } ' | grep -v NoOp | sed -e 's/\("\).*\("<\)/\1\2/' | sed  "s/'//g" | sed 's/""<sip://g' | sed  's/>//g' | sed 's/:.*$/:/g' | sed 's/://g' | grep -v failed | uniq | wc -l` 
+T=`hostname`
+H=`echo $T`
+FULL1=/var/log/asterisk/full.$H
+if [ -f $FULL1 ];
+then 
+T=`hostname`
+H=`echo $T`
+FULL1=/var/log/asterisk/full.$H
+echo > /tmp/findme/pbxoutput.log
+tail -n 1500 $FULL1 | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP|INVITE|INVALIDNMBR|Invalid|Wrong/ {print $2, "|", $8, $9 }' > /tmp/findme/pbxoutput.log;
+parse_log_asterisk_
+else
+export FULL1=/var/log/asterisk/full
+echo > /tmp/findme/pbxoutput.log
+tail -n 1500 $FULL1  | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP|INVITE|INVALIDNMBR|Invalid|Wrong/ {print $2, "|",  $8, $9 } ' > /tmp/findme/pbxoutput.log;
+parse_log_asterisk_
+fi
+CHKWRONGP=`tail -n 5000 $FULL1 | awk '/failed for/ {print $12, $13, $9,  $7 ,"that trying connect from IP",  $10  } ' | grep -v NoOp | sed -e 's/\("\).*\("<\)/\1\2/' | sed  "s/'//g" | sed 's/""<sip://g' | sed 's/>//g' | sed 's/:.*$/:/g' | sed 's/://g' | grep -v failed | uniq | wc -l` 
+if [ "$CHKWRONGP" == 0 ];
+then
+border_logparser_ | grepegreen $FULLPBXLOG
+pause_witout_exit_
+main_pbx_logparser_
+else
+
+border_logparser_ | grepegreen $FULLPBXLOG
+border_logparser_wrong_ | grepered Wrong
+pause_witout_exit_
+main_pbx_logparser_
+fi
+main_pbx_logparser_
+
+}
+
+
+main_pbx_logparser_
+
+EOF
+sed -i -e 's/\r$//' /usr/lib/findme/parsme && chmod +x /usr/lib/findme/parsme && rm -rf /bin/parsme &&  cp /usr/lib/findme/parsme /bin/parsme

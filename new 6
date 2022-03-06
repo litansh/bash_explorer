@@ -1,0 +1,94 @@
+#!/bin/bash
+clear
+# insert any variable other than 'x'
+goto="y"
+
+# print ls
+function dirlist_ (){
+checkroot="$(echo $currentfullpath | grep root | wc -l)"
+if [ -z "$currentfullpath" ] || [ "$checkroot" != "0" ];then
+cd /
+for entry in /*
+ do
+  echo "$entry"
+ done
+elif [ "$currentfullpath" != "/" ] || [ "$exist" != "0" ] || [ "$goto" != "b" ];then
+for entry in "$currentfullpath"/*
+ do
+  echo "$entry"
+ done
+else
+for entry in "$goto"/*
+ do
+  echo "$entry"
+ done
+fi
+}
+
+function readvar_ (){
+ read -p 'Go To: (exit = x, Go back = b)
+ ' goto
+ currentfullpath="$(echo $PWD)"
+ clear
+ if [ "$goto" == "b" ]; then
+  if [ -z "$currentfullpath" ] || [ "$currentfullpath" == "/" ];then
+   currentfullpath="/"
+  else
+   currentfullpath="$(echo $PWD | sed 's|\(.*\)/.*|\1|')"
+  fi
+  cd $currentfullpath
+  dirlist_
+  readvar_
+ elif [ "$goto" != "x" ]; then
+  exist="$(ls | grep "$goto" | wc -l)"
+  if [ "$exist" != "0" ]; then
+   if [ "$currentfullpath" == "/" ];then
+    cd $goto
+    if [ $? -eq 0 ]; then
+     echo "Debugging: OK"
+    else
+     clear
+     echo "Debugging: FAIL, please insert again"
+     cd $currentfullpath
+     dirlist_
+     readvar_
+    fi
+   else
+    cd $currentfullpath/$goto
+    if [ $? -eq 0 ]; then
+     echo "Debugging: OK"
+    else
+     clear
+     echo "Debugging: FAIL, please insert again"
+     cd $currentfullpath
+     dirlist_
+     readvar_
+    fi
+   fi
+   if [ "$currentfullpath" != "/" ];then
+   currentfullpath="$currentfullpath/$goto"
+   else
+   currentfullpath="/$goto"
+   fi
+   dirlist_
+   readvar_
+  else
+
+   dirlist_
+   echo "Directory do not exist, please re-enter:"
+   readvar_
+  fi
+ fi
+}
+
+goto=""
+
+while [ "$goto" != "x" ];do
+# print current ls
+dirlist_
+cd /
+# Run main
+readvar_
+done
+
+clear

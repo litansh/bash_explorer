@@ -1,0 +1,54 @@
+cat pbxoutput.log > pbxoutput-clean1.log && sed -i '$!N; /^\(.*\)\n\1$/!P; D'  pbxoutput-clean1.log
+sed -i '/from-trunk/i\             \n-------------Start New Incomming Call log-------------\n******************************************************' pbxoutput-clean1.log
+sed -n -i  '/OUTBOUND_GROUP/{x;n;};1h;1!{x;p;};${x;p;}' pbxoutput-clean1.log   #Delete line before and after pattern
+sed -i '/"")/,+1 d' pbxoutput-clean1.log #remove whole line if match pattern
+sed -i 's+__RECORD_ID=SIP/+Incoming Trunk-------------[+g' pbxoutput-clean1.log
+sed -i '/"?start")/d' pbxoutput-clean1.log 
+sed -i "s/]//g" pbxoutput-clean1.log
+sed -i '/"0?customtrunk")/d' pbxoutput-clean1.log 
+sed -i '/"AMPUSERCIDNAME=")/d' pbxoutput-clean1.log
+sed -i '/startrec/d' pbxoutput-clean1.log
+sed -i '/Hidden/d' pbxoutput-clean1.log                                              #If pattern matche remove whole line
+sed -i "s/]//g" pbxoutput-clean1.log
+sed -i '/php/d' pbxoutput-clean1.log                                                 #Find pattern and delete whole line
+sed -i "s/'//g" pbxoutput-clean1.log
+sed -i 's/simple_bridge/Call is Finished with no answer!!!/g' pbxoutput-clean1.log
+sed -i 's/__DIRECTION=/Direction------------------[/g' pbxoutput-clean1.log
+sed -i 's/"CONNECTEDLINE(name)=/In call belong to user-----[/g' pbxoutput-clean1.log
+sed -i "s/,//g" pbxoutput-clean1.log
+sed -i 's+"CONNECTEDLINE(numi)=+In call belong to ext------[+g' pbxoutput-clean1.log
+sed -i 's/start/User dialing now ..../g' pbxoutput-clean1.log
+sed -i 's/)")/]/g' pbxoutput-clean1.log
+sed -i 's/")/]/g' pbxoutput-clean1.log
+sed -i 's/(CONNECTEDLINE(numi)=/Outbound Client Number-----[/g' pbxoutput-clean1.log
+sed -i 's/(CONNECTEDLINE(namei)=CID:/Outbound User Number-------[/g' pbxoutput-clean1.log
+sed -i 's/"//g' pbxoutput-clean1.log
+sed -i 's/TECH=/Driver---------------------[/g' pbxoutput-clean1.log
+sed -i "/MASTER_CHANNEL(CFIGNORE)=]/d" pbxoutput-clean1.log
+sed -i "/MASTER_CHANNEL(FORWARD_CONTEXT)=/d" pbxoutput-clean1.log
+sed -i 's/MASTER_CHANNEL(FORWARD_CONTEXT)=/Called from Context = [/g' pbxoutput-clean1.log
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(num))=/Call answared by ext-------[/g" pbxoutput-clean1.log
+sed -i "/CONNECTEDLINE(name))/ s/$/]/" pbxoutput-clean1.log                                                        #find pattern and append somthing to end of line
+sed -i "/In call belong to user/ s/$/]/" pbxoutput-clean1.log 
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(name))=/Call answared by user------[/g" pbxoutput-clean1.log
+sed -i 's/RECMODE=/Record Mode----------------[/g' pbxoutput-clean1.log
+sed -i 's/(TRUNKCIDOVERRIDE=/User Caller ID-------------[/g' pbxoutput-clean1.log
+sed -i 's/AMPUSERCID=/Now calling ext------------[/g' pbxoutput-clean1.log
+sed -i 's/AMPUSERCIDNAME=/Now calling user-----------[/g' pbxoutput-clean1.log
+sed -i 's/from-trunk/Incomming Client Number----[/g' pbxoutput-clean1.log
+sed -i "/Now calling user/i\      \n         \n-------------Start New Outgoing Call log-------------\n******************************************************" pbxoutput-clean1.log               # Add line after before pattern match #Add lane after pattern is mattch
+sed -i '/Now calling user/ s/$/]/' pbxoutput-clean1.log 
+sed -i "s+0?Set++g" pbxoutput-clean1.log
+sed -i "s+]]+]+g" pbxoutput-clean1.log
+sed -i 's/1?Set//g' pbxoutput-clean1.log
+sed -i 's+custom=IAX2/+Outbound Trunk-------------[+g' pbxoutput-clean1.log
+sed -i 's+custom=SIP/+Outbound Trunk-------------[+g' pbxoutput-clean1.log
+sed -i '/OUTBOUND_GROUP/d' pbxoutput-clean1.log 
+sed -i '/__RECORD_ID=/d' pbxoutput-clean1.log
+sed -i '/1?New call is starting now ....]/d' pbxoutput-clean1.log
+sed -i '/0?New call is starting now ....]/d' pbxoutput-clean1.log
+sed -i "/GROUP(/d" pbxoutput-clean1.log
+sed -i 's/\(.*\RandomCID\).*/\1/g' pbxoutput-clean1.log
+sed -i 's/-RandomCID/--------------[Used Roulete]/g' pbxoutput-clean1.log
+sed -i 's/TRUNKCIDOVERRIDE=/Number from roulette pool--[/g' pbxoutput-clean1.log
+

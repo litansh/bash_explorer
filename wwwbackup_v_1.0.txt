@@ -1,0 +1,146 @@
+#!/bin/bash
+#!/bin/sh -
+#
+
+mkdir -p /usr/lib/cssam/log
+mkdir -p /bckp/sql
+mkdir -p /bckp/www
+SQL=/bckp/sql
+WWW=/bckp/www
+TL1=/usr/lib/cssam/log/geo.log
+M=mail
+IP="$(hostname -I)"
+SIG1="Have a nice day"
+SIG2="Security Assistance"
+HN="$(hostname)"
+DN=cglms.com
+RM=gennady@cglms.com
+SM=$HN@$DM
+D="$(date +"Time:%H:%M:%S" && date +"Date:%d.%m.%Y")"
+E=echo     #https://www.tecmint.com/echo-command-in-linux/ && http://man7.org/linux/man-pages/man1/echo.1.html 
+F=find     #https://www.tecmint.com/35-practical-examples-of-linux-find-command/ $$ http://man7.org/linux/man-pages/man1/find.1.html
+X=xargs
+#DU="$(du -hsx --exclude=/{spool,REPLICA,proc} /* | grep -E "*G")"
+DU1="$(df -h)"
+TD="$(fdisk -l | grep -m 1 -o -P '(?<=: ).*(?=B, )')"
+DEL=4
+#
+
+# Check and remove old backup files and sleep for 8 hours
+function rm-old-bckp_ () {
+local CHK="$(find $SQL -mtime +8 | wc -l)"
+if [ "$CHK" != 0 ];
+then
+find $SQL/*.* -mtime +$DEL -exec rm {} \;
+find $WWW/*.* -mtime +$DEL -exec rm {} \;
+sleep 8h
+mail-done_
+else
+mail-done_
+sleep 8h
+f_main 
+fi
+}
+
+
+# Backup all websites by SITE
+WWW=/bckp/www
+function bckp-www_ () {
+cd /var/www && ls -d -- * | while read dir ;
+do 
+echo $dir && tar -cvzf $WWW/$dir-$(date +%d-%m-%Y).tar.gz $dir;
+ done
+}
+bckp-www_
+
+#Step 4  Backup all sql by DB
+function bckp-sql_ () {
+cd $SQL && mysql -ubckp -N -e 'show databases;' |
+while read dbname; 
+do 
+echo  runing sql beckup
+mysqldump -ubckp --complete-insert --routines --triggers --single-transaction "$dbname" > "$dbname-$(date +%d-%m-%Y)".sql; 
+rm -rf performance*.sql
+rm -rf mysql-*.sql
+done
+}
+
+# Geolocation
+function gl_ () {
+PIP="$(curl https://ipinfo.io/ip)"
+GL1="$(curl https://ipvigilante.com/$pip | tee >>$TL1)"
+GL2="$(cat "$TL1" | grep -m 1 -o -P '(?<=("country_name":)).*(?=,"subdivision_1_name":)'  )"
+}
+#Step 3 Check if mysql have more then 3 folders if yes beckup
+function chksql_ () {
+local CHK="$(ls -l /var/lib/mysql/ | wc -l)"
+if [ "$CHK" -gt 3 ];
+then
+bckp-sql_
+else
+return 0
+fi
+}
+
+# Step 3 Check if www have folders for backup
+function chkwww_ () {
+local CHK="$(ls -l /var/www/ | wc -l)"
+if [ "$CHK" -gt 2 ];
+then
+bckp-www_
+else
+return 0
+fi
+}
+# Send mail on done
+function mail-done_ () {
+{ $E "Hi there !" ;$E "" ;$E ""$HN" *"$IP"* Backup done". ;$E "Server Details:"  ; $E "Geo Location: $GL2" ; $E "" ;$E "  " ; $E "" ; $E "Yours", ; $E "$SIG2" ; } | sed -e 's/^[ \t]*//' | $M -s "***Backup done on "$HN" !!! "  -r " <$HN@$DN>" $RM 
+rm -rf $TL1
+
+}
+
+#Send mail when diskspace is full
+function mail-panic_ () {
+{ $E "Hi there !" ;$E "" ;$E ""$HN" *"$IP"* have problem with disk space". ;$E "Server Details:" ;$E "Local ip: "$IP"" ;$E "Public ip: $PIP" ;$E "Name: $HN" ; $E "Geo Location: $GL2" ; $E "" ; $E  "$DU1 " ; $E ""$TD"" ; $E "Exact time of event:" ; $E "$D" ; $E "  " ; $E "" ; $E "Yours", ; $E "$SIG2" ; } | sed -e 's/^[ \t]*//' | $M -s "***On server "$HN" disk '95%' full !!! "  -r " <$HN@$DN>" $RM 
+rm -rf $TL1
+
+chk-df-mnt-space_ 
+}
+
+# Step 2 Check diskspace 
+function chk-df-mnt-space_ () {
+local P1="80%"
+local P2="81%"
+local P3="97%"
+local P4="98%"
+local CHK="$(df -h | grep -E "$P1|$P2|$P3|$P4" | wc -l)"
+if [ "$CHK" != 0 ];
+then
+gl_ && mail-panic_ 
+else
+chkwww_ && chksql_ && rm-old-bckp_ 
+ echo sleeping
+sleep 30
+
+f_main
+fi
+
+}
+ 
+# Step 1
+f_main () {
+local SCHK="$(ls -l /var/lib/mysql/ | wc -l)"
+local WCHK="$(ls -l /var/www | wc -l)"
+while true [ "$SCHK" -gt 6 -o  "$WCHK" -gt 3 ] ;
+do
+echo "Backup service is starting ..... Hold on!"
+sleep 3
+chk-df-mnt-space_
+
+ return 0 
+  done
+}
+#
+f_main
+
+

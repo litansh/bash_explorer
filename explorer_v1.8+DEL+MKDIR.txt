@@ -1,0 +1,2218 @@
+#!/bin/bash
+#!/bin/sh -
+# A menu driven shell script sample template 
+## ----------------------------------
+# Step #1: Define variables
+# ----------------------------------
+EDITOR=vim
+#PASSWD=/etc/passwd
+RED='\033[0;41;30m'
+STD='\033[0;0;39m'
+mkdir -p /tmp/mysql-tmp
+chmod 777 /tmp/mysql-tmp
+#Tmp for pass
+TMP=/tmp/mysql-tmp/mysql-tmp23455.log
+#Tmp for user
+TMP0=/tmp/mysql-tmp/mysql-tmp-validator.log
+TMP1=/tmp/mysql-tmp/mysql-tmp455.log
+TMP2=/tmp/mysql-tmp
+HISTORY=/tmp/mysql-tmp/script_history
+export normal=`echo "\033[m"`
+export menu=`echo "\033[36m"` #Blue
+export number=`echo "\033[33m"` #yellow
+export bgred=`echo "\033[41m"`
+export fgred=`echo "\033[31m"`
+export green=`echo "\033[32m"`
+export blink=`echo "\033[5m" `
+whoami=`whoami`
+h1=`date +%R:%M%p`
+#true > script_history
+history -w script_history
+hostname=`hostname | cut -d"." -f1`
+SRVLIST=pwd/serverlist.log
+export  du=`df -h /`
+PATH1=/
+
+function back_to_root_ () {
+if [[ "$counter" == 0 ]];
+    # whatever you want to do when arr contains value
+   then
+   
+         menu_
+   
+fi
+}
+
+function color_ () {
+printf %b '\033[m'
+
+}
+
+function logo_ () {
+clear
+cat << "EOF"
+
+    Slava: Muuu MMMuuuu :(
+ ----------------------
+        \   ^__^
+         \  (oo)\_______
+            (_.)\       )\/\
+             ;  ||----??|
+             ;  ||     ||
+
+
+
+    Vo blya Dmaot!!! :)
+ ------------------------
+   \
+    \
+        .--.
+       |o_o |
+       |:_/ |
+      //   \ \
+     (|     | )
+    /'\_   _/`\
+    \___)=(___/
+	
+	
+
+ Hi Litan! Look on Slava :)
+ ------------------------
+   \
+    \
+        .--.
+       |o_o |
+       |:_/ |
+      //   \ \
+     (|     | )
+    /'\_   _/`\
+    \___)=(___/
+	
+	
+
+EOF
+sleep 10
+mysql_menu_main_0_
+exit 
+}
+
+function logo1_ () {
+cat << "EOF"
+
+    .-"^`\                                        /`^"-.
+  .'   ___\                                      /___   `.
+ /    /.---.                                    .---.\    \
+|    //     '-.  ___________________________ .-'     \\    |
+|   ;|         \/--------------------------//         |;   |
+\   ||       |\_)     Linux Managment      (_/|       ||   /
+ \  | \  . \ ;  |         System           || ; / .  / |  /
+  '\_\ \\ \ \ \ |                          ||/ / / // /_/'
+        \\ \ \ \|    Server Release 5.3    |/ / / //
+         `'-\_\_\     Codename Tikanga     /_/_/-'`
+
+EOF
+}
+
+function logo2_ () {
+cat << "EOF"
+          _,.
+        ,` -.)
+       '( _/'-\\-.               
+      /,|`--._,-^|            ,     
+      \_| |`-._/||          ,'|       
+        |  `-, / |         /  /      
+        |     || |        /  /       
+         `r-._||/   __   /  /  
+     __,-<_     )`-/  `./  /
+    '  \   `---'   \   /  / 
+   /    |           |./  /  
+   \    /  SGLCORE  //  /     
+    \_/' \         |/  /         
+     |    |   _,^-'/  /              
+     |    , ``  (\/  /_        
+      \,.->._    \X-=/^         
+      (  /   `-._//^`  
+       `Y-.____(__}              
+        |     {__)           
+              ()`     
+Your Smart Cyber Assistent
+
+EOF
+}
+
+function border_ () {
+
+userdatabases=CURDIR
+userdatab=$userdatabases
+longstr=`(echo "$i" | awk '{if(length>x){x=length;y=$0}}END{print y}')`
+longlen=${#longstr}
+edge=$(echo "$longstr" | sed 's/./-/g') 
+echo -e "+$edge---------------------------+${normal}"
+while IFS= read -r line; do
+ strlen=${#line}  
+ echo -e -n "|${normal} ${green}$line${normal}"
+ gap=$((longlen - strlen))
+ if [ "$gap" > 0 ]; then
+  for i in $(seq 1 $gap); do echo -n " "; done
+  echo -e "                          |${normal}"
+ else
+  echo -e "                          |${normal}"
+ fi
+done < <(printf '%s\n' "$i")
+echo -e "+$edge---------------------------+${normal}"
+}
+
+#Exit from MySQL managment system
+function exit_ () {
+clear
+#rm -rf $TMP
+#rm -rf $TMP1
+kill_ && clear
+#pkill -9 main_menu.sh && clear
+echo
+echo -e "${menu}Thank you ${number}"$whoami" ${menu}for use explorer managment system${normal}"
+logo2_
+echo
+printf %b '\033[m'
+#sleep 1 && 
+clear && exit 0
+}
+
+#This function exist in each options
+function confirm_ () {
+local C1="$(printf "${menu}Please Confirm (y/n) or ${number}[ Enter ] ${menu}to Y ${menu}: ${normal}\n")"
+echo 
+read -e -p "$C1 " confirmn
+if [ -n "$confirmn" ];
+then
+confirm=$confirmn
+printf "$confirm"
+else
+confirm=y
+fi
+}
+
+#Cound down from 5 to 0 and exit to Main Menu
+function counter_ () {
+secs=$((1 * 4))
+while [ $secs -gt 0 ]; do
+  
+   echo -ne "You will be returned to Main Menu in  " && echo -ne "$secs\033[0K\r${normal}"
+   sleep 1
+   : $((secs--))
+done
+menu_
+}
+
+#This function exist in each options
+function pause_ () {
+local C1="$(printf "Press ${number}[Enter] ${normal}key to continue... counter_ ${normal}\n")"
+
+  read -p "$C1" fackEnterKey 
+  
+  menu_
+}
+
+function kill_ () {
+pkill -9 -P $$ > /dev/null 2>&1
+pkill -9 $$ > /dev/null 2>&1
+#pkill -9 main_menu.sh
+
+}
+
+function enable-hiden_ () {
+export lsopt=-a
+}
+
+function disable-hiden_ () {
+export lsopt=-l
+}
+
+#Delete / Rename / Create new dir / file /permisions /
+function delete_ () {
+#Menu 0
+if [ "$selector" == "0" ] ; 
+   then
+           echo
+		echo
+		echo
+		echo
+          export DIR1=`echo "/${menu_main[$counter]}"`
+          local C1="$(printf "${menu}This ${fgred}$DIR1${menu} will be ${fgred}deleted${menu}! Please confirm (y/n): ${normal}\n")"
+	      read -e -p "$C1" choise2d
+if [ "$choise2d" == "y" ] || [ "$choise2d" == "" ]; 
+   then
+	        rm -rf $DIR1
+	       	echo
+	        echo -e "${blink}Delete in progres ..... ${normal}"
+	        sleep 1
+            menu_
+   else
+	        menu_
+fi
+fi
+#Menu 1
+if [ "$selector" == "1" ] ; 
+   then
+         echo
+		echo
+		echo
+		echo
+        export DIR2=`echo "$DIR1/${menu_main1[$counter]}"`
+        echo
+        local C1="$(printf "${menu}This ${fgred}$DIR2${menu} will be ${fgred}deleted${menu}! Please confirm (y/n): ${normal}\n")"
+	    read -e -p "$C1" choise2d
+if [ "$choise2d" == "y" ] || [ "$choise2d" == "" ]; 
+   then
+	    rm -rf $DIR2
+		echo
+	    echo -e "${blink}Delete in progres ..... ${normal}"
+	    sleep 1
+		export  BANNER=`echo -e "Dear "$whoami", You just remove folder ${number}$DIR1${blink}${green}/${menu_main1[$counter]}${normal}"`
+         menu_ && break;
+	else
+	     menu_ && break;
+fi
+fi
+#Menu 2
+if [ "$selector" == "2" ] ; 
+   then
+         echo
+		echo
+		echo
+		echo
+        export DIR3=`echo "/${menu_main2[$counter]}"`
+        echo
+        local C1="$(printf "${menu}This $DIR1$DIR2${fgred}/${menu_main2[$counter]}${menu} will be ${fgred}deleted${menu}! Please confirm (y/n): ${normal}\n")"
+	    read -e -p "$C1" choise2d
+if [ "$choise2d" == "y" ] || [ "$choise2d" == "" ]; 
+   then
+	    rm -rf $DIR1$DIR2/${menu_main2[$counter]}
+		echo
+	    echo -e "${blink}Delete in progres ..... ${normal}"
+	    sleep 1
+		export  BANNER=`echo -e "Dear "$whoami", You just remove folder ${number}$DIR1$DIR2/${blink}${green}${menu_main2[$counter]} ${normal}"`
+         menu1_ && break;
+	else
+	     menu1_ && break;
+fi
+fi
+#Menu 3
+if [ "$selector" == "3" ] ; 
+   then
+        echo
+		echo
+		echo
+		echo
+        export DIR4=`echo "/${menu_main3[$counter]}"`
+        echo
+        local C1="$(printf "${menu}This $DIR1$DIR2$DIR3${fgred}$DIR4${menu} will be ${fgred}deleted${menu}! Please confirm (y/n): ${normal}\n")"
+	    read -e -p "$C1" choise2d
+if [ "$choise2d" == "y" ] || [ "$choise2d" == "" ]; 
+   then
+	    rm -rf $DIR1$DIR2$DIR3$DIR4
+		echo
+	    echo -e "${blink}Delete in progres ..... ${normal}"
+	    sleep 1
+		export  BANNER=`echo -e "Dear "$whoami", You just remove folder ${number}$DIR1$DIR2$DIR3${blink}${green}$DIR4${normal}"`
+         menu2_ && break;
+	else
+	     menu2_ && break;
+fi
+fi
+#Menu 4
+if [ "$selector" == "4" ] ; 
+   then
+ echo
+		echo
+		echo
+		echo
+        export DIR5=`echo "/${menu_main4[$counter]}"`
+        echo
+        local C1="$(printf "${menu}This $DIR1$DIR2$DIR3$$DIR4${fgred}$DIR5${menu} will be ${fgred}deleted${menu}! Please confirm (y/n): ${normal}\n")"
+	    read -e -p "$C1" choise2d
+if [ "$choise2d" == "y" ] || [ "$choise2d" == "" ]; 
+   then
+	    rm -rf $DIR1$DIR2$DIR3$DIR4$DIR5
+		echo
+	    echo -e "${blink}Delete in progres ..... ${normal}"
+	    sleep 1
+		export  BANNER=`echo -e "Dear "$whoami", You just remove folder ${number}$DIR1$DIR2$DIR3$DIR4${blink}${green}$DIR5${normal}"`
+         menu3_ && break;
+	else
+	     menu3_ && break;
+fi
+fi
+
+#Menu 5
+if [ "$selector" == "5" ] ; 
+   then
+ echo
+		echo
+		echo
+		echo
+        export DIR6=`echo "/${menu_main5[$counter]}"`
+        echo
+        local C1="$(printf "${menu}This $DIR1$DIR2$DIR3$DIR4$DIR5${fgred}$DIR6${menu} will be ${fgred}deleted${menu}! Please confirm (y/n): ${normal}\n")"
+	    read -e -p "$C1" choise2d
+if [ "$choise2d" == "y" ] || [ "$choise2d" == "" ]; 
+   then
+	    rm -rf $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6
+		echo
+	    echo -e "${blink}Delete in progres ..... ${normal}"
+	    sleep 1
+		export  BANNER=`echo -e "Dear "$whoami", You just remove folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5${blink}${green}$DIR6${normal}"`
+         menu4_ && break;
+	else
+	     menu4_ && break;
+fi
+fi
+#Menu 6
+if [ "$selector" == "6" ] ; 
+   then
+ echo
+		echo
+		echo
+		echo
+        export DIR7=`echo "/${menu_main6[$counter]}"`
+        echo
+        local C1="$(printf "${menu}This $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6${fgred}$DIR7${menu} will be ${fgred}deleted${menu}! Please confirm (y/n): ${normal}\n")"
+	    read -e -p "$C1" choise2d
+if [ "$choise2d" == "y" ] || [ "$choise2d" == "" ]; 
+   then
+	    rm -rf $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7
+		echo
+	    echo -e "${blink}Delete in progres ..... ${normal}"
+	    sleep 1
+		export  BANNER=`echo -e "Dear "$whoami", You just remove folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6${blink}${green}$DIR7${normal}"`
+         menu5_ && break;
+	else
+	     menu5_ && break;
+fi
+fi
+
+#Menu 6
+if [ "$selector" == "7" ] ; 
+   then
+ echo
+		echo
+		echo
+		echo
+        export DIR8=`echo "/${menu_main7[$counter]}"`
+        echo
+        local C1="$(printf "${menu}This $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7${fgred}$DIR8${menu} will be ${fgred}deleted${menu}! Please confirm (y/n): ${normal}\n")"
+	    read -e -p "$C1" choise2d
+if [ "$choise2d" == "y" ] || [ "$choise2d" == "" ]; 
+   then
+	    rm -rf $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8
+		echo
+	    echo -e "${blink}Delete in progres ..... ${normal}"
+	    sleep 1
+		export  BANNER=`echo -e "Dear "$whoami", You just remove folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7${blink}${green}$DIR8${normal}"`
+         menu6_ && break;
+	else
+	     menu6_ && break;
+fi
+fi
+
+#Menu 8
+if [ "$selector" == "8" ] ; 
+   then
+ echo
+		echo
+		echo
+		echo
+        export DIR9=`echo "/${menu_main8[$counter]}"`
+        echo
+        local C1="$(printf "${menu}This $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8${fgred}$DIR9${menu} will be ${fgred}deleted${menu}! Please confirm (y/n): ${normal}\n")"
+	    read -e -p "$C1" choise2d
+if [ "$choise2d" == "y" ] || [ "$choise2d" == "" ]; 
+   then
+	    rm -rf $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9
+		echo
+	    echo -e "${blink}Delete in progres ..... ${normal}"
+	    sleep 1
+		export  BANNER=`echo -e "Dear "$whoami", You just remove folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8${blink}${green}$DIR9${normal}"`
+         menu7_ && break;
+	else
+	     menu7_ && break;
+fi
+fi
+
+#Menu 9
+if [ "$selector" == "9" ] ; 
+   then
+ echo
+		echo
+		echo
+		echo
+        export DIR10=`echo "/${menu_main9[$counter]}"`
+        echo
+        local C1="$(printf "${menu}This $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9${fgred}$DIR10${menu} will be ${fgred}deleted${menu}! Please confirm (y/n): ${normal}\n")"
+	    read -e -p "$C1" choise2d
+if [ "$choise2d" == "y" ] || [ "$choise2d" == "" ]; 
+   then
+	    rm -rf $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10
+		echo
+	    echo -e "${blink}Delete in progres ..... ${normal}"
+	    sleep 1
+		export  BANNER=`echo -e "Dear "$whoami", You just remove folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9${blink}${green}$DIR10${normal}"`
+         menu8_ && break;
+	else
+	     menu8_ && break;
+fi
+fi
+#Menu 10
+if [ "$selector" == "10" ] ; 
+   then
+ echo
+		echo
+		echo
+		echo
+        export DIR11=`echo "/${menu_main10[$counter]}"`
+        echo
+        local C1="$(printf "${menu}This $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10${fgred}$DIR11${menu} will be ${fgred}deleted${menu}! Please confirm (y/n): ${normal}\n")"
+	    read -e -p "$C1" choise2d
+if [ "$choise2d" == "y" ] || [ "$choise2d" == "" ]; 
+   then
+	    rm -rf $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10$DIR11
+		echo
+	    echo -e "${blink}Delete in progres ..... ${normal}"
+	    sleep 1
+		export  BANNER=`echo -e "Dear "$whoami", You just remove folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10${blink}${green}$DIR11${normal}"`
+         menu9_ && break;
+	else
+	     menu9_ && break;
+fi
+fi
+#Menu 11
+if [ "$selector" == "11" ] ; 
+   then
+ echo
+		echo
+		echo
+		echo
+        export DIR12=`echo "/${menu_main11[$counter]}"`
+        echo
+        local C1="$(printf "${menu}This $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10$DIR11${fgred}$DIR12${menu} will be ${fgred}deleted${menu}! Please confirm (y/n): ${normal}\n")"
+	    read -e -p "$C1" choise2d
+if [ "$choise2d" == "y" ] || [ "$choise2d" == "" ]; 
+   then
+	    rm -rf $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10$DIR11$DIR12
+		echo
+	    echo -e "${blink}Delete in progres ..... ${normal}"
+	    sleep 1
+		export  BANNER=`echo -e "Dear "$whoami", You just remove folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10$DIR11${blink}${green}$DIR12${normal}"`
+         menu10_ && break;
+	else
+	     menu10_ && break;
+fi
+fi
+}
+
+
+
+function create_dir_ () {
+function read_ () {
+local C1="$(printf "${menu}Enter new folder name you wish to create: ${normal}\n")"
+echo && read -e -p "$C1" foldername
+local C2="$(printf "${menu}New folder ${number}"$foldername"${menu} will be created please confirm (${fgred}y${menu}/n) or [ ${fgred}Enter${menu} ]: ${normal}\n")"
+echo && read -e -p "$C2" choice
+export foldername=$foldername
+}	       
+#Menu 0
+if [ "$selector" == "0" ] ; 
+  then
+export DIR1=`echo "/${menu_main[$counter]}"`
+PATH1=/
+read_
+if [[ "$choice" == "y" ]] || [[ "$choice" == "" ]] ;
+	then
+	if [ -n "$foldername" ];
+     	then
+		      echo
+		      export  BANNER=`echo -e "Dear "$whoami", You just create new folder ${number}$PATH/${blink}${green}$foldername${normal}"`
+	          echo -e "Creating folder $foldername ........." && sleep 1
+	          mkdir -p $PATH1/$foldername
+			  echo -e "${blink}${menu}Going to previuse folder ....${normal}" 
+			  #sleep 1
+		else
+		      echo -e "${blink}Nothing to create .... Exiting.${normal}"
+			  sleep 1
+fi
+              menu_ && break ; 
+        else
+              menu_ && break ;
+fi
+fi
+#Menu 1
+if [ "$selector" == "1" ] ; 
+  then
+	export DIR2=`echo "/${menu_main1[$counter]}"`
+read_
+if [[ "$choice" == "y" ]] || [[ "$choice" == "" ]] ;
+	then
+if [ -n "$foldername" ];
+     	then 
+		      echo
+		      export  BANNER=`echo -e "Dear "$whoami", You just create new folder ${number}$DIR1/${blink}${green}$foldername${normal}"`
+	          echo -e "Creating folder $foldername ........." && sleep 1
+	          mkdir -p $DIR1/$foldername
+			  echo -e "${blink}${menu}Going to previuse folder ....${normal}" 
+			  #sleep 1
+		else
+		      echo -e "${blink}Nothing to create .... Exiting.${normal}"
+			  sleep 1
+fi
+		      menu_ && break ;
+    else
+              menu_ && break ;
+fi
+fi
+#Menu 2
+if [ "$selector" == "2" ] ; 
+  then
+	export DIR3=`echo "/${menu_main2[$counter]}"`
+    read_
+if [[ "$choice" == "y" ]] || [[ "$choice" == "" ]] ;
+	then
+if [ -n "$foldername" ];
+     	then 
+		      echo
+		      export  BANNER=`echo -e "Dear "$whoami", You just create new folder ${number}$DIR1$DIR2/${blink}${green}$foldername${normal}"`
+	          echo -e "Creating folder $foldername ........." && sleep 1
+	          mkdir -p $DIR1$DIR2/$foldername
+			  echo -e "${blink}${menu}Going to previuse folder ....${normal}" 
+			  #sleep 1
+		else
+		      echo -e "${blink}Nothing to create .... Exiting.${normal}"
+			  sleep 1
+fi
+		      menu1_ && break ;
+    else
+              menu1_ && break ;
+fi
+fi
+#Menu 3
+if [ "$selector" == "3" ] ; 
+  then
+	export DIR4=`echo "/${menu_main3[$counter]}"`
+    read_
+if [[ "$choice" == "y" ]] || [[ "$choice" == "" ]] ;
+	then
+if [ -n "$foldername" ];
+     	then 
+		      echo
+		      export  BANNER=`echo -e "Dear "$whoami", You just create new folder ${number}$DIR1$DIR2$DIR3/${blink}${green}$foldername${normal}"`
+	          echo -e "Creating folder $foldername ........." && sleep 1
+	          mkdir -p $DIR1$DIR2$DIR3/$foldername
+			  echo -e "${blink}${menu}Going to previuse folder ....${normal}" 
+			  #sleep 1
+		else
+		      echo -e "${blink}Nothing to create .... Exiting.${normal}"
+			  sleep 1
+fi
+		      menu2_ && break ;
+    else
+              menu2_ && break ;
+fi
+fi
+#Menu 4
+if [ "$selector" == "4" ] ; 
+  then
+	export DIR5=`echo "/${menu_main4[$counter]}"`
+    read_
+if [[ "$choice" == "y" ]] || [[ "$choice" == "" ]] ;
+	then
+if [ -n "$foldername" ];
+     	then 
+		      echo
+		      export  BANNER=`echo -e "Dear "$whoami", You just create new folder ${number}$DIR1$DIR2$DIR3$DIR4/${blink}${green}$foldername${normal}"`
+	          echo -e "Creating folder $foldername ........." && sleep 1
+	          mkdir -p $DIR1$DIR2$DIR3$DIR4/$foldername
+			  echo -e "${blink}${menu}Going to previuse folder ....${normal}" 
+			  #sleep 2
+		else
+		      echo -e "${blink}Nothing to create .... Exiting.${normal}"
+			  sleep 2
+fi
+		      menu3_  && break ;
+    else
+              menu3_  && break ;
+fi
+fi
+#Menu 5
+if [ "$selector" == "5" ] ; 
+  then 
+	export DIR6=`echo "/${menu_main5[$counter]}"`
+    read_
+if [[ "$choice" == "y" ]] || [[ "$choice" == "" ]] ;
+	then
+if [ -n "$foldername" ];
+     	then 
+		      echo
+		      export  BANNER=`echo -e "Dear "$whoami", You just create new folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5/${blink}${green}$foldername${normal}"`
+	          echo -e "Creating folder $foldername ........." && sleep 1
+	          mkdir -p $DIR1$DIR2$DIR3$DIR4$DIR5/$foldername
+			  echo -e "${blink}${menu}Going to previuse folder ....${normal}" 
+			  #sleep 2
+		else
+		      echo -e "${blink}Nothing to create .... Exiting.${normal}"
+			  sleep 2
+fi
+		      menu4_ && break ;
+    else
+              menu4_ && break ;
+fi
+fi
+#Menu 6
+if [ "$selector" == "6" ] ; 
+  then 
+	export DIR7=`echo "/${menu_main6[$counter]}"`
+    read_
+if [[ "$choice" == "y" ]] || [[ "$choice" == "" ]] ;
+	then
+if [ -n "$foldername" ];
+     	then 
+		      echo
+		      export  BANNER=`echo -e "Dear "$whoami", You just create new folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6/${blink}${green}$foldername${normal}"`
+	          echo -e "Creating folder $foldername ........." && sleep 1
+	          mkdir -p $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6/$foldername
+			  echo -e "${blink}${menu}Going to previuse folder ....${normal}" 
+			  #sleep 2
+		else
+		      echo -e "${blink}Nothing to create .... Exiting.${normal}"
+			  sleep 2
+fi
+		      menu5_ && break ;
+    else
+              menu5_ && break ;
+fi
+fi
+#Menu 7
+if [ "$selector" == "7" ] ; 
+  then
+	export DIR8=`echo "/${menu_main7[$counter]}"`
+    read_
+if [[ "$choice" == "y" ]] || [[ "$choice" == "" ]] ;
+	then
+if [ -n "$foldername" ];
+     	then 
+		      echo
+		      export  BANNER=`echo -e "Dear "$whoami", You just create new folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7/${blink}${green}$foldername${normal}"`
+	          echo -e "Creating folder $foldername ........." && sleep 1
+	          mkdir -p $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7/$foldername
+			  echo -e "${blink}${menu}Going to previuse folder ....${normal}" 
+			  #sleep 2
+		else
+		      echo -e "${blink}Nothing to create .... ${menu}Exiting.${normal}"
+			  sleep 3
+fi
+		      menu6_ && break ;
+    else
+              menu6_ && break ;
+fi
+fi
+#Menu 8
+if [ "$selector" == "8" ] ; 
+  then
+	export DIR9=`echo "/${menu_main8[$counter]}"`
+    read_
+if [[ "$choice" == "y" ]] || [[ "$choice" == "" ]] ;
+	then
+if [ -n "$foldername" ];
+     	then 
+		      echo
+		      export  BANNER=`echo -e "Dear "$whoami", You just create new folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8/${blink}${green}$foldername${normal}"`
+	          echo -e "Creating folder $foldername ........." && sleep 1
+	          mkdir -p $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8/$foldername
+			  echo -e "${blink}${menu}Going to previuse folder ....${normal}" 
+			  #sleep 2
+		else
+		      echo -e "${blink}Nothing to create .... ${menu}Exiting.${normal}"
+			  sleep 3
+fi
+		      menu7_ && break ;
+    else
+              menu7_ && break ;
+fi
+fi
+#Menu 9
+if [ "$selector" == "9" ] ; 
+  then
+	export DIR10=`echo "/${menu_main9[$counter]}"`
+    read_
+if [[ "$choice" == "y" ]] || [[ "$choice" == "" ]] ;
+	then
+if [ -n "$foldername" ];
+     	then 
+		      echo
+		      export  BANNER=`echo -e "Dear "$whoami", You just create new folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9/${blink}${green}$foldername${normal}"`
+	          echo -e "Creating folder $foldername ........." && sleep 1
+	          mkdir -p $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9/$foldername
+			  echo -e "${blink}${menu}Going to previuse folder ....${normal}" 
+			  #sleep 2
+		else
+		      echo -e "${blink}Nothing to create .... ${menu}Exiting.${normal}"
+			  sleep 3
+fi
+		      menu8_ && break ;
+    else
+              menu8_ && break ;
+fi
+fi
+#Menu 10
+if [ "$selector" == "10" ] ; 
+  then
+	export DIR11=`echo "/${menu_main10[$counter]}"`
+    read_
+if [[ "$choice" == "y" ]] || [[ "$choice" == "" ]] ;
+	then
+if [ -n "$foldername" ];
+     	then 
+		      echo
+		      export  BANNER=`echo -e "Dear "$whoami", You just create new folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10/${blink}${green}$foldername${normal}"`
+	          echo -e "Creating folder $foldername ........." && sleep 1
+	          mkdir -p $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10/$foldername
+			  echo -e "${blink}${menu}Going to previuse folder ....${normal}" 
+			  #sleep 2
+		else
+		      echo -e "${blink}Nothing to create .... ${menu}Exiting.${normal}"
+			  sleep 3
+fi
+		      menu9_ && break ;
+    else
+              menu9_ && break ;
+fi
+fi
+#Menu 11
+if [ "$selector" == "11" ] ; 
+  then
+	export DIR12=`echo "/${menu_main11[$counter]}"`
+    read_
+if [[ "$choice" == "y" ]] || [[ "$choice" == "" ]] ;
+	then
+if [ -n "$foldername" ];
+     	then 
+		      echo
+		      export  BANNER=`echo -e "Dear "$whoami", You just create new folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR11/${blink}${green}$foldername${normal}"`
+	          echo -e "Creating folder $foldername ........." && sleep 1
+	          mkdir -p $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10$DIR11/$foldername
+			  echo -e "${blink}${menu}Going to previuse folder ....${normal}" 
+			  #sleep 2
+		else
+		      echo -e "${blink}Nothing to create .... ${menu}Exiting.${normal}"
+			  sleep 3
+fi
+		      menu10_ && break ;
+    else
+              menu10_ && break ;
+fi
+fi
+#Menu 12
+if [ "$selector" == "12" ] ; 
+  then
+	export DIR12=`echo "/${menu_main12[$counter]}"`
+    read_
+if [[ "$choice" == "y" ]] || [[ "$choice" == "" ]] ;
+	then
+if [ -n "$foldername" ];
+     	then 
+		      echo
+		      export  BANNER=`echo -e "Dear "$whoami", You just create new folder ${number}$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR11$DIR12/${blink}${green}$foldername${normal}"`
+	          echo -e "Creating folder $foldername ........." && sleep 1
+	          mkdir -p $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10$DIR11$DIR12/$foldername
+			  echo -e "${blink}${menu}Going to previuse folder ....${normal}" 
+			 # sleep 2
+		else
+		      echo -e "${blink}Nothing to create .... ${menu}Exiting.${normal}"
+			  sleep 3
+fi
+		      menu11_ && break ;
+    else
+              menu11_ && break ;
+fi
+fi
+}
+
+#Next Menu 0
+function menu_dir1_ () {
+     export CURDIR1=`ls $lsopt "/${menu_main[$counter]}" -C -1`
+     export DIR1=`echo "/${menu_main[$counter]}"`
+	 
+     menu1_
+	 } 
+function menu_title_ () {
+IFS=$'\n' 
+  set -f 
+CURDIR=`ls $lsopt $PATH1 -C -1 `
+clear
+	printf "${menu}----------------------------------${normal}0${menu}---------------------------------${normal}"
+	echo -e "\n${menu}Create: Folder press [${fgred}f${menu}]. File press [${fgred}F${menu}]. Delete press [${fgred}delete${menu}] key${normal}"
+	echo -e "${menu}--------------------------------------------------------------------${normal}"
+	echo -e "${menu}$du"
+	echo -e "${menu}--------------------------------------------------------------------${normal}"
+	echo -e "${menu}$BANNER${normal}"
+	echo
+	echo
+	echo -e "${menu}____________________________________________________________________${normal}"
+	echo -e "Current location 0 is:${green} $PATH1${normal}"
+	echo
+	
+	unset BANNER
+} 
+function menu_ () {
+ local selector=0
+ menu_title_
+ tr=`du -h ${menu_main[$counter]}`
+ if [ "$CURDIR" == "//" ] || [ "$CURDIR" == "[" ];
+ then
+ menu_
+ fi
+declare -a menu_main=("<--" $CURDIR)
+
+counter=0
+function draw_menu_ () {
+    local DMENU=0
+	
+     for i in "${menu_main[@]}"; do
+	  
+    if [[ ${menu_main[$counter]} == $i ]]; then
+            tput setaf 2; 
+	   echo -e "==> ${green}$i${normal}"; tput sgr0
+    else
+       echo -e "     ${normal}/$i ${normal}   "   ;
+		
+     fi
+	 
+      done
+ 
+}
+
+function clear_menu_()  
+{
+      for i in "${menu_main[@]}"; 
+	     do 
+	      tput cuu1 setaf 0;
+	    done
+	 tput ed setaf 0
+}
+
+function select_from_list_ () {
+
+local selector=0
+    draw_menu_
+     while read  -sN1 key; 
+    do 
+	
+ if [[ "$key" == "" ]]  ; 
+	then
+	    #echo "Debug1 menu 0" && sleep 1
+        export DIR1=`echo "/${menu_main[$counter]}"`
+
+if [[ "$counter" == 0 ]];
+   then
+     menu_
+fi
+
+
+	menu_dir1_
+fi
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+		# call next menu with <> keys
+		#left
+		$'\e[D'|$'\e0D')   if [[ "$counter" == 0 ]];
+                                           then
+                                           menu_
+                                           fi
+                                            menu12_      ;; #left  go back to main menu_
+		#right 
+	    $'\e[C'|$'\e0C')  if [[ "$counter" == 0 ]];
+                                           then
+                                           menu_
+                                           fi
+		                                   menu_dir1_  ;; #right  go to menu1_
+		h) disable-hiden_ ;;
+		H) enable-hiden_  ;;
+		# use delete key on keybord to delete selected item
+		$'\e[3~') delete_  ;;
+		f) create_dir_  ;;
+		F) create_file_  ;;
+        # countersor down, next item
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main[@]}-1)) && ((counter++)) ;;
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main[@]}-1));;
+         # q, carriage return: quit
+        x|q|''|$'\e') exit_ ;;
+    esac
+	
+    # Redraw menu
+      clear_menu_
+      draw_menu_
+    done
+
+}
+select_from_list_
+local selector=0
+}
+
+
+#Next Menu 1
+function menu1_dir2_ () {  
+local selector=1
+echo  
+	export CURDIR2=`ls $lsopt "$DIR1/${menu_main1[$counter]}" -C -1` #<-----------------------------
+	export DIR2=`echo "/${menu_main1[$counter]}"`
+	menu2_
+	echo
+}
+function menu1_title_ () {
+    clear
+	printf "${menu}----------------------------------${normal}1${menu}---------------------------------${normal}"
+	echo -e "\n${menu}Create: Folder press [${fgred}f${menu}]. File press [${fgred}F${menu}]. Delete press [${fgred}delete${menu}] key${normal}"
+	echo -e "${menu}--------------------------------------------------------------------${normal}"
+	echo -e "${menu}$BANNER${normal}"
+	echo
+	echo
+	echo -e "${menu}____________________________________________________________________${normal}"
+	echo -e "Current location 1 is:${green} $DIR1/ ${normal}"
+	#echo -e "$du"
+	echo
+}
+function menu1_ () {
+ls -l 
+local selector=1
+IFS=$'\n' 
+set -f 
+menu1_title_
+declare -a menu_main1=("<--" $CURDIR1) 
+counter=0
+function draw_menu1_ () {
+    for i in "${menu_main1[@]}"; do
+        if [[ ${menu_main1[$counter]} == $i ]]; then
+            tput setaf 2; 
+			echo -e "==> ${green}$i${normal}"; tput sgr0
+        else
+          echo -e "     /$i${normal}";  
+        fi
+		done
+}
+function clear_menu1_()  {
+    for i in "${menu_main1[@]}"; do 
+	tput cuu1 setaf 0;
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+local selector=1
+draw_menu1_
+while read -sN1 key; 
+do 
+if [[ "$key" == "" ]]; 
+	then
+	back_to_root_
+
+	menu1_dir2_      
+fi
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main1[@]}-1)) && ((counter++)) ;;
+	    $'\e[D'|$'\e0D')  if [[ "$counter" == 0 ]];
+                                           then
+                                           menu_
+                                           fi   
+		                                    menu_       ;; #left back to main menu
+	       $'\e[C'|$'\e0C')  if [[ "$counter" == 0 ]];
+                                           then
+                                           menu1_
+                                           fi
+										   menu1_dir2_ ;; #right  #<-------------------------------------------------menu1_dir2_ go to menu menu2_
+		$'\e[3~') delete_  ;;
+		f) create_dir_  ;;
+		F) create_file_  ;;
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main1[@]}-1));;
+         # q, carriage return: quit
+        x|q|''|$'\e') exit_ ;;
+    esac
+    # Redraw menu
+    clear_menu1_
+    draw_menu1_
+done
+}
+
+local selector=1
+select_from_list_
+
+}
+
+
+#Next Menu 2
+function menu2_dir3_ () { 
+	echo
+	export CURDIR3=`ls $lsopt "$DIR1$DIR2/${menu_main2[$counter]}" -C -1` #<-----------------------------
+	export DIR3=`echo "/${menu_main2[$counter]}"`
+    echo 
+	menu3_
+}
+function menu2_title_ {
+clear
+local selector=2
+ clear
+	printf "${menu}----------------------------------${normal}2${menu}---------------------------------${normal}"
+	echo -e "\n${menu}Create: Folder press [${fgred}f${menu}]. File press [${fgred}F${menu}]. Delete press [${fgred}delete${menu}] key${normal}"
+	echo -e "${menu}--------------------------------------------------------------------${normal}"
+	echo -e "${menu}$BANNER${normal}"
+	echo
+	echo
+	echo -e "${menu}____________________________________________________________________${normal}"
+	echo -e "Current location 2 is:${green} $DIR1$DIR2/${normal}"
+	
+	echo
+}
+function menu2_ () {
+local selector=2
+IFS=$'\n'   
+set -f 
+menu2_title_
+declare -a menu_main2=("<--" $CURDIR2)
+counter=0
+
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main2[@]}"; do
+        if [[ ${menu_main2[$counter]} == $i ]]; then
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput sgr0
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+
+function clear_menu_()  {
+    for i in "${menu_main2[@]}"; do 
+	tput cuu1 setaf 0;
+	done
+	tput ed setaf 0
+}
+
+function select_from_list_ () {
+local selector=2
+draw_menu_
+
+while read -sN1 key; 
+do 
+if [[ "$key" == "" ]]; 
+	then
+	back_to_root_
+menu2_dir3_ 
+fi
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main2[@]}-1)) && ((counter++)) ;;
+		$'\e[3~') delete_  ;;
+	    $'\e[D'|$'\e0D')   if [[ "$counter" == 0 ]];
+                                           then
+                         ‏                  menu1_
+                                           fi
+										   menu1_      ;; #left back to previouse menu1_
+	      $'\e[C'|$'\e0C')  if [[ "$counter" == 0 ]];
+                                           then
+                                           menu2_
+                                           fi
+										   menu2_dir3_ ;; #right  #<-------------------------------------------------menu2_dir3_  go to menu menu3_
+		f) create_dir_  ;;
+		F) create_file_  ;;
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main2[@]}-1));;
+         # q, carriage return: quit
+        x|q|''|$'\e') exit_ ;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+done
+}
+select_from_list_
+local selector=2
+
+}
+
+
+#Next Menu 3
+function menu3_dir4_ () { 
+	echo
+	export CURDIR4=`ls $lsopt "$DIR1$DIR2$DIR3/${menu_main3[$counter]}" -C -1` #<-----------------------------
+	export DIR4=`echo "/${menu_main3[$counter]}"`  #<-----------------------------
+    echo 
+	menu4_ 
+}
+function menu3_title_ {
+local selector=3
+clear
+	printf "${menu}----------------------------------${normal}3${menu}---------------------------------${normal}"
+	echo -e "\n${menu}Create: Folder press [${fgred}f${menu}]. File press [${fgred}F${menu}]. Delete press [${fgred}delete${menu}] key${normal}"
+	echo -e "${menu}--------------------------------------------------------------------${normal}"
+	echo -e "${menu}$BANNER${normal}"
+	echo
+	echo
+	echo -e "${menu}____________________________________________________________________${normal}"
+    echo -e "Current location 3 is:${green}$DIR1$DIR2$DIR3/ ${normal}"
+	echo
+}
+function menu3_ () {
+IFS=$'\n'   
+set -f 
+local selector=3
+menu3_title_
+declare -a menu_main3=("<--" $CURDIR3) #<-----------------------------
+counter=0
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main3[@]}"; do
+        if [[ ${menu_main3[$counter]} == $i ]]; then
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput sgr0
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+function clear_menu_()  {
+    for i in "${menu_main3[@]}"; do 
+	tput cuu1 setaf 0;
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+draw_menu_
+while read -sN1 key; 
+do  
+    if [[ "$key" == "" ]]; 
+	then
+	back_to_root_
+	menu3_dir4_	#<-------------------------------------------------menu3_dir4_  go to menu menu4_
+	fi
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+		$'\e[3~') delete_  ;;
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main3[@]}-1)) && ((counter++)) ;;
+		$'\e[D'|$'\e0D') if [[ "$counter" == 0 ]];
+                                           then
+                                           menu2_
+                                           fi
+		                                    menu2_       ;; #left back to previouse menu2_
+	       $'\e[C'|$'\e0C')  if [[ "$counter" == 0 ]];
+                                           then
+                                           menu3_
+                                           fi
+										   menu3_dir4_   ;;  #<-------------------------------------------------menu3_dir4_  go to menu menu4_
+	    f) create_dir_  ;;
+		F) create_file_  ;;
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main3[@]}-1));;
+         # q, carriage return: quit
+        x|q|''|$'\e') exit_ ;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+done
+}
+select_from_list_
+local selector=3
+}
+
+
+#Next Menu 4
+function menu4_dir5_ () { 
+	echo
+	export CURDIR5=`ls $lsopt "$DIR1$DIR2$DIR3$DIR4/${menu_main4[$counter]}" -C -1` #<-----------------------------CURDIR4=`ls "$DIR1/$DIR2/${menu_main3[$counter]}" -C -1`
+	export DIR5=`echo "/${menu_main4[$counter]}"`
+	echo
+	menu5_  && break
+}
+function menu4_title_ {
+local selector=4
+clear
+	printf "${menu}----------------------------------${normal}4${menu}---------------------------------${normal}"
+	echo -e "\n${menu}Create: Folder press [${fgred}f${menu}]. File press [${fgred}F${menu}]. Delete press [${fgred}delete${menu}] key${normal}"
+	echo -e "${menu}--------------------------------------------------------------------${normal}"
+	echo -e "${menu}$BANNER${normal}"
+	echo
+	echo
+	echo -e "${menu}____________________________________________________________________${normal}"
+    echo -e "Current location 4 is:${green} $DIR1$DIR2$DIR3$DIR4/ ${normal}"
+	echo
+}
+function menu4_ () {
+local selector=4
+menu4_title_
+IFS=$'\n'   
+set -f 
+declare -a menu_main4=("<--" $CURDIR4) #<-----------------------------
+counter=0
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main4[@]}"; do
+        if [[ ${menu_main4[$counter]} == $i ]]; then
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput sgr0
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+function clear_menu_()  {
+    for i in "${menu_main4[@]}"; do 
+	tput cuu1 setaf 0;
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+selector=4
+draw_menu_
+while read -sN1 key; 
+do 
+    if [[ "$key" == "" ]]; 
+	then
+	back_to_root_
+	menu4_dir5_  #<-------------------------------------------------menu3_dir4_  go to menu menu4_
+	fi
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+		$'\e[3~') delete_  ;;
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main4[@]}-1)) && ((counter++)) ;;
+		$'\e[D'|$'\e0D') if [[ "$counter" == 0 ]];
+                                           then
+                                           menu3_
+                                           fi
+										   menu3_      ;; #left back to previouse menu1_
+	    $'\e[C'|$'\e0C')  if [[ "$counter" == 0 ]];
+                                           then
+                                           menu4_
+                                           fi
+										   menu4_dir5_  ;; #<------------------------menu3_dir4_  go to menu menu4_
+		f) create_dir_  ;;
+		F) create_file_  ;;								   
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main4[@]}-1));;
+         # q, carriage return: quit
+        x|q|''|$'\e') exit_ ;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+done
+}
+selector=4
+select_from_list_
+}
+
+
+#Next Menu 5
+function menu5_dir6_ () {
+	echo
+	export CURDIR6=`ls $lsopt "$DIR1$DIR2$DIR3$DIR4$DIR5/${menu_main5[$counter]}" -C -1` #<-----------------------------CURDIR4=`ls "$DIR1/$DIR2/${menu_main3[$counter]}" -C -1`
+	export DIR6=`echo "/${menu_main5[$counter]}"` #<-----------------------------
+    echo 
+	menu6_
+}
+function menu5_title_ {
+local selector=5
+
+clear
+	printf "${menu}----------------------------------${normal}5${menu}---------------------------------${normal}"
+	echo -e "\n${menu}Create: Folder press [${fgred}f${menu}]. File press [${fgred}F${menu}]. Delete press [${fgred}delete${menu}] key${normal}"
+	echo -e "${menu}--------------------------------------------------------------------${normal}"
+	echo -e "${menu}$BANNER${normal}"
+	echo
+	echo
+	echo -e "${menu}____________________________________________________________________${normal}"
+    echo -e "Current location 5 is:${green} $DIR1$DIR2$DIR3$DIR4$DIR5/ ${normal}"
+	echo
+}
+function menu5_ () {
+local selector=5
+menu5_title_
+IFS=$'\n'   
+set -f 
+declare -a menu_main5=("<--" $CURDIR5) #<-----------------------------
+counter=0
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main5[@]}"; do #<-----------------------------
+        if [[ ${menu_main5[$counter]} == $i ]]; then #<-----------------------------
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput sgr0
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+function clear_menu_()  {
+    for i in "${menu_main5[@]}"; do #<-----------------------------
+	tput cuu1 setaf 0; 
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+selector=5
+draw_menu_
+while read -sN1 key; 
+do # 1 char (not delimiter), silent
+    # Check for enter/space
+    if [[ "$key" == "" ]]; 
+	then
+	back_to_root_
+    menu5_dir6_ #<-------------------------------------------------menu5_dir6_  go to menu menu_
+	fi
+	
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main5[@]}-1)) && ((counter++)) ;; 
+		$'\e[D'|$'\e0D') if [[ "$counter" == 0 ]];
+                                           then
+                                           menu4_
+                                           fi
+										   menu4_      ;; #left back to previouse menu4_
+	   $'\e[C'|$'\e0C')  if [[ "$counter" == 0 ]];
+                                           then
+                                           menu5_
+                                           fi 
+										   menu5_dir6_   ;;#<-------------------------------------------------menu3_dir4_  go to menu menu_
+		f) create_dir_  ;;
+		F) create_file_  ;;	
+        $'\e[3~') delete_  ;;		
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main5[@]}-1));; 
+         # q, carriage return: quit
+         x|q|''|$'\e') exit_ ;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+	#case_
+done
+}
+selector=5
+select_from_list_
+}
+
+
+#Next Menu 6
+function menu6_dir7_ () { 
+	#Replase:
+#1. menu6_dir7_ to next one menu7_dir8_
+#2. menu_main6 to menu_main7
+#3. CURDIR6 to CURDIR7
+#4. DIR6 to DIR7
+#5. menu5_ to menu6_
+#6. "Current location 6 is: $DIR1$DIR2$DIR3$DIR4$DIR5/${menu_main5[$counter]}"    to   echo -e "Current location 6 is: $DIR1$DIR2$DIR3$DIR4$DIR5/${menu_main5[$counter]}"
+
+	echo
+	#!!!Next must be  chenged to CURDIR8=`ls $lsopt "$DIR1$DIR2$DIR3$DIR4$DIR5$DIR7$DIR8/${menu_main6[$counter]}" -C -1`
+	export CURDIR7=`ls $lsopt "$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6/${menu_main6[$counter]}" -C -1` #<-----------------------------CURDIR4=`ls "$DIR1/$DIR2/${menu_main3[$counter]}" -C -1`
+	#!!!Next must be changed to DIR8=`echo  "/${menu_main7[$counter]}"`
+	export DIR7=`echo "/${menu_main6[$counter]}"` #<-----------------------------
+    echo 
+	
+	menu7_ && break
+}
+function menu6_title_ {
+local selector=3
+IFS=$'\n'
+set -f 
+ clear
+	printf "${menu}----------------------------------${normal}6${menu}---------------------------------${normal}"
+	echo -e "\n${menu}Create: Folder press [${fgred}f${menu}]. File press [${fgred}F${menu}]. Delete press [${fgred}delete${menu}] key${normal}"
+	echo -e "${menu}--------------------------------------------------------------------${normal}"
+	echo -e "${menu}$BANNER${normal}"
+	echo
+	echo
+	echo -e "${menu}____________________________________________________________________${normal}"
+    echo -e "Current location 6 is:${green} $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6/ ${normal}"
+	echo
+}
+function menu6_ () {
+local selector=6
+menu6_title_
+declare -a menu_main6=("<--" $CURDIR6) #<-----------------------------
+counter=0
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main6[@]}"; do #<-----------------------------
+        if [[ ${menu_main6[$counter]} == $i ]]; then #<-----------------------------
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput sgr0
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+function clear_menu_()  {
+    for i in "${menu_main6[@]}"; do #<-----------------------------
+	tput cuu1 setaf 0; 
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+local selector=6
+draw_menu_
+while read -sN1 key; 
+do # 1 char (not delimiter), silent
+    # Check for enter/space
+    if [[ "$key" == "" ]]; 
+	then
+	back_to_root_
+	#!!!Next must be  chenged to | menu7_dir8_
+    menu6_dir7_  #<-------------------------------------------------menu6_dir7_  go to menu menu_
+	fi
+	
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+		$'\e[3~') delete_  ;;
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main6[@]}-1)) && ((counter++)) ;; 
+		#!!!Next must be  chenged to | 
+		$'\e[D'|$'\e0D') if [[ "$counter" == 0 ]];
+                                           then
+                                           menu5_
+                                           fi
+										   menu5_     ;; #left back to previouse menu4_
+	    $'\e[C'|$'\e0C')  if [[ "$counter" == 0 ]];
+                                           then
+                                           menu6_
+                                           fi 
+										   menu6_dir7_    ;;#<-------------------------------------------------menu3_dir4_  go to menu menu_
+		f) create_dir_  ;;
+		F) create_file_  ;;								   
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main6[@]}-1));; 
+         # q, carriage return: quit
+         x|q|''|$'\e') exit_ ;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+	#case_
+done
+}
+local selector=6
+select_from_list_
+}
+
+
+#Next Menu 7
+function menu7_dir8_ () {  #<-------------------------------------------------menu7_dir7_  go to menu menu_
+	#Replase:
+#1. menu7_dir7_ to next one menu7_dir8_
+#2. menu_main7_ to menu_main8
+#3. CURDIR6 to CURDIR7
+#4. DIR6 to DIR7
+#5. menu5_ to menu7_
+#6. "Current location 6 is: $DIR1$DIR2$DIR3$DIR4$DIR5/${menu_main5[$counter]}"    to   echo -e "Current location 6 is: $DIR1$DIR2$DIR3$DIR4$DIR5/${menu_main5[$counter]}"
+
+	echo
+	#!!!Next must be  chenged to CURDIR8=`ls $lsopt "$DIR1$DIR2$DIR3$DIR4$DIR5$DIR7$DIR8/${menu_main7[$counter]}" -C -1`
+	export CURDIR8=`ls $lsopt "$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7/${menu_main7[$counter]}" -C -1` #<-----------------------------CURDIR4=`ls "$DIR1/$DIR2/${menu_main3[$counter]}" -C -1`
+	#!!!Next must be changed to DIR8=`echo  "/${menu_main7[$counter]}"`
+	export DIR8=`echo "/${menu_main7[$counter]}"` #<-----------------------------
+    echo 
+	
+	menu8_  && break
+}
+function menu7_title_ {
+local selector=7
+IFS=$'\n'
+set -f 
+ clear
+	printf "${menu}----------------------------------${normal}7${menu}---------------------------------${normal}"
+	echo -e "\n${menu}Create: Folder press [${fgred}f${menu}]. File press [${fgred}F${menu}]. Delete press [${fgred}delete${menu}] key${normal}"
+	echo -e "${menu}--------------------------------------------------------------------${normal}"
+	echo -e "${menu}$BANNER${normal}"
+	echo
+	echo
+	echo -e "${menu}____________________________________________________________________${normal}"
+    echo -e "Current location 7 is:${green} $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7/ ${normal}"
+	echo
+}
+function menu7_ () {
+local selector=7
+menu7_title_
+declare -a menu_main7=("<--" $CURDIR7) #<-----------------------------
+counter=0
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main7[@]}"; do #<-----------------------------
+        if [[ ${menu_main7[$counter]} == $i ]]; then #<-----------------------------
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput sgr0
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+
+function clear_menu_()  {
+    for i in "${menu_main7[@]}"; do #<-----------------------------
+	tput cuu1 setaf 0; 
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+local selector=7
+draw_menu_
+while read -sN1 key; 
+do # 1 char (not delimiter), silent
+    # Check for enter/space
+    if [[ "$key" == "" ]]; 
+	then
+	back_to_root_
+	#!!!Next must be  chenged to | menu7_dir8_
+    menu7_dir8_  #<-------------------------------------------------menu7_dir7_  go to menu menu_
+	fi
+	
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+		$'\e[3~') delete_  ;;
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main7[@]}-1)) && ((counter++)) ;; 
+		#!!!Next must be  chenged to | 
+		$'\e[D'|$'\e0D') if [[ "$counter" == 0 ]];
+                                           then
+                                           menu6_
+                                           fi
+										   menu6_       ;; #left back to previouse menu4_
+	    $'\e[C'|$'\e0C')  if [[ "$counter" == 0 ]];
+                                           then
+                                           menu7_
+                                           fi
+										   menu7_dir8_   ;;#<-------------------------------------------------menu3_dir4_  go to menu menu_
+		f) create_dir_  ;;
+		F) create_file_  ;;								   
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main7[@]}-1));; 
+         # q, carriage return: quit
+        x|q|''|$'\e')echo "Aborted.${normal}" && exit;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+	#case_
+done
+}
+local selector=7
+select_from_list_
+}
+
+
+#Next Menu 8
+function menu8_dir9_ () {  #<-------------------------------------------------menu7_dir7_  go to menu menu_
+
+	echo
+	#!!!Next must be  chenged to CURDIR8=`ls $lsopt "$DIR1$DIR2$DIR3$DIR4$DIR5$DIR7$DIR8/${menu_main7[$counter]}" -C -1`
+	export CURDIR9=`ls $lsopt "$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8/${menu_main8[$counter]}" -C -1` #<-----------------------------CURDIR4=`ls "$DIR1/$DIR2/${menu_main3[$counter]}" -C -1`
+	#!!!Next must be changed to DIR8=`echo  "/${menu_main7[$counter]}"`
+	export DIR9=`echo "/${menu_main8[$counter]}"` #<-----------------------------
+    echo 
+	
+	menu9_ && break
+}
+function menu8_title_ {
+local selector=8
+IFS=$'\n'
+set -f 
+ clear
+	printf "${menu}----------------------------------${normal}8${menu}---------------------------------${normal}"
+	echo -e "\n${menu}Create: Folder press [${fgred}f${menu}]. File press [${fgred}F${menu}]. Delete press [${fgred}delete${menu}] key${normal}"
+	echo -e "${menu}--------------------------------------------------------------------${normal}"
+	echo -e "${menu}$BANNER${normal}"
+	echo
+	echo
+	echo -e "${menu}____________________________________________________________________${normal}"
+    echo -e "Current location 8 is:${green} $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8/ ${normal}"
+	echo
+}
+function menu8_ () {
+local selector=8
+menu8_title_ 
+declare -a menu_main8=("<--" $CURDIR8) 
+counter=0
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main8[@]}"; do 
+        if [[ ${menu_main8[$counter]} == $i ]]; then 
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput sgr0
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+
+function clear_menu_()  {
+local selector=8
+    for i in "${menu_main8[@]}"; do 
+	tput cuu1 setaf 0; 
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+local selector=8
+draw_menu_
+while read -sN1 key; 
+do # 1 char (not delimiter), silent
+    # Check for enter/space
+    if [[ "$key" == "" ]]; 
+	then
+	back_to_root_
+    menu8_dir9_  
+	fi
+	
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+		$'\e[3~') delete_  ;;
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main8[@]}-1)) && ((counter++)) ;; 
+		#!!!Next must be  chenged to | 
+		$'\e[D'|$'\e0D')  if [[ "$counter" == 0 ]];
+                                           then
+                                           menu7_
+                                           fi  
+                                           menu7_										   ;; #left back to previouse menu4_
+	    $'\e[C'|$'\e0C')  if [[ "$counter" == 0 ]];
+                                           then
+                                           menu8_
+                                           fi
+										   menu8_dir9_    ;;#<-------------------------------------------------menu3_dir4_  go to menu menu_
+	    f) create_dir_  ;;
+		F) create_file_  ;;
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main8[@]}-1));; 
+         # q, carriage return: quit
+         x|q|''|$'\e') exit_ ;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+	#case_
+done
+}
+local selector=8
+select_from_list_
+}
+
+
+#Next Menu 9
+function menu9_dir10_ () {  #<-------------------------------------------------menu7_dir7_  go to menu menu_
+	echo
+	#!!!Next must be  chenged to CURDIR8=`ls $lsopt "$DIR1$DIR2$DIR3$DIR4$DIR5$DIR7$DIR8/${menu_main7[$counter]}" -C -1`
+	export CURDIR10=`ls $lsopt "$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9/${menu_main9[$counter]}" -C -1` #<-----------------------------CURDIR4=`ls "$DIR1/$DIR2/${menu_main3[$counter]}" -C -1`
+	#!!!Next must be changed to DIR8=`echo  "/${menu_main7[$counter]}"`
+	export DIR10=`echo "/${menu_main9[$counter]}"` #<-----------------------------
+    echo 
+	
+	menu10_ && break
+}
+function menu9_title_ {
+local selector=9
+IFS=$'\n'
+set -f 
+ clear
+	printf "${menu}----------------------------------${normal}9${menu}---------------------------------${normal}"
+	echo -e "\n${menu}Create: Folder press [${fgred}f${menu}]. File press [${fgred}F${menu}]. Delete press [${fgred}delete${menu}] key${normal}"
+	echo -e "${menu}--------------------------------------------------------------------${normal}"
+	echo -e "${menu}$BANNER${normal}"
+	echo
+	echo
+	echo -e "${menu}____________________________________________________________________${normal}"
+    echo -e "Current location 9 is:${green} $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9/ ${normal}"
+	echo
+}
+function menu9_ () {
+local selector=9
+menu9_title_ 
+IFS=$'\n'       # make newlines the only separator
+set -f 
+declare -a menu_main9=("<--" $CURDIR9) #<-----------------------------
+counter=0
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main9[@]}"; do #<-----------------------------
+        if [[ ${menu_main9[$counter]} == $i ]]; then #<-----------------------------
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput sgr0
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+
+function clear_menu_()  {
+    for i in "${menu_main9[@]}"; do #<-----------------------------
+	tput cuu1 setaf 0; 
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+local selector=9
+draw_menu_
+while read -sN1 key; 
+do # 1 char (not delimiter), silent
+    # Check for enter/space
+    if [[ "$key" == "" ]]; 
+	then
+	back_to_root_
+	#!!!Next must be  chenged to | menu9_dir8_
+    menu9_dir10_  #<-------------------------------------------------menu9_dir7_  go to menu menu_
+	fi
+	
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+		$'\e[3~') delete_  ;;
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main9[@]}-1)) && ((counter++)) ;; 
+		#!!!Next must be  chenged to | 
+		$'\e[D'|$'\e0D') if [[ "$counter" == 0 ]];
+                                           then
+                                           menu8_
+                                           fi  
+                                           menu8_    ;; #left back to previouse menu4_
+	    $'\e[C'|$'\e0C')  if [[ "$counter" == 0 ]];
+                                           then
+                                           menu9_
+                                           fi
+										   menu9_dir10_    ;;#<-------------------------------------------------menu3_dir4_  go to menu menu_
+        f) create_dir_  ;;
+		F) create_file_  ;;										   
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main9[@]}-1));; 
+         # q, carriage return: quit
+        x|q|''|$'\e') exit_ ;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+	#case_
+done
+}
+local selector=9
+select_from_list_
+}
+
+
+#Next Menu 10
+function menu10_dir11_ () {  #<-------------------------------------------------menu7_dir7_  go to menu menu_
+	echo
+	#!!!Next must be  chenged to CURDIR8=`ls $lsopt "$DIR1$DIR2$DIR3$DIR4$DIR5$DIR7$DIR8/${menu_main7[$counter]}" -C -1`
+	export CURDIR11=`ls $lsopt "$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10/${menu_main10[$counter]}" -C -1` #<-----------------------------CURDIR4=`ls "$DIR1/$DIR2/${menu_main3[$counter]}" -C -1`
+	#!!!Next must be changed to DIR8=`echo  "/${menu_main7[$counter]}"`
+	export DIR11=`echo "/${menu_main10[$counter]}"` #<-----------------------------
+    echo 
+	
+	menu11_ && break
+}
+function menu10_title_ {
+local selector=10
+IFS=$'\n'
+set -f 
+ clear
+	printf "${menu}----------------------------------${normal}10${menu}---------------------------------${normal}"
+	echo -e "\n${menu}Create: Folder press [${fgred}f${menu}]. File press [${fgred}F${menu}]. Delete press [${fgred}delete${menu}] key${normal}"
+	echo -e "${menu}--------------------------------------------------------------------${normal}"
+	echo -e "${menu}$BANNER${normal}"
+	echo
+	echo
+	echo -e "${menu}____________________________________________________________________${normal}"
+    echo -e "Current location 10 is:${green} $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10/ ${normal}"
+	echo
+}
+function menu10_ () {
+local selector=10
+menu10_title_
+declare -a menu_main10=("<--" $CURDIR10)
+counter=0
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main10[@]}"; do
+        if [[ ${menu_main10[$counter]} == $i ]]; then
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput sgr0
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+
+function clear_menu_()  {
+    for i in "${menu_main10[@]}"; do
+	tput cuu1 setaf 0; 
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+local selector=10
+draw_menu_
+while read -sN1 key; 
+do
+    if [[ "$key" == "" ]]; 
+	then
+	back_to_root_
+    menu10_dir11_
+	fi
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main10[@]}-1)) && ((counter++)) ;; 
+		#!!!Next must be  chenged to | 
+		$'\e[3~') delete_  ;;
+		$'\e[D'|$'\e0D') if [[ "$counter" == 0 ]];
+                                           then
+                                           menu9_
+                                           fi  
+                                           menu9_       ;; #left back to previouse menu4_
+	    $'\e[C'|$'\e0C')  if [[ "$counter" == 0 ]];
+                                           then
+                                           menu10_
+                                           fi 
+										   menu10_dir11_    ;;#<-------------------------------------------------menu3_dir4_  go to menu menu_
+        f) create_dir_  ;;
+		F) create_file_  ;;										   
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main10[@]}-1));; 
+         # q, carriage return: quit
+         x|q|''|$'\e') exit_ ;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+	#case_
+done
+}
+local selector=10
+select_from_list_
+}
+
+
+#Next Menu 11
+function menu11_dir12_ () {  #<-------------------------------------------------menu7_dir7_  go to menu menu_
+	#Replase:
+#1. menu7_dir7_ to next one menu7_dir8_
+#2. menu_main7_ to menu_main8
+#3. CURDIR6 to CURDIR7
+#4. DIR6 to DIR7
+#5. menu5_ to menu7_
+#6. "Current location 6 is: $DIR1$DIR2$DIR3$DIR4$DIR5/${menu_main5[$counter]}"    to   echo -e "Current location 6 is: $DIR1$DIR2$DIR3$DIR4$DIR5/${menu_main5[$counter]}"
+
+	echo
+	
+	export CURDIR12=`ls $lsopt "$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10$DIR11/${menu_main11[$counter]}" -C -1` #<-----------------------------CURDIR4=`ls "$DIR1/$DIR2/${menu_main3[$counter]}" -C -1`
+	#!!!Next must be changed to DIR8=`echo  "/${menu_main7[$counter]}"`
+	export DIR12=`echo "/${menu_main11[$counter]}"` #<-----------------------------
+    echo 
+	
+	menu12_
+}
+function menu11_title_ {
+local selector=11
+IFS=$'\n'
+set -f 
+ clear
+	printf "${menu}----------------------------------${normal}11${menu}---------------------------------${normal}"
+	echo -e "\n${menu}Create: Folder press [${fgred}f${menu}]. File press [${fgred}F${menu}]. Delete press [${fgred}delete${menu}] key${normal}"
+	echo -e "${menu}--------------------------------------------------------------------${normal}"
+	echo -e "${menu}$BANNER${normal}"
+	echo
+	echo
+	echo -e "${menu}____________________________________________________________________${normal}"
+    echo -e "Current location 11 is:${green} $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10$DIR11/ ${normal}"
+	echo
+}
+function menu11_ () {
+local selector=11
+ menu11_title_
+declare -a menu_main11=("<--" $CURDIR11) #<-----------------------------
+counter=0
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main11[@]}"; do #<-----------------------------
+        if [[ ${menu_main11[$counter]} == $i ]]; then #<-----------------------------
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput sgr0
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+
+function clear_menu_()  {
+    for i in "${menu_main11[@]}"; do #<-----------------------------
+	tput cuu1 setaf 0; 
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+local selector=11
+draw_menu_
+while read -sN1 key; 
+do # 1 char (not delimiter), silent
+    # Check for enter/space
+    if [[ "$key" == "" ]]; 
+	then
+	back_to_root_
+    menu11_dir12_  #<-------------------------------------------------menu9_dir7_  go to menu menu_
+	fi
+	
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main11[@]}-1)) && ((counter++)) ;; 
+		#!!!Next must be  chenged to | 
+		$'\e[3~') delete_  ;;
+		$'\e[D'|$'\e0D') if [[ "$counter" == 0 ]];
+                                           then
+                                           menu11_
+                                           fi  
+                                           menu10_     ;; #left back to previouse menu4_
+	    $'\e[C'|$'\e0C') menu11_dir12_ && break   ;;#<-------------------------------------------------menu3_dir4_  go to menu menu_
+		f) create_dir_  ;;
+		F) create_file_  ;;
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main11[@]}-1));; 
+         # q, carriage return: quit
+         x|q|''|$'\e') exit_ ;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+	#case_
+done
+}
+local selector=11
+select_from_list_
+}
+
+
+#Next Menu 12
+function menu12_dir13_ () {  #<-------------------------------------------------menu7_dir7_  go to menu menu_
+	#Replase:
+#1. menu7_dir7_ to next one menu7_dir8_
+#2. menu_main7_ to menu_main8
+#3. CURDIR6 to CURDIR7
+#4. DIR6 to DIR7
+#5. menu5_ to menu7_
+#6. "Current location 6 is: $DIR1$DIR2$DIR3$DIR4$DIR5/${menu_main5[$counter]}"    to   echo -e "Current location 6 is: $DIR1$DIR2$DIR3$DIR4$DIR5/${menu_main5[$counter]}"
+
+	echo
+	
+	export CURDIR13=`ls $lsopt "$DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10$DIR11$DIR12/${menu_main12[$counter]}" -C -1` #<-----------------------------CURDIR4=`ls "$DIR1/$DIR2/${menu_main3[$counter]}" -C -1`
+	export DIR13=`echo "/${menu_main12[$counter]}"` #<-----------------------------
+    echo 
+	
+	menu_ && break
+}
+
+function menu12_title_ {
+local selector=11
+IFS=$'\n'
+set -f 
+clear
+	printf "${menu}----------------------------------${normal}12${menu}---------------------------------${normal}"
+	echo -e "\n${menu}Create: Folder press [${fgred}f${menu}]. File press [${fgred}F${menu}]. Delete press [${fgred}delete${menu}] key${normal}"
+	echo -e "${menu}--------------------------------------------------------------------${normal}"
+	echo -e "${menu}$BANNER${normal}"
+	echo
+	echo
+	echo -e "${menu}____________________________________________________________________${normal}"
+    echo -e "Current location 12 is:${green} $DIR1$DIR2$DIR3$DIR4$DIR5$DIR6$DIR7$DIR8$DIR9$DIR10$DIR11$DIR12/ ${normal}"
+	echo
+}
+
+function menu12_ () {
+local selector=12
+IFS=$'\n'   
+set -f
+menu12_title_
+declare -a menu_main12=("<--" $CURDIR12) #<-----------------------------
+counter=0
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main12[@]}"; do 
+        if [[ ${menu_main12[$counter]} == $i ]]; then
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput sgr0
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+
+function clear_menu_()  {
+    for i in "${menu_main12[@]}"; do 
+	tput cuu1 setaf 0; 
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+local selector=12
+draw_menu_
+while read -sN1 key; 
+do # 1 char (not delimiter), silent
+    # Check for enter/space
+    if [[ "$key" == "" ]]; 
+	then
+	back_to_root_
+    menu12_dir13_  #<-------------------------------------------------menu9_dir7_  go to menu menu_
+	fi
+	
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main12[@]}-1)) && ((counter++)) ;; 
+		#!!!Next must be  chenged to | 
+		$'\e[D'|$'\e0D') if [[ "$counter" == 0 ]];
+                                           then
+                                           menu11_
+                                           fi  
+                                           menu11_      ;; #left back to previouse menu4_
+	    $'\e[C'|$'\e0C')  if [[ "$counter" == 0 ]];
+                                           then
+                                           menu12_
+                                           fi
+										   menu12_dir13_   ;;#<-------------------------------------------------menu3_dir4_  go to menu menu_
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main12[@]}-1));; 
+         # q, carriage return: quit
+         x|q|''|$'\e') exit_ ;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+	#case_
+done
+}
+local selector=12
+select_from_list_
+}
+
+
+function helpFunction()
+{
+clear
+echo
+echo -e "[$whoami@$hostname $PWD# "
+echo
+
+   echo ""
+   echo -e "${menu}Usage:    ${menu} $0 ${fgred}-H ${normal}${menu} or  ${fgred}-L${normal}"
+   echo
+   echo -e "${menu}Parameters:${normal}"
+   echo
+   echo -e "\t${fgred}-H   ${normal}Enable hiden file and folder view${normal}"
+   echo -e "\t${fgred}-L   ${normal}Disable hiden file and folder view${normal}"
+   echo
+   echo
+   echo  -e "${menu}Keys:${normal} "
+   echo
+   echo -e "\tDelete file or folder. Just press [ ${fgred}delete ${normal}] ${normal}on keybord\n"
+   echo -e "\tCreate new file or folder. Just press [ ${fgred}N or n ${normal}] ${normal}on keybord\n "
+   #echo -e "\t${fgred}-L Disable hiden file and folder view"
+   #echo -e "\t-c Description of what is parameterC"
+  echo
+echo
+   exit 1 # Exit script after printing help
+}
+
+while getopts "heLH" OPTION; do
+        case $OPTION in
+
+                e)ECHO="true"  ;;
+
+                h) helpFunction ;;
+				L) disable-hiden_ ;;
+				H) enable-hiden_  ;;
+                        
+
+        esac
+done
+
+
+
+
+
+trap '' SIGINT SIGQUIT SIGTSTP
+
+menu_

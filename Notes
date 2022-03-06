@@ -1,0 +1,1497 @@
+mysql -uroot -pNewPass123$  information_schema -N <<MYSQL_SCRIPT
+SELECT COLUMN_NAME FROM COLUMNS WHERE TABLE_SCHEMA = 'annahats4u' AND TABLE_NAME='wp_posts';
+MYSQL_SCRIPT
+
+show grants for 'user_com'@'localhost';
+
+sed -i 's/test-white=false/test-white=true/g' test111.txt
+
+und-pros.jpg:1 Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+
+
+mysqldump -uroot -pNewPass123$ --no-create-info --extended-insert=FALSE annahats4u | grep -i "anahats.rng.marketing" | wc -l
+
+
+
+mysqldump -uroot -pNewPass123$ --no-create-info --extended-insert=FALSE c.sglcore.com | grep -i "https://pro-wiki.com" | grep -m 1 -o -P '(?<=(INTO `)).*(?=` VALUES)'
+
+
+
+mysqldump -uroot -pNewPass123$ --no-create-info --extended-insert=FALSE annahats4u | grep -i "anahats.rng.marketing" | grep -m 1 -o -P '(?<=(INTO `)).*(?=` VALUES)'
+
+
+
+mysqldump -uroot -pNewPass123$ --no-create-info --extended-insert=FALSE annahats4u | grep -i "https://annahats4u.co.il" | grep -m 1 -o -P '(?<=(INTO `)).*(?=` VALUES)' | sort | uniq -u
+
+
+
+
+mysqldump -uroot -pNewPass123$ --no-create-info --extended-insert=FALSE annahats4u | grep -i "https://annahats4u.co.il" | grep -o -P '(?<=(INTO `)).*(?=` VALUES)' | sort | uniq
+
+mysql -uroot -pNewPass123$ -N -e "SHOW GRANTS FOR 'user_com'@'localhost';"
+
+
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'annahats'@'localhost';"  | sed -e '\| USAGE |d'
+
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';"  | sed -e '\| USAGE|REFERENCES |d'  sed -e "\| REFERENCES |d"
+
+GRANT SELECT,
+
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';"  | grep -v "USAGE" 
+
+
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';"  | grep -E "GRANT.*TO" 
+
+
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';"  | grep -o -P '(?<=(GRANT )).*(?=`.* TO )' | sed -e "\| REFERENCES |d"
+
+
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'root'@'localhost';"  | grep -o -P '(?<=(GRANT )).*(?=`.* TO )' | grep GRANT
+
+
+Super User with permissions for all databases
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'root'@'localhost';"  | grep -E "PRIVILEGES ON.*TO|PASSWORD.*GRANT " 
+
+
+
+
+P1.*$P2
+
+clear
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';" | grep -o -P '(?<=(GRANT )).*(?= ON *.* TO )'  | grep -v USAGE | grep -v "ALL PRIVILEGES" && echo && echo
+clear
+
+
+1. Super User with all permission and all databases
+   #Get all database for user 
+    mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'annahats'@'localhost';"  | grep -o -P '(?<=(ON `)).*(?=`.* TO)'
+
+2. Backup user with read only permitions
+   Databases:
+   #Get all database for user 
+   mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';"  | grep -o -P '(?<=(ON `)).*(?=`.* TO)'
+
+
+3
+
+
+
+function get_db_perm_ () {
+
+#Get user databases
+GETDB="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'backup'@'localhost';"  | grep -o -P '(?<=(ON `)).*(?=`.* TO)' | wc -l )"
+
+#Get databases for backup user
+GETDB1="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'backup'@'localhost';" | grep -o -P '(?<=(ON )).*(?= TO)')"
+GETDB2="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'backup'@'localhost';" | grep -o -P '(?<=(SHOW VIEW ON )).*(?= TO)')"
+
+if [ "$GETDB" == 0 ];
+then
+echo "$GETDB1"
+echo "Da"
+else
+echo "$GETDB"
+echo "Net"
+fi
+
+}
+
+get_db_perm_
+
+
+
+#get user permisions
+
+
+
+
+function get_db1_perm_ () {
+
+
+#Get user databases
+local GETDB="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';"  | grep -o -P '(?<=(ON `)).*(?=`.* TO)' | wc -l )"
+local GETDBALL="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';"  | grep -o -P  '`%`' | wc -l )"
+ CHKSU1="$(mysql -u$TMPUSR -p$TMPPASSWD -N -e "SHOW GRANTS FOR '$username'@'$host';" | grep "WITH GRANT OPTION" | wc -l
+if user have more then 1 db show in other menu
+
+#get database user with permissions for all databases
+if [[ $GETDB -gt 1 ]] && [[ $GETDBALL == 1 ]] && [[ $CHKSU1 == 0 ]] ;
+then
+echo User have have permissions for all databases
+
+elif [[ GETDB  >= 1 ]] && [[ GETDBALL == 1 ]] && [[ $CHKSU1 == 0 ]] ;
+then
+
+echo user have permisions for spesific databases
++
+Show user databases in 
+
+
+
+
+
+
+
+
+
+
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';" | GREP_COLOR='01;32' grep --color=always -o -P '(?<=(GRANT )).*(?= ON *.* TO )'  | grep -v USAGE | grep -v "ALL PRIVILEGES"
+
+
+
+
+
+if user have more then 1 db show in other menu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GETDB0="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';"  | GREP_COLOR='01;32' grep --color=always -o -P '(?<=(ON `)).*(?=`.* TO)' | sed "s/%/&  <---------------------------->  Also user %username have permission on all databases /")"
+#Get databases for backup user
+GETDB1="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';" | grep -o -P '(?<=(ON )).*(?= TO)')"
+GETDB2="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';" | grep -o -P '(?<=(SHOW VIEW ON )).*(?= TO)')"
+
+if [ "$GETDB" == 0 ];
+then
+echo "$GETDB1"
+echo "Da"
+else
+echo "$GETDB0"
+echo "Net"
+fi
+}
+
+get_db1_perm_
+
+
+
+User role:
+Super user 
+Backup user
+Database R/W user 
+Dev user
+
+Databases:
+All
+Show Databases
+
+Permissions:
+read 
+write
+delete
+
+Advance:
+ 
+
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'hulk'@'localhost';"
+
+
+# get database list
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'annahats'@'localhost';" | grep -o -P '(?<=( ON `)).*(?=`.* TO )'
+
+
+
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';" | grep -o -P '(?<=( ON `)).*(?=`.* TO )'  | sed -e "\| ALL PRIVILEGES |d"
+
+local CHK1="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'root'@'localhost';" | grep "PASSWORD" | wc -l)"
+
+User Type:
+Super User: 
+function perm_usr_chk_ () {
+
+local CHK1="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'root'@'localhost';" | grep "WITH GRANT OPTION" | wc -l)"
+local CHK2="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'root'@'localhost';" | grep -o -P  '`%`' | wc -l)"
+local CHK3="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'root'@'localhost';" | grep "PASSWORD" | wc -l)"
+
+#Check 3 conditions 1. GRANT OPTIONS 2. `%` databases 3. If user have password
+if [[ ( "$CHK1" != 0 && "$CHK2" !== 0 && "$CHK3" != 0 ) ]];
+then
+echo "User type : Super User"
+echo "Database  : ALL * "
+echo "Password  : YES   "
+
+echo "Super User"
+
+
+TMPUSR=root
+TMPPASSWD=NewPass123$
+username=root
+host=localhost
+function pause_chk_usr_permission_ () {
+local C1="$(printf "${menu}Press [ ${fgred}Enter${STD}${menu} ] ${menu}key to continue to Menu or [ ${fgred}B${STD}${menu} ] ${menu}to vie advance permissions ${normal}\n")"
+while true
+do
+    read -p "$C1" fackEnterKey
+	
+if [ -n "$fackEnterKey" ];
+then
+clear
+mysql -u$TMPUSR -p$TMPPASSWD -N -e  "SHOW GRANTS FOR '$username'@'$host';" 
+break
+else
+break
+fi 
+done
+}
+
+function perm_usr_chk_ () {
+TMPUSR=root
+TMPPASSWD=NewPass123$
+username=bckp
+host=localhost
+CHKSU1="$(mysql -u$TMPUSR -p$TMPPASSWD -N -e "SHOW GRANTS FOR '$username'@'$host';" | grep "WITH GRANT OPTION" | wc -l )"
+CHKSU2="$(mysql -u$TMPUSR -p$TMPPASSWD -N -e "SHOW GRANTS FOR '$username'@'$host';" | grep -o -P  '`%`' | wc -l )"
+CHKSU3="$(mysql -u$TMPUSR -p$TMPPASSWD -N -e "SHOW GRANTS FOR '$username'@'$host';" | grep "PASSWORD" | wc -l )"
+tmpusr_tmppass_
+#valid_usrname_perm_
+#host_del_
+#Check 3 conditions 1. GRANT OPTIONS 2. `%` databases 3. If user have password
+if [[ "$CHKSU1" -gt 0 && "$CHKSU2" -gt 0 && "$CHKSU3" -gt 0 ]];
+then
+echo "User "$username" Details"
+echo "+------------------------------------------------------+"
+echo "| User type    : Super User (with root permissions)    |"
+echo "| Database     : ALL                                   |"
+echo "| Password     : YES                                   |"
+echo "| Create users : YES                                   |"
+echo "+------------------------------------------------------+"
+
+pause_chk_usr_permission_
+else
+
+echo " cho za nahuy"
+fi
+break 
+}
+
+perm_usr_chk_
+
+
+
+
+function perm_usr_chk_ () {
+#tmpusr_tmppass_
+local CHK1="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'root'@'localhost';" | grep "WITH GRANT OPTION" | wc -l)"
+local CHK2="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'root'@'localhost';" | grep -o -P  '`%`' | wc -l)"
+local CHK3="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'root'@'localhost';" | grep "PASSWORD" | wc -l)"
+#valid_usrname_
+#host_del_
+#Check 3 conditions 1. GRANT OPTIONS 2. `%` databases 3. If user have password
+if [[ ( "$CHK1" -gt 0 && "$CHK2" -gt 0 && "$CHK3" -gt 0 ) ]];
+then
+echo "User "root" Details"
+echo "+------------------------------------------------------+"
+echo "| User type    : Super User (with root permissions)    |"
+echo "| Database     : ALL                                   |"
+echo "| Password     : YES                                   |"
+echo "| Create users : YES                                   |"
+echo "+------------------------------------------------------+"
+
+else
+echo " cho za nahuy"
+fi
+}
+
+perm_usr_chk_ 
+
+
+
+
+
+
+
+
+
+
+
+Databases:
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';"  | grep -o -P '(?<=(ON `)).*(?=`.* TO)'
+
+Backup user:
+
+Spesial permissions:
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'backup'@'localhost';" | GREP_COLOR='01;32' grep --color=always -o -P '(?<=(GRANT )).*(?= ON *.* TO )'  | grep -v USAGE | grep -v "ALL PRIVILEGES"
+
+
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';" | grep "CREATE|ALTER" | wc -l  
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';" | grep -o -P  '`%`' | wc -l
+
+
+
+
+
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';"
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'dotscom'@'localhost';"
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'backup'@'localhost';"
+
+
+
+
+SUPER USER:
+PASSWORD
+WITH GRANT OPTION
+
+
+
+function get_db1_perm_ () {
+#Get user databases
+GETDB="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'backup'@'localhost';"  | grep -o -P '(?<=(ON `)).*(?=`.* TO)' | wc -l )"
+GETDB0="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'backup'@'localhost';"  | GREP_COLOR='01;32' grep --color=always -o -P '(?<=(ON `)).*(?=`.* TO)' | sed "s/%/&  <---------------------------->  Also user %username have permission on all databases /")"
+#Get databases for backup user
+GETDB1="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'backup'@'localhost';" | grep -o -P '(?<=(ON )).*(?= TO)')"
+GETDB2="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'backup'@'localhost';" | grep -o -P '(?<=(SHOW VIEW ON )).*(?= TO)' | wc -l)"
+
+PERM="$(mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'backup'@'localhost';" | grep -o -P '(?<=(GRANT )).*(?= ON )')"
+
+if [ "$GETDB" == 0 ] && [ "$GETDB2" == 1 ];
+then
+echo "$GETDB1"
+echo "User Role:"
+echo "User for Backup"
+echo
+echo "Permisions"
+echo "read "
+
+else
+echo "$GETDB0"
+echo "Net"
+fi
+}
+
+
+get_db1_perm_
+
+grep  '(?<=(", ")).*(?=,route)'
+
+
+grep -v '(?<=(", ")).*(?=,route)'
+
+
+tail -f /var/log/asterisk/full  | awk '!/GotoIf|NoOp|Recording|making|name-pres|DIAL_TRUNK_OPTIONS|MASTER_CHANNEL|res_agi|app_mixmonitor|TOUCH_MONITOR|HOTDESKCALL|CHANNEL|MOHCLASS=default|MIXMON_ID|__DIAL_OPTIONS|EMERGENCYCID|TRUNKOUTCID/'
+
+Called SIP
+
+ALL=(ALL:ALL) ALL
+
+
+tail -f /var/log/asterisk/full  | awk '!/GotoIf|NoOp|Recording|making|name-pres|DIAL_TRUNK_OPTIONS|MASTER_CHANNEL|res_agi|app_mixmonitor|TOUCH_MONITOR|HOTDESKCALL|CHANNEL|MOHCLASS=default|MIXMON_ID|__DIAL_OPTIONS|EMERGENCYCID|TRUNKOUTCID|CALLFILENAME|HOTDESCKCHAN|OUTBOUND_GROUP|recordingfile|RECMODE|sub-record-check/' |  awk '{print  $2,"       ", $6, "         ", $7, "      ", $8}'
+
+
+
+echo -e "\033[32m"
+
+|  awk '{print  $2,"       ", $6, "         ", $7, "      ", $8}'
+
+
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'bckp'@'localhost';"  | GREP_COLOR='01;32' grep --color=always -o -P '(?<=(ON `)).*(?=`.* TO)' | echo -e "\033[32m" | sed "s/%/&     echo -e "\033[32m"  <<----------------------------Also user %username have permission on all databases /"
+
+
+
+mysql -uroot -pNewPass123$ -N -e  "SHOW GRANTS FOR 'annahats'@'localhost';"  | GREP_COLOR='01;32' grep --color=always -o -P '(?<=(ON `)).*(?=`.* TO)' | sed "s/%/&     echo -e "\033[32m" <<----------------------------Also user %username have permission on all databases /"
+
+
+ tail -f /var/log/asterisk/full | awk '!/MixMonitor|NoOp|ExecIf|Return|IAX2/' | awk '{print  $2,"       ", $6, "         ", $7, "      ", $8}' | GREP_COLOR='01;32' grep --color=always  'Called SIP\|972732580000\|Roulette1\|AMPUSERCIDNAME\|FROMEXTEN\|joined\|left'
+
+tail -f /var/log/asterisk/full | awk '!/MixMonitor|CALLERPRES|EMERGENCYCID|ALLOWTHISROUTE|DIAL_TRUNK_OPTIONS/' | awk '{print $2, "     ",  $3, "    ",  $4,     $6, "         ", $7, "             ", $8}'
+
+##########1######################1############
+tail -f /var/log/asterisk/full | awk '!/MixMonitor|NoOp|ExecIf|Return|IAX2|MOHCLASS|sub-record-check|dialout-trunk/' | awk '{print  $2,"    ", $6, "                         ", $7, "                         ", $8}' | GREP_COLOR='01;32' grep --color=always  'Called SIP\|972732580077\|Roulette1\|AMPUSERCIDNAME'
+##########1######################1############
+08:21:50]      extension                           (from-internal-additional,                           972732580077,
+08:21:56]      [972732580077@from-internal-additional:1]                           Macro("SIP/3366-00000019",                           "user-callerid,LIMIT,")
+08:21:56]      [s@macro-user-callerid:12]                           Set("SIP/3366-00000019",                           "AMPUSERCIDNAME=Gennady_FOP2")
+08:21:56]      [972732580077@from-internal-additional:3]                           Gosub("SIP/3366-00000019",                           "TR9_Roulette1-RandomCID,route13_cell21,1")
+08:21:56]      [route13_cell21@TR9_Roulette1-RandomCID:1]                           Set("SIP/3366-00000019",                           "TRUNKCIDOVERRIDE=448002494328")
+08:21:56]      extension                           (from-trunk-sip-Didlogic_TRIL_EU_sip.nl.didlogic.net,                           972732580077,
+08:21:56]      SIP/Didlogic_TRIL_EU_sip.nl.didlogic.net/972732580077
+##########1######################1############
+
+
+Disconnected fro client side
+finish from client side
+
+[2020-05-06 08:28:25] VERBOSE[11520][C-0000001c] bridge_channel.c: Channel SIP/Didlogic_TRIL_EU_sip.nl.didlogic.net-00000024 left 'simple_bridge' basic-bridge <72ab0d1f-fe9c-4fe6-a7cd-c3865625f40a>
+[2020-05-06 08:28:25] VERBOSE[11381][C-0000001c] bridge_channel.c: Channel SIP/3366-00000023 left 'simple_bridge' basic-bridge <72ab0d1f-fe9c-4fe6-a7cd-c3865625f40a>
+[2020-05-06 08:28:25] VERBOSE[11381][C-0000001c] app_macro.c: Spawn extension (macro-dialout-trunk, s, 26) exited non-zero on 'SIP/3366-00000023' in macro 'dialout-trunk'
+[2020-05-06 08:28:25] VERBOSE[11381][C-0000001c] pbx.c: Spawn extension (from-internal-additional, 972732580077, 5) exited non-zero on 'SIP/3366-00000023'
+[2020-05-06 08:28:25] VERBOSE[11381][C-0000001c] pbx.c: Executing [h@from-internal-additional:1] Hangup("SIP/3366-00000023", "") in new stack
+[2020-05-06 08:28:25] VERBOSE[11381][C-0000001c] pbx.c: Spawn extension (from-internal-additional, h, 1) exited non-zero on 'SIP/3366-00000023'
+[2020-05-06 08:28:25] VERBOSE[11382][C-0000001c] app_mixmonitor.c: MixMonitor close filestream (mixed)
+[2020-05-06 08:28:25] VERBOSE[11382][C-0000001c] app_mixmonitor.c: End MixMonitor Recording SIP/3366-00000023
+
+
+
+"1?Set(CONNECTEDLINE(num,i)=972732580077)")
+"1?Set(CONNECTEDLINE(name,i)=CID:447874431675)")
+"0?Set(CONNECTEDLINE(name,i)=CID:(Hidden)447874431675)")
+
+"0?Set(CALLERID(all)=)")
+"1?Set(CALLERID(all)=054784865)")
+"1?Set(CALLERID(all)=447874431675)")
+"0?Set(CALLERID(all)=3366)")
+ "custom=SIP/Didlogic_TRIL_EU_sip.nl.didlogic.net")
+"OUTNUM=972732580077")
+
+############################################################################
+tail -f /var/log/asterisk/full | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|start|left|from-trunk-sip|TECH=SIP|Return|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE/  {print $2, "   ",  $8 } '  
+
+
+#####################Step 1: Get filtred log
+*********************************
+stdbuf -o0 tail -f /var/log/asterisk/full.PBXTRSAIL |  while read a; do echo "$a"  | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/  {print $2, "|",  $8 } ' >>  pbxoutput.log; done
+*********************************
+#sed -i '/"GROUP()=OUT_31")/c\                  ' pbxoutput-clean1.log
+###############Step 2
+#Remove duplicates
+yes | cp pbxoutput-clean.log pbxoutput-clean1.log && sed '$!N; /^\(.*\)\n\1$/!P; D'  pbxoutput-clean1.log > pbxoutput-clean2.log && cat pbxoutput-clean2.log > pbxoutput-clean1.log
+yes | cp pbxoutput.log pbxoutput-clean1.log && sed '$!N; /^\(.*\)\n\1$/!P; D'  pbxoutput-clean1.log >pbxoutput-clean2.log && cat pbxoutput-clean2.log > pbxoutput-clean1.log
+
+sed -i 's+custom=IAX2/+Outbound Trunk-------------[+g' pbxoutput-clean1.log
+
+
+sed -i 's+custom=SIP/+Outbound Trunk-------------[+g' pbxoutput-clean1.log
+
+
+#Delete pattern Before and After
+sed -n -i  '/OUTBOUND_GROUP/{x;n;d;};1h;1!{x;p;};${x;p;}' pbxoutput-clean1.log   #Delete line before and after pattern
+
+
+#Delete pattern After מעל השורה
+sed -n -i  '/OUTBOUND_GROUP/{x;n;};1h;1!{x;p;};${x;p;}' pbxoutput-clean1.log   #Delete line before and after pattern
+
+#Delete pattern Before אחרי השורה
+sed -n -i  '/Call reached destination!!!/{x;d;};1h;1!{x;p;};${x;p;}' pbxoutput.log
+
+
+# Remove all after patern matched
+sed -i 's/\(.*\RandomCID\).*/\1/g' pbxoutput-clean1.log 
+
+#If pattern matche remove whole line
+sed -i '/Hidden/d' pbxoutput-clean1.log 
+
+#find pattern and append somthing to end of line
+sed -i "/CONNECTEDLINE(name))/ s/$/]/" pbxoutput-clean1.log  
+
+#Append line after match
+sed  '/\[option\]/a Hello World' input
+
+Insert line before match
+sed  '/\[option\]/i Hello World' input
+
+
+
+sed -n -i  '/OUTBOUND_GROUP/{x;d;};1h;1!{x;p;};${x;p;}' pbxoutput-clean1.log   #Delete line before and after pattern
+
+
+
+
+
+cat pbxoutput.log > pbxoutput-clean1.log && sed -i '$!N; /^\(.*\)\n\1$/!P; D'  pbxoutput-clean1.log
+sed -i '/from-trunk/i\             \n-------------Start New Incomming Call log-------------\n******************************************************' pbxoutput-clean1.log
+sed -i '/language/d' pbxoutput-clean1.log
+sed -n -i  '/Wait_For/{x;n;d;};1h;1!{x;p;};${x;p;}' pbxoutput-clean1.log
+sed -n -i  '/OUTBOUND_GROUP/{x;n;};1h;1!{x;p;};${x;p;}' pbxoutput-clean1.log   #Delete line before and after pattern
+sed -i '/"")/,+1 d' pbxoutput-clean1.log #remove whole line if match pattern
+sed -i 's+__RECORD_ID=SIP/+Incoming Trunk_____________[+g' pbxoutput-clean1.log
+sed -i '/?start")/d' pbxoutput-clean1.log 
+sed -i "s/]//g" pbxoutput-clean1.log
+sed -i '/"0?customtrunk")/d' pbxoutput-clean1.log 
+sed -i '/"AMPUSERCIDNAME=")/d' pbxoutput-clean1.log
+sed -i '/startrec/d' pbxoutput-clean1.log
+sed -i '/Hidden/d' pbxoutput-clean1.log                                              #If pattern matche remove whole line
+sed -i "s/]//g" pbxoutput-clean1.log
+sed -i '/php/d' pbxoutput-clean1.log                                                 #Find pattern and delete whole line
+sed -i "s/'//g" pbxoutput-clean1.log
+sed -i 's/simple_bridge/Call reached destination!!!/g' pbxoutput-clean1.log
+sed -i 's/__DIRECTION=/Direction__________________[/g' pbxoutput-clean1.log
+sed -i 's/"CONNECTEDLINE(name)=/In call belong to user_____[/g' pbxoutput-clean1.log
+sed -i 's/)")/]/g' pbxoutput-clean1.log
+sed -i 's/")/]/g' pbxoutput-clean1.log
+sed -i 's/,1//' pbxoutput-clean1.log
+sed -i 's/,2//' pbxoutput-clean1.log
+sed -i "s/,//g" pbxoutput-clean1.log
+sed -i 's+"CONNECTEDLINE(numi)=+In call belong to ext______[+g' pbxoutput-clean1.log
+sed -i 's/start/User dialing now ..../g' pbxoutput-clean1.log
+sed -i 's/(CONNECTEDLINE(numi)=/Destination (Client Number)_[/g' pbxoutput-clean1.log
+sed -i 's/(CONNECTEDLINE(namei)=CID:/Outbound CID (Rep Number)___[/g' pbxoutput-clean1.log
+sed -i 's/"//g' pbxoutput-clean1.log
+sed -i 's/TECH=/Driver_____________________[/g' pbxoutput-clean1.log
+sed -i "/MASTER_CHANNEL(CFIGNORE)=]/d" pbxoutput-clean1.log
+#sed -i "/MASTER_CHANNEL(FORWARD_CONTEXT)=/d" pbxoutput-clean1.log
+sed -i 's/MASTER_CHANNEL(FORWARD_CONTEXT)=/Called from Context________[/g' pbxoutput-clean1.log
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(num))=/Call answared by ext_______[/g" pbxoutput-clean1.log
+sed -i "/CONNECTEDLINE(name))/ s/$/]/" pbxoutput-clean1.log                                                        #find pattern and append somthing to end of line
+sed -i "/In call belong to user/ s/$/]/" pbxoutput-clean1.log 
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(name))=/Call answared by user______[/g" pbxoutput-clean1.log
+sed -i 's/RECMODE=/Record Mode________________[/g' pbxoutput-clean1.log
+sed -i 's/(TRUNKCIDOVERRIDE=/User Caller ID_____________[/g' pbxoutput-clean1.log
+sed -i 's/AMPUSERCID=/Now calling ext____________[/g' pbxoutput-clean1.log
+sed -i 's/AMPUSERCIDNAME=/Now calling user___________[/g' pbxoutput-clean1.log
+sed -i 's/from-trunk/Incomming Client Number____[/g' pbxoutput-clean1.log
+sed -i "/Now calling user/i\      \n         \n-------------Start New Outgoing Call log-------------\n******************************************************" pbxoutput-clean1.log               # Add line after before pattern match #Add lane after pattern is mattch
+sed -i '/Now calling user/ s/$/]/' pbxoutput-clean1.log 
+sed -i "s+0?Set++g" pbxoutput-clean1.log
+sed -i "s+]]+]+g" pbxoutput-clean1.log
+sed -i 's/1?Set//g' pbxoutput-clean1.log
+sed -i 's+custom=IAX2/+Outbound Trunk_____________[+g' pbxoutput-clean1.log
+sed -i 's+custom=SIP/+Outbound Trunk_____________[+g' pbxoutput-clean1.log
+sed -i 's+IVR_MSG=custom/+IVR Recording file_________[+g' pbxoutput-clean1.log
+sed -i 's/completed/Call to IVR or Group_______[Answared by user]/g' pbxoutput-clean1.log
+sed -i '/OUTBOUND_GROUP/d' pbxoutput-clean1.log 
+sed -i '/__RECORD_ID=/d' pbxoutput-clean1.log
+sed -i '/1?New call is starting now ....]/d' pbxoutput-clean1.log
+sed -i '/0?New call is starting now ....]/d' pbxoutput-clean1.log
+sed -i "/GROUP(/d" pbxoutput-clean1.log
+sed -i 's/\(.*\RandomCID\).*/\1/g' pbxoutput-clean1.log
+sed -i 's/-RandomCID/_______________[Used Random Call]/g' pbxoutput-clean1.log
+sed -i 's/TRUNKCIDOVERRIDE=/Used Number from roulette___[/g' pbxoutput-clean1.log
+sed -i "/1?Background/d" pbxoutput-clean1.log
+
+
+
+
+
+#############################################################################################################################################################################
+
+stdbuf -o0 tail -f /var/log/asterisk/full.PBXTRSAIL |  while read a; do echo "$a"  | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/  {print $2, "|",  $8 }'  >>  pbxoutput.log; done
+
+asterisktmplog=/root/asterisklog.log
+
+
+
+
+function asterisk_log_parser_ () {
+asterisktmplog=/root/asterisklog.log
+cat pbxoutput.log > $asterisktmplog && sed -i '$!N; /^\(.*\)\n\1$/!P; D'  $asterisktmplog
+sed -i '/from-trunk/i\             \n------------------Incomming Call log------------------\n******************************************************' $asterisktmplog
+sed -i '/language/d' $asterisktmplog
+sed -n -i  '/Wait_For/{x;n;d;};1h;1!{x;p;};${x;p;}' $asterisktmplog
+sed -n -i  '/OUTBOUND_GROUP/{x;n;};1h;1!{x;p;};${x;p;}' $asterisktmplog   #Delete line before and after pattern
+sed -i '/"")/,+1 d' $asterisktmplog #remove whole line if match pattern
+sed -i 's+__RECORD_ID=SIP/+Incoming Trunk______________[+g' $asterisktmplog
+sed -i '/?start")/d' $asterisktmplog 
+sed -i "s/]//g" $asterisktmplog
+sed -i '/"0?customtrunk")/d' $asterisktmplog 
+sed -i '/"AMPUSERCIDNAME=")/d' $asterisktmplog
+sed -i '/startrec/d' $asterisktmplog
+sed -i '/Hidden/d' $asterisktmplog                                              #If pattern matche remove whole line
+sed -i "s/]//g" $asterisktmplog
+sed -i '/php/d' $asterisktmplog                                                 #Find pattern and delete whole line
+sed -i "s/'//g" $asterisktmplog
+sed -i 's/simple_bridge/Call reached destination!!!/g' $asterisktmplog
+sed -i 's/__DIRECTION=/Direction___________________[/g' $asterisktmplog
+sed -i 's/"CONNECTEDLINE(name)=/Outbound CID (Rep Number)___[/g' $asterisktmplog
+sed -i 's/)")/]/g' $asterisktmplog
+sed -i 's/")/]/g' $asterisktmplog
+sed -i 's/,1//' $asterisktmplog
+sed -i 's/,2//' $asterisktmplog
+sed -i "s/,//g" $asterisktmplog
+sed -i 's+"CONNECTEDLINE(numi)=+In call belong to ext_______[+g' $asterisktmplog
+sed -i 's/start/User dialing now ..../g' $asterisktmplog
+sed -i 's/(CONNECTEDLINE(numi)=/Destination (Client Number)_[/g' $asterisktmplog
+sed -i 's/(CONNECTEDLINE(namei)=CID:/Outbound User Number________[/g' $asterisktmplog
+sed -i 's/"//g' $asterisktmplog
+sed -i 's/TECH=/Driver______________________[/g' $asterisktmplog
+sed -i "/MASTER_CHANNEL(CFIGNORE)=]/d" $asterisktmplog
+sed -i 's/MASTER_CHANNEL(FORWARD_CONTEXT)=/Called from Context_________[/g' $asterisktmplog
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(num))=/Call answared by ext________[/g" $asterisktmplog
+sed -i "/CONNECTEDLINE(name))/ s/$/]/" $asterisktmplog                                                        #find pattern and append somthing to end of line
+sed -i "/In call belong to user/ s/$/]/" $asterisktmplog 
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(name))=/Call answared by user_______[/g" $asterisktmplog
+sed -i 's/RECMODE=/Record Mode_________________[/g' $asterisktmplog
+sed -i 's/(TRUNKCIDOVERRIDE=/User Caller ID______________[/g' $asterisktmplog
+sed -i 's/AMPUSERCID=/Now calling ext_____________[/g' $asterisktmplog
+sed -i 's/AMPUSERCIDNAME=/Now calling user____________[/g' $asterisktmplog
+sed -i 's/from-trunk/Incomming Client Number_____[/g' $asterisktmplog
+sed -i "/Now calling user/i\      \n         \n------------------Outgoing Call log------------------\n******************************************************" $asterisktmplog   #Add line after before pattern match #Add lane after pattern is mattch
+sed -i '/Now calling user/ s/$/]/' $asterisktmplog 
+sed -i "s+0?Set++g" $asterisktmplog
+sed -i "s+]]+]+g" $asterisktmplog
+sed -i 's/1?Set//g' $asterisktmplog
+sed -i 's+custom=IAX2/+Outbound Trunk______________[+g' $asterisktmplog
+sed -i 's+custom=SIP/+Outbound Trunk______________[+g' $asterisktmplog
+sed -i 's+IVR_MSG=custom/+IVR Recording file__________[+g' $asterisktmplog
+sed -i 's/completed/Call to IVR or Group________[Answared by user]/g' $asterisktmplog
+sed -i '/OUTBOUND_GROUP/d' $asterisktmplog 
+sed -i '/__RECORD_ID=/d' $asterisktmplog
+sed -i '/1?New call is starting now ....]/d' $asterisktmplog
+sed -i '/0?New call is starting now ....]/d' $asterisktmplog
+sed -i '/GROUP/d' $asterisktmplog && echo
+sed -i 's/\(.*\RandomCID\).*/\1/g' $asterisktmplog
+sed -i '/Background/d' $asterisktmplog
+sed -i 's/-RandomCID/________________[Used Random Call]/g' $asterisktmplog
+sed -i 's/TRUNKCIDOVERRIDE=/Used Number from roulette____[/g' $asterisktmplog && echo
+sed -i '/CRM_DIRECTION/d' $asterisktmplog
+cat $asterisktmplog > asterisk-full.log
+}
+
+#asterisk_log_parser_ 
+
+#Work But Slow
+stdbuf -o0 tail -f /var/log/asterisk/full.freepbx.sangoma.local |  while read a;  do echo "$a"  | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/ {print $2, "|", $8 } ' >>  pbxoutput.log  & asterisk_log_parser_  ; done
+
+#############################################################################################################################################################################
+
+
+
+
+
+
+
+
+stdbuf -o0 tail -f /var/log/asterisk/full.freepbx.sangoma.local |  while read a;  do echo "$a"  | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/ {print $2, "|", $8 } ' >>  pbxoutput.log  & asterisk_log_parser_  ; done 
+
+
+
+#wORKING WITH DELEY
+stdbuf -o0 tail -f /var/log/asterisk/full.freepbx.sangoma.local |  while read a;  do asterisk_log_parser_ && echo "$a"  | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/  {print $2, "|",  $8 } ' >>  pbxoutput.log   ; done 
+
+
+
+
+
+45.149.206.194
+
+
+#############################################################################################################################################################################
+
+
+
+
+#############################################################################################################################################################################
+
+function asterisk_log_parser_ () {
+asterisktmplog=/root/asterisklog.log
+cat pbxoutput.log > $asterisktmplog && sed -i '$!N; /^\(.*\)\n\1$/!P; D'  $asterisktmplog
+sed -i '/from-trunk/i\             \n------------------Incomming Call log------------------\n******************************************************' $asterisktmplog
+sed -i '/language/d' $asterisktmplog
+sed -n -i  '/Wait_For/{x;n;d;};1h;1!{x;p;};${x;p;}' $asterisktmplog
+sed -n -i  '/OUTBOUND_GROUP/{x;n;};1h;1!{x;p;};${x;p;}' $asterisktmplog   #Delete line before and after pattern
+sed -i '/"")/,+1 d' $asterisktmplog #remove whole line if match pattern
+sed -i 's+__RECORD_ID=SIP/+Incoming Trunk______________[+g' $asterisktmplog
+sed -i '/?start")/d' $asterisktmplog 
+sed -i "s/]//g" $asterisktmplog
+sed -i '/"0?customtrunk")/d' $asterisktmplog 
+sed -i '/"AMPUSERCIDNAME=")/d' $asterisktmplog
+sed -i '/startrec/d' $asterisktmplog
+sed -i '/Hidden/d' $asterisktmplog                                              #If pattern matche remove whole line
+sed -i "s/]//g" $asterisktmplog
+sed -i '/php/d' $asterisktmplog                                                 #Find pattern and delete whole line
+sed -i "s/'//g" $asterisktmplog
+sed -i 's/simple_bridge/Call reached destination!!!/g' $asterisktmplog
+sed -i 's/__DIRECTION=/Direction___________________[/g' $asterisktmplog
+sed -i 's/"CONNECTEDLINE(name)=/Outbound CID (Rep Number)___[/g' $asterisktmplog
+sed -i 's/)")/]/g' $asterisktmplog
+sed -i 's/")/]/g' $asterisktmplog
+sed -i 's/,1//' $asterisktmplog
+sed -i 's/,2//' $asterisktmplog
+sed -i "s/,//g" $asterisktmplog
+sed -i 's+"CONNECTEDLINE(numi)=+In call belong to ext_______[+g' $asterisktmplog
+sed -i 's/start/User dialing now ..../g' $asterisktmplog
+sed -i 's/(CONNECTEDLINE(numi)=/Destination (Client Number)_[/g' $asterisktmplog
+sed -i 's/(CONNECTEDLINE(namei)=CID:/Outbound User Number________[/g' $asterisktmplog
+sed -i 's/"//g' $asterisktmplog
+sed -i 's/TECH=/Driver______________________[/g' $asterisktmplog
+sed -i "/MASTER_CHANNEL(CFIGNORE)=]/d" $asterisktmplog
+sed -i 's/MASTER_CHANNEL(FORWARD_CONTEXT)=/Called from Context_________[/g' $asterisktmplog
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(num))=/Call answared by ext________[/g" $asterisktmplog
+sed -i "/CONNECTEDLINE(name))/ s/$/]/" $asterisktmplog                                                        #find pattern and append somthing to end of line
+sed -i "/In call belong to user/ s/$/]/" $asterisktmplog 
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(name))=/Call answared by user_______[/g" $asterisktmplog
+sed -i 's/RECMODE=/Record Mode_________________[/g' $asterisktmplog
+sed -i 's/(TRUNKCIDOVERRIDE=/User Caller ID______________[/g' $asterisktmplog
+sed -i 's/AMPUSERCID=/Now calling ext_____________[/g' $asterisktmplog
+sed -i 's/AMPUSERCIDNAME=/Now calling user____________[/g' $asterisktmplog
+sed -i 's/from-trunk/Incomming Client Number_____[/g' $asterisktmplog
+sed -i "/Now calling user/i\      \n         \n------------------Outgoing Call log------------------\n******************************************************" $asterisktmplog   #Add line after before pattern match #Add lane after pattern is mattch
+sed -i '/Now calling user/ s/$/]/' $asterisktmplog 
+sed -i "s+0?Set++g" $asterisktmplog
+sed -i "s+]]+]+g" $asterisktmplog
+sed -i 's/1?Set//g' $asterisktmplog
+sed -i 's+custom=IAX2/+Outbound Trunk______________[+g' $asterisktmplog
+sed -i 's+custom=SIP/+Outbound Trunk______________[+g' $asterisktmplog
+sed -i 's+IVR_MSG=custom/+IVR Recording file__________[+g' $asterisktmplog
+sed -i 's/completed/Call to IVR or Group________[Answared by user]/g' $asterisktmplog
+sed -i '/OUTBOUND_GROUP/d' $asterisktmplog 
+sed -i '/__RECORD_ID=/d' $asterisktmplog
+sed -i '/1?New call is starting now ....]/d' $asterisktmplog
+sed -i '/0?New call is starting now ....]/d' $asterisktmplog
+sed -i '/GROUP/d' $asterisktmplog && echo
+sed -i 's/\(.*\RandomCID\).*/\1/g' $asterisktmplog
+sed -i '/Background/d' $asterisktmplog
+sed -i 's/-RandomCID/________________[Used Random Call]/g' $asterisktmplog
+sed -i 's/TRUNKCIDOVERRIDE=/Used Number from roulette____[/g' $asterisktmplog && echo
+sed -i '/CRM_DIRECTION/d' $asterisktmplog
+cat $asterisktmplog > asterisk-full.log
+}
+
+
+stdbuf -o0 tail -f /var/log/asterisk/full.freepbx.sangoma.local  |  while read a;  do echo "$a"  | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/ {print $2, "|", $8 } ' >>  pbxoutput.log  & asterisk_log_parser_   ; done
+
+
+
+#asterisk_log_parser_ 
+stdbuf -o0 tail -f /var/log/asterisk/full.PBXTRSAIL |  while read a;  do echo "$a"  | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/ {print $2, "|", $8 } ' >>  pbxoutput.log  | for i in $a; do sleep 1 &&  asterisk_log_parser_ >>asterisk-full.log  ; done ; done
+
+
+
+
+V-02
+stdbuf -o0 tail -f /var/log/asterisk/full.PBXTRSAIL |  while read a;  do echo "$a"  | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/ {print $2, "|", $8 } ' >>  pbxoutput.log  | for i in $a; do sleep 1 &&  asterisk_log_parser_ ; done ; done
+
+stdbuf -o0 tail -f /var/log/asterisk/full.freepbx.sangoma.local |  while read a;  do echo "$a"  | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/ {print $2, "|", $8 } ' >>  pbxoutput.log  | for i in $a; do sleep 1 &&  asterisk_log_parser_ ; done ; done
+
+
+V-01
+#Work But Slow
+
+stdbuf -o0 tail -f /var/log/asterisk/full.PBXTRSAIL |  while read a;  do echo "$a"  | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/ {print $2, "|", $8 } ' >>  pbxoutput.log  & asterisk_log_parser_  ; done
+
+
+#############################################################################################################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1?Background
+Wait_For
+
+
+
+sed -n -i  "/Wait_For/{x;n;d;};1h;1!{x;p;};${x;p;}" pbxoutput-clean1.log
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cat pbxoutput.log > pbxoutput-clean1.log && sed -i '$!N; /^\(.*\)\n\1$/!P; D'  pbxoutput-clean1.log
+sed -i '/from-trunk/i\             \n-------------Start New Incomming Call log-------------\n******************************************************' pbxoutput-clean1.log
+sed -n -i  '/OUTBOUND_GROUP/{x;n;};1h;1!{x;p;};${x;p;}' pbxoutput-clean1.log   #Delete line before and after pattern
+sed -i '/"")/,+1 d' pbxoutput-clean1.log #remove whole line if match pattern
+sed -i 's+__RECORD_ID=SIP/+Incoming Trunk_____________[+g' pbxoutput-clean1.log
+sed -i '/"?start")/d' pbxoutput-clean1.log 
+sed -i "s/]//g" pbxoutput-clean1.log
+sed -i '/"0?customtrunk")/d' pbxoutput-clean1.log 
+sed -i '/"AMPUSERCIDNAME=")/d' pbxoutput-clean1.log
+sed -i '/startrec/d' pbxoutput-clean1.log
+sed -i '/Hidden/d' pbxoutput-clean1.log                                              #If pattern matche remove whole line
+sed -i "s/]//g" pbxoutput-clean1.log
+sed -i '/php/d' pbxoutput-clean1.log                                                 #Find pattern and delete whole line
+sed -i "s/'//g" pbxoutput-clean1.log
+sed -i 's/simple_bridge/Call answered by client or voice mail or IVR!!!/g' pbxoutput-clean1.log
+sed -i 's/__DIRECTION=/Direction__________________[/g' pbxoutput-clean1.log
+sed -i 's/"CONNECTEDLINE(name)=/In call belong to user_____[/g' pbxoutput-clean1.log
+sed -i "s/,//g" pbxoutput-clean1.log
+sed -i 's+"CONNECTEDLINE(numi)=+In call belong to ext______[+g' pbxoutput-clean1.log
+sed -i 's/start/User dialing now ..../g' pbxoutput-clean1.log
+sed -i 's/)")/]/g' pbxoutput-clean1.log
+sed -i 's/")/]/g' pbxoutput-clean1.log
+sed -i 's/(CONNECTEDLINE(numi)=/Outbound Client Number_____[/g' pbxoutput-clean1.log
+sed -i 's/(CONNECTEDLINE(namei)=CID:/Outbound User Number_______[/g' pbxoutput-clean1.log
+sed -i 's/"//g' pbxoutput-clean1.log
+sed -i 's/TECH=/Driver_____________________[/g' pbxoutput-clean1.log
+sed -i "/MASTER_CHANNEL(CFIGNORE)=]/d" pbxoutput-clean1.log
+sed -i "/MASTER_CHANNEL(FORWARD_CONTEXT)=/d" pbxoutput-clean1.log
+sed -i 's/MASTER_CHANNEL(FORWARD_CONTEXT)=/Called from Context = [/g' pbxoutput-clean1.log
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(num))=/Call answared by ext_______[/g" pbxoutput-clean1.log
+sed -i "/CONNECTEDLINE(name))/ s/$/]/" pbxoutput-clean1.log                                                        #find pattern and append somthing to end of line
+sed -i "/In call belong to user/ s/$/]/" pbxoutput-clean1.log 
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(name))=/Call answared by user______[/g" pbxoutput-clean1.log
+sed -i 's/RECMODE=/Record Mode________________[/g' pbxoutput-clean1.log
+sed -i 's/(TRUNKCIDOVERRIDE=/User Caller ID_____________[/g' pbxoutput-clean1.log
+sed -i 's/AMPUSERCID=/Now calling ext____________[/g' pbxoutput-clean1.log
+sed -i 's/AMPUSERCIDNAME=/Now calling user___________[/g' pbxoutput-clean1.log
+sed -i 's/from-trunk/Incomming Client Number----[/g' pbxoutput-clean1.log
+sed -i "/Now calling user/i\      \n         \n-------------Start New Outgoing Call log-------------\n******************************************************" pbxoutput-clean1.log               # Add line after before pattern match #Add lane after pattern is mattch
+sed -i '/Now calling user/ s/$/]/' pbxoutput-clean1.log 
+sed -i "s+0?Set++g" pbxoutput-clean1.log
+sed -i "s+]]+]+g" pbxoutput-clean1.log
+sed -i 's/1?Set//g' pbxoutput-clean1.log
+sed -i 's+custom=IAX2/+Outbound Trunk_____________[+g' pbxoutput-clean1.log
+sed -i 's+custom=SIP/+Outbound Trunk_____________[+g' pbxoutput-clean1.log
+sed -i '/OUTBOUND_GROUP/d' pbxoutput-clean1.log 
+sed -i '/__RECORD_ID=/d' pbxoutput-clean1.log
+sed -i '/1?New call is starting now ....]/d' pbxoutput-clean1.log
+sed -i '/0?New call is starting now ....]/d' pbxoutput-clean1.log
+sed -i "/GROUP(/d" pbxoutput-clean1.log
+sed -i 's/\(.*\RandomCID\).*/\1/g' pbxoutput-clean1.log
+sed -i 's/-RandomCID/______________[Used Roulete]/g' pbxoutput-clean1.log
+sed -i 's/TRUNKCIDOVERRIDE=/Number from roulette pool--[/g' pbxoutput-clean1.log
+
+
+
+
+{
+
+
+
+
+
+function asterisk_log_parser_ () {
+#Step2: Filter log
+
+asterisktmplog=/root/pbxoutput.log
+cat pbxoutput.log > $asterisktmplog && sed -i '$!N; /^\(.*\)\n\1$/!P; D'  $asterisktmplog
+
+
+
+
+mkfifo pbxoutput.log
+awk -F" " '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/ {print $2, "|", $8 } ' < pbxoutput.log & tail -f /var/log/asterisk/full.freepbx.sangoma.local > pbxoutput.log
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function copy_log_asterisk_ () {
+#Step 1: #Parse original log and copy by to another log
+#stdbuf -o0 tail -f /var/log/asterisk/full.PBXTRSAIL |
+stdbuf -o0 tail -f /var/log/asterisk/full.freepbx.sangoma.local | while read a;  do echo "$a" | stdbuf -o0 awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/ {print $2, "|", $8 } '   >>  pbxoutput.log; done
+}
+copy_log_asterisk_
+
+while IFS== read start ; do
+
+for log in $(cat pbxoutput.log | grep -o  'CONNECTEDLINE' ); do
+
+  parse_log_asterisk_  
+ 
+  done
+
+
+tail -F pbxoutput.log | while read line; do parse_log_asterisk_  ; done
+
+
+function parse_log_asterisk_ () {
+
+
+cat pbxoutput.log >> pbxoutput-clean1.log
+asterisktmplog=/root/pbxoutput-clean1.log
+sed -i '/from-trunk/i\             \n------------------Incomming Call log------------------\n******************************************************' $asterisktmplog
+sed -i '/language/d' $asterisktmplog
+sed -n -i  '/Wait_For/{x;n;d;};1h;1!{x;p;};${x;p;}' $asterisktmplog
+sed -n -i  '/OUTBOUND_GROUP/{x;n;};1h;1!{x;p;};${x;p;}' $asterisktmplog   #Delete line before and after pattern
+sed -i '/"")/,+1 d' $asterisktmplog #remove whole line if match pattern
+sed -i 's+__RECORD_ID=SIP/+Incoming Trunk______________[+g' $asterisktmplog
+sed -i '/?start")/d' $asterisktmplog 
+sed -i "s/]//g" $asterisktmplog
+sed -i '/"0?customtrunk")/d' $asterisktmplog 
+sed -i '/"AMPUSERCIDNAME=")/d' $asterisktmplog
+sed -i '/startrec/d' $asterisktmplog
+sed -i '/Hidden/d' $asterisktmplog                                              #If pattern matche remove whole line
+sed -i "s/]//g" $asterisktmplog
+sed -i '/php/d' $asterisktmplog                                                 #Find pattern and delete whole line
+sed -i "s/'//g" $asterisktmplog
+sed -i 's/simple_bridge/Call reached destination!!!/g' $asterisktmplog
+sed -i 's/__DIRECTION=/Direction___________________[/g' $asterisktmplog
+sed -i 's/"CONNECTEDLINE(name)=/Outbound CID (Rep Number)___[/g' $asterisktmplog
+sed -i 's/)")/]/g' $asterisktmplog
+sed -i 's/")/]/g' $asterisktmplog
+sed -i 's/,1//' $asterisktmplog
+sed -i 's/,2//' $asterisktmplog
+sed -i "s/,//g" $asterisktmplog
+sed -i 's+"CONNECTEDLINE(numi)=+In call belong to ext_______[+g' $asterisktmplog
+sed -i 's/start/User dialing now ..../g' $asterisktmplog
+sed -i 's/(CONNECTEDLINE(numi)=/Destination (Client Number)_[/g' $asterisktmplog
+sed -i 's/(CONNECTEDLINE(namei)=CID:/Outbound User Number________[/g' $asterisktmplog
+sed -i 's/"//g' $asterisktmplog
+sed -i 's/TECH=/Driver______________________[/g' $asterisktmplog
+sed -i "/MASTER_CHANNEL(CFIGNORE)=]/d" $asterisktmplog
+sed -i 's/MASTER_CHANNEL(FORWARD_CONTEXT)=/Called from Context_________[/g' $asterisktmplog
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(num))=/Call answared by ext________[/g" $asterisktmplog
+sed -i "/CONNECTEDLINE(name))/ s/$/]/" $asterisktmplog                                                        #find pattern and append somthing to end of line
+sed -i "/In call belong to user/ s/$/]/" $asterisktmplog 
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(name))=/Call answared by user_______[/g" $asterisktmplog
+sed -i 's/RECMODE=/Record Mode_________________[/g' $asterisktmplog
+sed -i 's/(TRUNKCIDOVERRIDE=/User Caller ID______________[/g' $asterisktmplog
+sed -i 's/AMPUSERCID=/Now calling ext_____________[/g' $asterisktmplog
+sed -i 's/AMPUSERCIDNAME=/Now calling user____________[/g' $asterisktmplog
+sed -i 's/from-trunk/Incomming Client Number_____[/g' $asterisktmplog
+sed -i "/Now calling user/i\      \n         \n------------------Outgoing Call log------------------\n******************************************************" $asterisktmplog   #Add line after before pattern match #Add lane after pattern is mattch
+sed -i '/Now calling user/ s/$/]/' $asterisktmplog 
+sed -i "s+0?Set++g" $asterisktmplog
+sed -i "s+]]+]+g" $asterisktmplog
+sed -i 's/1?Set//g' $asterisktmplog
+sed -i 's+custom=IAX2/+Outbound Trunk______________[+g' $asterisktmplog
+sed -i 's+custom=SIP/+Outbound Trunk______________[+g' $asterisktmplog
+sed -i 's+IVR_MSG=custom/+IVR Recording file__________[+g' $asterisktmplog
+sed -i 's/completed/Call to IVR or Group________[Answared by user]/g' $asterisktmplog
+sed -i '/OUTBOUND_GROUP/d' $asterisktmplog 
+sed -i '/__RECORD_ID=/d' $asterisktmplog
+sed -i '/1?New call is starting now ....]/d' $asterisktmplog
+sed -i '/0?New call is starting now ....]/d' $asterisktmplog
+sed -i '/GROUP/d' $asterisktmplog && echo
+sed -i 's/\(.*\RandomCID\).*/\1/g' $asterisktmplog
+sed -i '/Background/d' $asterisktmplog
+sed -i 's/-RandomCID/________________[Used Random Call]/g' $asterisktmplog
+sed -i 's/TRUNKCIDOVERRIDE=/Used Number from roulette____[/g' $asterisktmplog && echo
+#asterisk_log_parser_ 2>&1 | tee asterisk-full.log
+sed -i '/CRM_DIRECTION/d' $asterisktmplog
+cat $asterisktmplog  2>&1 | tee >> asterisk-full.log
+echo > pbxoutput-clean1.log
+echo > pbxoutput.log
+}
+
+while IFS= read line; do
+      parse_log_asterisk_  &
+  wait
+done < <(cat pbxoutput.log | grep start)
+
+
+
+    tail -F pbxoutput.log | grep start | while read line;
+	do
+parse_log_asterisk_  &
+  wait
+done
+
+
+}
+
+while read -r line ; do asterisk_log_parser_  2>&1 | tee asterisk-full.log  ;  done < pbxoutput.log
+
+
+function copy_log_asterisk_ () {
+
+#Step 1: #Parse original log and copy by to another log
+stdbuf -o0 tail -f /var/log/asterisk/full.freepbx.sangoma.local | 
+while read a;  
+do 
+echo "$a" |
+awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/ {print $2, "|", $8 } ' >>  pbxoutput.log ;
+
+done
+}
+
+
+
+
+tail -f pbxoutput.log | while read line ; do echo "$line" | asterisk_log_parser_  2>&1 | tee asterisk-full.log; done
+
+cat $asterisktmplog 2>&1 | tee asterisk-full.log && echo > $asterisktmplog
+
+
+
+function parse_log_asterisk_  () {
+
+#Step 3: Create filtred log
+tail -f pbxoutput.log | 
+while read b ; 
+ 
+do 
+read -t 0.25 -N 1 input 
+  if [ "$input" = "q" ] || [ "$input" = "Q" ]; then
+  break
+  else
+sleep 2
+asterisk_log_parser_  &
+wait
+fi;
+done
+
+}
+
+
+
+}
+
+
+
+
+
+
+copy_log_asterisk_
+copy_log_asterisk_
+
+
+
+
+
+
+
+asterisk_log_parser_
+
+
+
+
+
+
+copy_log_asterisk_
+
+
+
+
+
+tail -f pbxoutput.log | while read b ; do asterisk_log_parser_ ; done
+
+
+
+
+
+
+stdbuf -o0 tail -f /var/log/asterisk/full.freepbx.sangoma.local |  while read a;  do echo "$a"  | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/ {print $2, "|", $8 } ' >>  pbxoutput.log ; done
+
+
+
+
+for log in /root/asterisklog.log
+do
+asterisk_log_parser_ $log
+done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TRUNKCIDOVERRIDE=
+
+sed  '/\[option\]/a RandomCID' pbxoutput-clean1.log
+
+
+
+
+
+sed 's/\Rouletee\/.*/Rouletee/' pbxoutput-clean1.log
+
+sed "s/ -RandomCID.*'[^']*'/ /" pbxoutput-clean1.log
+sed -i 's/\(.*\RandomCID\).*/\1/g' pbxoutput-clean1.log # Remove all after patern matched
+
+
+
+0?New call is starting now ....]
+
+sed -i 's+__RECORD_ID=++g' pbxoutput-clean1.log
+
+
+
+__RECORD_ID=
+custom
+0?Set
+custom=IAX2/
+custom=SIP/
+
+
+
+
+
+
+from-trunk
+
+
+AMPUSERCID=
+AMPUSERCIDNAME=
+,
+ sed '/This is line two/a\your text 1\nyour text 2\nyour text 3'
+
+
+
+0?Set(MASTER_CHANNEL(CONNECTEDLINE(num))=
+TECH=
+
+)")
+
+sed -i '/^all:/ s/$/ anotherthing/
+
+
+
+sed -i 's/")//g' pbxoutput-clean1.log
+sed -i 's/1?Set//g' pbxoutput-clean1.log
+sed -i 's/0?Set/Off /g' pbxoutput-clean1.log
+
+sed -i 's/(CONNECTEDLINE(name,i)=CID:/Outbound Number = [/g' pbxoutput-clean1.log
+
+
+
+
+sed -i 's/(CONNECTEDLINE(num,i)=/Outbound Number = [/g' pbxoutput-clean1.log
+
+
+sed -i 's/))/]/g' pbxoutput-clean1.log
+sed -i 's/(Hidden)/[Hidden-/g' pbxoutput-clean1.log
+
+
+
+
+sed -i 's/1?startrec)/Off /g' pbxoutput-clean1.log
+"TRUNKCIDOVERRIDE
+Random
+"custom
+
+sed -i 's/On    Outbound Number/On  Outbound Number=/g' pbxoutput-clean1.log
+
+(CONNECTEDLINE(num,i)
+
+
+
+0Set
+  simple_bridge
+  
+  
+  CONNECTEDLINEname,i=CID:
+  
+  
+  0?Set(
+########################################################################################
+
+REALCALLERIDNUM
+
+
+RECMODE
+DIRECTION
+
+
+
+
+
+13#61477283763,
+11:28:41]     "User=Mark
+11:28:41]     "Extension=3322")
+11:28:41]     "1?startrec")
+11:28:41]     "1?Set(CONNECTEDLINE(num,i)=8617611587672)")
+11:28:41]     "1?Set(CONNECTEDLINE(name,i)=CID:442080891513)")
+11:28:41]     "0?Set(CONNECTEDLINE(name,i)=CID:(Hidden)442080891513)")
+11:28:41]     start
+11:28:41]     8617611587672,
+11:30:24]     "AMPUSERCIDNAME=")
+11:30:24]     "0?Set(CONNECTEDLINE(num,i)=6601)")
+11:30:24]     "0?Set(CONNECTEDLINE(name,i)=CID:1144)")
+11:30:24]     "0?Set(CONNECTEDLINE(name,i)=CID:(Hidden)1144)")
+11:30:24]     start
+11:30:26]     'simple_bridge'
+11:30:26]     'simple_bridge'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+tail -f input.log | while read a; do echo "$a" | awk -F" " '{print $1, $2, $7, $8}' >> output.log; done
+
+
+
+
+
+
+
+
+
+
+
+
+Dial
+complete
+start
+from-trunk-sip-
+TECH=
+joined
+
+CALLERID
+
+CONNECTEDLINE 
+
+TRUNKCIDOVERRIDE
+
+grep -P -o ".{0,5}CONNECTEDLINE|.{0,5}TRUNKCIDOVERRIDE.{0,5}|CALLERID.{0,5}"  | paste - - -
+'(?<=(ON `)).*(?=`.* TO)'
+
+
+
+
+grep -m 1 -o -P '(?<=("country_name":)).*(?=,"subdivision_1_name")'
+
+
+
+
+httpss://annahats4u.co.il/
+
+
+https://annahats4u.co.il/
+
+sed -i -e 's+http://anahats.rng.marketing/wp-content/uploads/2019/04/pros-circle-400.png+https://annahats4u.co.il/wp-content/uploads/2019/04/pros-circle-400.png+g' t.txt
+
+
+cat annahats4u-08-04.sql | grep -i "anahats.rng.marketing" | wc -l
+
+
+
+#####  
+
+
+sed -i 's+http://anahats.rng.marketing+https://annahats4u.co.il+g' sed-annahats4u-08-04.sql
+
+
+###Restore normal db
+mysql -uroot -pNewPass123$ annahats4u < annahats4u-08-04-2020.sql
+
+
+###Restore after sed
+mysql -uroot -pNewPass123$ annahats4u < sed-annahats4u-08-04.sql
+
+
+###Backup
+mysqldump -uuser_com admin.pro-wiki.com  > admin.pro-wiki.com-09-04-user_com.sql
+
+mysqldump -ubckp admin.pro-wiki.com  > admin.pro-wiki.com-09-04-bckp.sql
+
+
+
+
+sed -i sed -i -e 's+http://anahats.rng.marketing/wp-content/uploads/2019/04/pros-circle-400.png+https://annahats4u.co.il/wp-content/uploads/2019/04/pros-circle-400.png+g' sed-annahats4u-08-04.sql
+
+
+
+sed -i sed -i -e 's+httpss://annahats4u.co.il+https://annahats4u.co.il' sed-annahats4u-08-04.sql
+
+
+mysql -uroot -pNewPass123$ annahats4u -e "SELECT * FROM wp_options WHERE option_name = 'siteurl';"
+
+
+tzah.druker----corona2020@tradenet_com------------
+
+
+
+Restore normal db
+mysql -uroot -pNewPass123$ annahats4u < annahats4u-08-04-2020.sql
+
+
+Restore after sed
+mysql -uroot -pNewPass123$ annahats4u < sed-annahats4u-08-04.sql
+
+
+Backup
+mysqldump -uroot -pNewPass123$ annahats4u > annahats4u-08-04.sql
+
+
+
+
+tzah.druker----corona2020@tradenet_com------------
+SELECT-COLUMN_NAME-ROM_COLUMNSWHERE=_$dbnames_ANDTABLE_NAME=$table
+vpnnl.cglms.com
+
+
+dbtables=`mysql -uroot -pNewPass123$  -N -e 'SHOW TABLES FROM annahats4u;'`
+
+printf '%s\n' "${dbtables//Tables_in_annahats4u/}"
+dbtables="$(printf '%s\n' "${dbtables//Tables_in_$dbcurrent/}")"
+
+#1
+mysql -uroot -pNewPass123$  -N -e 'SHOW TABLES FROM annahats4u;' | wc -w
+
+#2
+dbtables="$(printf '%s\n' "${dbtables//Tables_in_$dbcurrent/}")"
+dbtables1=`mysql -uroot -pNewPass123$  -N -e 'SHOW TABLES FROM annahats4u;' | wc -w`
+echo $dbtables | head -n1 | awk '{print $1;}'
+echo $dbtables | head -n1 | awk '{print $1;}'
+
+https://annahats4u.co.il/
+
+
+
+
+function gat_table_col_ () {
+dbnames=annahats4u
+#1 Read all tables from db and save to file 
+dbtables=`mysql -uroot -pNewPass123$ -N -e "SHOW TABLES FROM $dbnames;"`
+#2 Read first table and run command to read all columns from table  
+table=`echo $dbtables | head -n1 | awk '{print $1;}'`
+echo "$table"
+mysql -uroot -pNewPass123$  information_schema -N <<MYSQL_SCRIPT
+SELECT COLUMN_NAME FROM COLUMNS WHERE TABLE_SCHEMA = '$dbnames' AND TABLE_NAME='$table';
+MYSQL_SCRIPT 
+
+USE annahats4u;
+mysql -uroot -pNewPass123$ -N -e "SELECT * FROM $LINE WHERE  'http://anahats.rng.marketing%';"
+
+dbtablescount="$(echo "$dbtables" | wc -w)"
+
+echo "$table" | wc -w
+
+
+
+}
+
+"$(printf '%s\n' "${tablefields//'Field'/}")"
+
+
+get_completions(){
+    local completion COMP_CWORD COMP_LINE COMP_POINT COMP_WORDS COMPREPLY=()
+
+    # load bash-completion if necessary
+    declare -F _completion_loader &>/dev/null || {
+        source /root/123.txt
+    }
+
+    COMP_LINE=$*
+    COMP_POINT=${#COMP_LINE}
+
+    eval set -- "$@"
+
+    COMP_WORDS=("$@")
+
+    # add '' to COMP_WORDS if the last character of the command line is a space
+    [[ ${COMP_LINE[@]: -1} = ' ' ]] && COMP_WORDS+=('')
+
+    # index of the last word
+    COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
+
+    # determine completion function
+    completion=$(complete -p "$1" 2>/dev/null | awk '{print $(NF-1)}')
+
+    # run _completion_loader only if necessary
+    [[ -n $completion ]] || {
+
+        # load completion
+        _completion_loader "$1"
+
+        # detect completion
+        completion=$(complete -p "$1" 2>/dev/null | awk '{print $(NF-1)}')
+
+    }
+
+    # ensure completion was detected
+    [[ -n $completion ]] || return 1
+
+    # execute completion function
+    "$completion"
+
+    # print completions to stdout
+    printf '%s\n' "${COMPREPLY[@]}" | LC_ALL=C sort
+}
+get_completions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+printf "enter tags (pohuy nahuy ping by space)\n"
+tags=$(cd /root || printf "internal error" ; read -re usertags ; printf "%s" "${usertags}")
+printf "%s\n" "${tags}"

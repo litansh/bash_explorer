@@ -1,0 +1,520 @@
+#!/bin/bash
+#!/bin/sh -
+# A menu driven shell script sample template 
+## ----------------------------------
+# Step #1: Define variables
+# ----------------------------------
+EDITOR=vim
+#PASSWD=/etc/passwd
+RED='\033[0;41;30m'
+STD='\033[0;0;39m'
+mkdir -p /tmp/mysql-tmp
+chmod 777 /tmp/mysql-tmp
+#Tmp for pass
+TMP=/tmp/mysql-tmp/mysql-tmp23455.log
+#Tmp for user
+TMP0=/tmp/mysql-tmp/mysql-tmp-validator.log
+TMP1=/tmp/mysql-tmp/mysql-tmp455.log
+TMP2=/tmp/mysql-tmp
+HISTORY=/tmp/mysql-tmp/script_history
+normal=`echo "\033[m"`
+menu=`echo "\033[36m"` #Blue
+number=`echo "\033[33m"` #yellow
+bgred=`echo "\033[41m"`
+fgred=`echo "\033[31m"`
+green=`echo "\033[32m"`
+blink=`echo "\033[5m" `
+whoami=`whoami`
+h1=`date +%R:%M%p`
+#true > script_history
+history -w script_history
+hostname=`hostname | cut -d"." -f1`
+SRVLIST=pwd/serverlist.log
+
+
+
+
+
+
+#This function exist in each options
+function confirm_ () {
+local C1="$(printf "${menu}Please Confirm (y/n) or ${number}[ Enter ] ${menu}to Y ${menu}: ${normal}\n")"
+echo 
+read -e -p "$C1 " confirmn
+if [ -n "$confirmn" ];
+then
+confirm=$confirmn
+printf "$confirm"
+else
+confirm=y
+fi
+}
+
+#Cound down from 5 to 0 and exit to Main Menu
+function counter_ () {
+secs=$((1 * 4))
+while [ $secs -gt 0 ]; do
+  
+   echo -ne "You will be returned to Main Menu in  " && echo -ne "$secs\033[0K\r"
+   sleep 1
+   : $((secs--))
+done
+menu_
+}
+
+#This function exist in each options
+function pause_ () {
+local C1="$(printf "Press ${number}[Enter] ${normal}key to continue... counter_ ${normal}\n")"
+
+  read -p "$C1" fackEnterKey 
+  
+  menu_
+}
+
+
+
+function menu_dir1_ () {
+     export CURDIR1=`ls "/${menu_main[$counter]}" -C -1` #<-------------------------------------------------menu_dir1
+     export DIR1=`echo "/${menu_main[$counter]}"`
+     menu1_
+	 }
+
+#Main Menu
+function menu_ () {
+   local selector=0
+ IFS=$'\n'       # make newlines the only separator
+  set -f 
+  PATH1=/
+	CURDIR=`ls $PATH1 -C -1 `
+clear
+	printf "\n${menu}        Backup ${green}System ${menu}Menu 1  ${normal}\n"
+	printf "\n${menu}************************************${normal}\n"
+	echo -e "Current folder is: $PATH1"
+	printf "${menu}************************************${normal}\n"
+declare -a menu_main=($CURDIR)
+counter=0
+function draw_menu_ () {
+    local DMENU=0
+    for i in "${menu_main[@]}"; do
+        if [[ ${menu_main[$counter]} == $i ]]; then
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput setaf 4
+        else
+          echo -e "    /$i";  
+		  
+        fi
+		done
+}
+function clear_menu_()  {
+    for i in "${menu_main[@]}"; do 
+	tput cuu1 setaf 0;
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+     draw_menu_
+     while read  -sN1 key; 
+     do # 1 char (not delimiter), silent
+    # Check for enter/space
+    if [[ "$key" == "" ]]; 
+	then
+	printf "You selected  folder  ";
+	echo 
+	#Cach input ${menu_main[$counter]} when you select and press enter
+	echo "/${menu_main[$counter]}"  #<-------------------------------------------------
+    menu_dir1_  #<-------------------------------------------------menu_dir1_
+    echo 
+	fi
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+		$'\e[D'|$'\e0D') menu_       ;; #left  go back to main menu_
+	    $'\e[C'|$'\e0C') menu_dir1_  ;; #right  go to menu1_
+        # countersor down, right: next item
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main[@]}-1)) && ((counter++)) ;;
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main[@]}-1));;
+         # q, carriage return: quit
+        x|q|''|$'\e')echo "Aborted." && exit;;
+    esac
+    # Redraw menu
+      clear_menu_
+      draw_menu_
+    done
+}
+select_from_list_
+}
+
+#Next Menu 1
+function menu1_dir2_ () {  #<-------------------------------------------------menu1_dir2_ go to menu menu2_
+echo
+	echo "$DIR1/${menu_main1[$counter]}"  #<-------------------------------------------------
+	export CURDIR2=`ls "$DIR1/${menu_main1[$counter]}" -C -1` #<-----------------------------
+	export DIR2=`echo "/${menu_main1[$counter]}"`
+	menu2_
+	echo
+}
+
+function menu1_ () {
+   local selector=1
+    IFS=$'\n'       # make newlines the only separator
+    set -f 
+    clear
+	printf "\n${menu}          Backup ${green}System ${menu}Menu 2   ${normal}\n"
+	printf "\n${menu}************************************${normal}\n"
+	echo -e "Current folder 1 is: /${menu_main[$counter]}"
+	printf "${menu}************************************${normal}\n"
+	echo
+           declare -a menu_main1=($CURDIR1)  #<-------------------------------------------------
+counter=0
+function draw_menu_ () {
+    local DMENU=0
+    for i in "${menu_main1[@]}"; do
+        if [[ ${menu_main1[$counter]} == $i ]]; then
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput setaf 4
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+function clear_menu_()  {
+    for i in "${menu_main1[@]}"; do 
+	tput cuu1 setaf 0;
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+draw_menu_
+while read -sN1 key; 
+do 
+    if [[ "$key" == "" ]]; 
+	then
+	printf "You selected  folder  ";
+	menu1_dir2_      #<-------------------------------------------------menu1_dir2_ go to menu menu2_
+	fi
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main1[@]}-1)) && ((counter++)) ;;
+		
+	    $'\e[D'|$'\e0D') menu_        ;; #left back to main menu
+	    $'\e[C'|$'\e0C') menu1_dir2_  ;; #right  #<-------------------------------------------------menu1_dir2_ go to menu menu2_
+		
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main1[@]}-1));;
+         # q, carriage return: quit
+        x|q|''|$'\e')echo "Aborted." && exit;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+done
+}
+select_from_list_
+}
+
+
+#Next Menu 2
+function menu2_dir3_ () {  #<-------------------------------------------------menu2_dir3_  go to menu menu3_
+	echo
+	export CURDIR3=`ls "$DIR1$DIR2/${menu_main2[$counter]}" -C -1` #<-----------------------------
+	export DIR3=`echo "/${menu_main2[$counter]}"`
+    echo 
+	menu3_
+}
+
+function menu2_ () {
+local selector=2
+IFS=$'\n'       # make newlines the only separator
+set -f 
+clear
+	printf "\n${menu}          Backup ${green}System ${menu}Menu  3  ${normal}\n"
+	printf "\n${menu}************************************${normal}\n"
+	echo -e "Current folder is: $DIR1/${menu_main1[$counter]}"
+    printf "${menu}************************************${normal}\n"
+	echo
+declare -a menu_main2=($CURDIR2)
+counter=0
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main2[@]}"; do
+        if [[ ${menu_main2[$counter]} == $i ]]; then
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput setaf 4
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+function clear_menu_()  {
+    for i in "${menu_main2[@]}"; do 
+	tput cuu1 setaf 0;
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+draw_menu_
+while read -sN1 key; 
+do # 1 char (not delimiter), silent
+    # Check for enter/space
+    if [[ "$key" == "" ]]; 
+	then
+	printf "You selected 	 folder  ";
+	menu2_dir3_   #<-------------------------------------------------menu2_dir3_  go to menu menu3_
+	fi
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main2[@]}-1)) && ((counter++)) ;;
+		
+	    $'\e[D'|$'\e0D') menu1_       ;; #left back to previouse menu1_
+	    $'\e[C'|$'\e0C') menu2_dir3_  ;; #right  #<-------------------------------------------------menu2_dir3_  go to menu menu3_
+		
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main2[@]}-1));;
+         # q, carriage return: quit
+        x|q|''|$'\e')echo "Aborted." && exit;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+done
+}
+select_from_list_
+}
+
+#Next Menu 3
+function menu3_dir4_ () {  #<-------------------------------------------------menu3_dir4_  go to menu menu4_
+	echo
+	export CURDIR4=`ls "$DIR1$DIR2$DIR3/${menu_main3[$counter]}" -C -1` #<-----------------------------
+	export DIR4=`echo "/${menu_main3[$counter]}"`  #<-----------------------------
+    echo 
+	menu4_
+}
+#Next Menu 3
+function menu3_ () {
+local selector=3
+IFS=$'\n'       # make newlines the only separator
+set -f 
+clear
+	printf "\n${menu}          Backup ${green}System ${menu}Menu  4  ${normal}\n"
+	printf "\n${menu}************************************${normal}\n"
+	echo -e "Current folder is: $DIR1$DIR2/${menu_main2[$counter]}" #<-----------------------------
+    printf "${menu}************************************${normal}\n"
+	echo
+declare -a menu_main3=($CURDIR3) #<-----------------------------
+counter=0
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main3[@]}"; do
+        if [[ ${menu_main3[$counter]} == $i ]]; then
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput setaf 4
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+function clear_menu_()  {
+    for i in "${menu_main3[@]}"; do 
+	tput cuu1 setaf 0;
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+draw_menu_
+while read -sN1 key; 
+do  
+    if [[ "$key" == "" ]]; 
+	then
+	printf "You selected 4 folder  ";
+	menu3_dir4_	#<-------------------------------------------------menu3_dir4_  go to menu menu4_
+	fi
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main3[@]}-1)) && ((counter++)) ;;
+		$'\e[D'|$'\e0D') menu2_        ;; #left back to previouse menu2_
+	    $'\e[C'|$'\e0C') menu3_dir4_   ;;  #<-------------------------------------------------menu3_dir4_  go to menu menu4_
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main3[@]}-1));;
+         # q, carriage return: quit
+        x|q|''|$'\e')echo "Aborted." && exit;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+done
+}
+select_from_list_
+}
+
+
+
+function menu4_dir5_ () {  #<-------------------------------------------------menu3_dir4_  go to menu menu4_
+	echo
+	export CURDIR5=`ls "$DIR1$DIR2$DIR3$DIR4/${menu_main4[$counter]}" -C -1` #<-----------------------------CURDIR4=`ls "$DIR1/$DIR2/${menu_main3[$counter]}" -C -1`
+	export DIR5=`echo "/${menu_main4[$counter]}"`
+	echo
+	menu5_
+}
+
+function menu4_ () {
+local selector=4
+IFS=$'\n'       # make newlines the only separator
+set -f 
+clear
+	printf "\n${menu}          Backup ${green}System ${menu}Menu  5  ${normal}\n"
+	printf "\n${menu}************************************${normal}\n"
+	echo -e "Current folder 5 is: $DIR1$DIR2$DIR3/${menu_main3[$counter]}" #<-----------------------------
+    printf "${menu}************************************${normal}\n"
+	echo
+declare -a menu_main4=($CURDIR4) #<-----------------------------
+counter=0
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main4[@]}"; do
+        if [[ ${menu_main4[$counter]} == $i ]]; then
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput setaf 4
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+function clear_menu_()  {
+    for i in "${menu_main4[@]}"; do 
+	tput cuu1 setaf 0;
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+draw_menu_
+while read -sN1 key; 
+do 
+    if [[ "$key" == "" ]]; 
+	then
+	printf "You selected  folder  ";
+	menu4_dir5_  #<-------------------------------------------------menu3_dir4_  go to menu menu4_
+	fi
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main4[@]}-1)) && ((counter++)) ;;
+		$'\e[D'|$'\e0D') menu3_       ;; #left back to previouse menu1_
+	    $'\e[C'|$'\e0C') menu4_dir5_  ;; #<-------------------------------------------------menu3_dir4_  go to menu menu4_
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main4[@]}-1));;
+         # q, carriage return: quit
+        x|q|''|$'\e')echo "Aborted." && exit;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+done
+}
+select_from_list_
+}
+
+function menu5_dir6_ () {  #<-------------------------------------------------menu5_dir6_  go to menu menu_
+	echo
+	export CURDIR6=`ls "$DIR1$DIR2$DIR3$DIR4$$DIR5/{menu_main5[$counter]}" -C -1` #<-----------------------------CURDIR4=`ls "$DIR1/$DIR2/${menu_main3[$counter]}" -C -1`
+	export DIR6=`echo "/${menu_main5[$counter]}"` #<-----------------------------
+    echo 
+	menu_
+}
+
+function menu5_ () {
+local selector=5
+IFS=$'\n'       # make newlines the only separator
+set -f 
+clear
+	printf "\n${menu}          Backup ${green}System ${menu}Menu  6  ${normal}\n"
+	printf "\n${menu}************************************${normal}\n"
+	echo -e "Current folder 6 is: $DIR1$DIR2$DIR3$DIR4/${menu_main4[$counter]}" #<-----------------------------
+    printf "${menu}************************************${normal}\n"
+	echo
+declare -a menu_main5=($CURDIR5) #<-----------------------------
+counter=0
+function draw_menu_ () {
+local DMENU=0
+    for i in "${menu_main5[@]}"; do #<-----------------------------
+        if [[ ${menu_main5[$counter]} == $i ]]; then #<-----------------------------
+            tput setaf 2; 
+			echo -e "==> ${green}$i"; tput setaf 4
+        else
+          echo -e "    /$i";  
+        fi
+		done
+}
+function clear_menu_()  {
+    for i in "${menu_main5[@]}"; do #<-----------------------------
+	tput cuu1 setaf 0; 
+	done
+	tput ed setaf 0
+}
+function select_from_list_ () {
+draw_menu_
+while read -sN1 key; 
+do # 1 char (not delimiter), silent
+    # Check for enter/space
+    if [[ "$key" == "" ]]; 
+	then
+	printf "You selected 6 folder  ";
+    menu5_dir6_ #<-------------------------------------------------menu5_dir6_  go to menu menu_
+	fi
+	
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}
+    case "$key" in
+        # countersor up, left: previous item
+        i|j|$'\e[A'|$'\e0A') ((counter > 0)) && ((counter--))  ;;
+        # countersor down, right: next item
+        k|l|$'\e[B'|$'\e0B') ((counter < ${#menu_main5[@]}-1)) && ((counter++)) ;; 
+		$'\e[D'|$'\e0D') menu4_       ;; #left back to previouse menu4_
+	    $'\e[C'|$'\e0C') menu_   ;;#<-------------------------------------------------menu3_dir4_  go to menu menu_
+        # home: first item
+        $'\e[1~'|$'\e0H'|$'\e[H')  counter=0;;
+        # end: last item
+        $'\e[4~'|$'\e0F'|$'\e[F') ((counter=${#menu_main5[@]}-1));; 
+         # q, carriage return: quit
+        x|q|''|$'\e')echo "Aborted." && exit;;
+    esac
+    # Redraw menu
+    clear_menu_
+    draw_menu_
+	#case_
+done
+}
+select_from_list_
+}
+
+
+
+
+menu_

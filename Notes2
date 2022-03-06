@@ -1,0 +1,660 @@
+
+userna
+mysql -uroot -pNahuY123$ -hlocalhost -N -e  'SELECT User,Host FROM mysql.user;' | grep --color=always -e "^" -e -o "root\|localhost" | sed 's/\t/,|,/g' | column -s ',' -t
+
+tail -f myfwlog | GREP_COLOR='01;36' egrep --color=always 'ssh|$' | GREP_COLOR='01;31' egrep -i --color=always 'drop|deny|$'
+
+username=root
+
+ | sed 's/\t/|/g' | column -s ',' -t`
+
+
+
+x=`mysql -uroot -pNewPass1234 -N -e  'show databases;' | GREP_COLOR='01;36' grep --color=always -e "^" -e "^tradenet_com" `
+
+
+border () {
+x=`mysql -uroot -pNewPass1234 -N -e  'show databases;' | GREP_COLOR='01;36' grep --color=always -e "^" -e "^tradenet_com" `
+    local str="$*"      # Put all arguments into single string
+    local len=${#str}
+    local i
+    for i ; 
+do
+     edge=$(echo "$x" | sed 's/./-/g')
+     #echo "$x"
+     echo "$edge" 
+    done
+
+}
+
+border $x
+
+
+
+border () {
+x=`mysql -uroot -pNewPass1234 -N -e  'show databases;' | GREP_COLOR='01;36' grep --color=always -e "^" -e "^tradenet_com" `
+
+    local str="$*"      # Put all arguments into single string
+    local len=${#str}
+    local i
+    for (( i = 0; i < len + 4; ++i )); do
+        edge=$(echo $str | sed 's/./-/g')
+    echo "$str"
+    done
+    
+   
+    
+    
+}
+
+border $x
+
+
+IFS=$'\n'       # make newlines the only separator
+set -f          # disable globbing
+for i in $(cat < "$1"); do
+  echo "tester: $i"
+done
+
+
+border()
+{
+    x=`mysql -uroot -pNewPass1234 -N -e  'show databases;' | GREP_COLOR='01;36' grep --color=always -e "^" -e "^tradenet_com" `
+    IFS=$'\n' 
+    set -f 
+    for i in $( $x < "$1" ); 
+do
+    title="| $1 |"
+    edge=$(echo "$1" | sed 's/./-/g')
+done
+    echo "$edge"
+    echo "$1"
+    echo "$edge"
+
+}
+
+border $x
+
+
+
+x=`mysql -uroot -pNewPass1234 -N -e  'show databases;' | GREP_COLOR='01;36' grep --color=always -e "^" -e "^tradenet_com" `
+while IFS= read -r line; do
+  echo " $line"
+done < "$1"
+
+
+GRANT SELECT, SHOW VIEW, LOCK TABLES, RELOAD,
+
+
+
+
+mysql -u$TMPUSR -p$TMPPASSWD -N  <<MYSQL_SCRIPT
+CREATE USER '$username'@'$host' IDENTIFIED BY '$NEWPASSWD';
+GRANT SELECT, SHOW VIEW, LOCK TABLES, RELOAD ON *.* TO '$username'@'$host';
+FLUSH PRIVILEGES;
+MYSQL_SCRIPT
+
+
+
+
+#1#________________________ 1 Start Menu Start _________________________#1#
+#1# List of menus: 3 selection
+#1# OPTION-1. To MySQL Menagmen         ( chk_root_exist_passwd_ )
+#1# OPTION-2. Reset MySQL root passwd   ( reset_root_passwd_ )
+
+#1# Options:
+#1# OPTION-1. Save to temorary cach mysql user and password
+
+
+
+
+
+
+
+
+
+
+tradenet_com=tradenet_com2
+
+mysql -uroot -pNewPass1234 -N -e  'show databases;' | GREP_COLOR='01;32' grep --color=always -e "^" -e "^$tradenet_com" | sed 's/.*/ |- & /' |  sed  "s/.$tradenet_com/&              <<-----Fresh created database /"
+
+sed 's/.*/|&   |/'
+sed 's/.*/|&   |/' `
+
+
+printf "|%-50s|\n" "$x"
+
+
+sed 's/.*/|&   |/'
+
+
+x=`mysql -uroot -pNewPass1234 -N -e  'show databases;' | GREP_COLOR='01;36' grep --color=always -e "^" -e "^tradenet_com" `
+
+border()
+{
+    x="Hello Litan"
+    title="| $1 |"
+    edge=$(echo "$title" | sed 's/./-/g')
+    echo "$edge"
+    echo "$title"
+    echo "$edge"
+}
+
+border "$x"
+
+while IFS= read -r line
+do
+   ...
+done < <(printf '%s\n' "$x")
+
+
+
+USE annahats4u;
+SELECT * FROM wp_wc_order_coupon_lookup WHERE  'http://anahats.rng.marketing/wp-content/uploads/2019/04/background-pros.jpg';
+
+
+
+
+border()
+{
+x=`mysql -uroot -pNewPass123$ -N -e  'show databases;' | GREP_COLOR='01;36' grep --color=always -e "^" -e "^domain_com$" `
+
+longstr=`(echo "$x" | awk '{if(length>x){x=length;y=$0}}END{print y}')`
+longlen=${#longstr}
+edge=$(echo "$longstr" | sed 's/./-/g') 
+echo "+$edge--+"
+while IFS= read -r line; do
+ strlen=${#line}  
+ echo -n "| $line"
+ gap=$((longlen - strlen))
+ if [ "$gap" > 0 ]; then
+  for i in $(seq 1 $gap); do echo -n " "; done
+  echo " |"
+ else
+  echo " |"
+ fi
+done < <(printf '%s\n' "$x")
+echo "+$edge--+"
+}
+
+border "$x"
+
+
+SELECT
+    CONCAT('SELECT ',QUOTE(db),',',QUOTE(tb),',',QUOTE(col),',COUNT(1) FieldHasIt
+    FROM ',db,'.',tb,' WHERE \`',col,'\`=''',SearchString,''';') SearchSQL
+FROM
+( SELECT table_schema db,table_name tb,column_name col FROM information_schema.columns WHERE table_schema = 'mydb' AND (column_type LIKE 'char(%' OR column_type LIKE 'varchar(%' OR column_type LIKE '%text')) A,(SELECT 'Hello' SearchString) B;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+for item in ${list//\\n/}
+do
+   echo "Item: $item"
+done
+
+
+
+
+
+
+
+border_ () {
+    x=`mysql -uroot -pNewPass1234 -N -e  'show databases;' | GREP_COLOR='01;36' grep --color=always -e "^" -e "^tradenet_com" `
+    echo "$x"
+    local str="$*"     
+    local len=${#str}
+   
+    title="| $1 |"
+    title1="| $2 |"
+    edge=$(echo "$title" | sed 's/./-/g')
+    echo "$edge"
+    echo "$title"
+    echo "$title1"
+    echo "$edge"
+}
+
+border_ $x
+
+
+center(){
+  COLS=$(tput cols)  # use the current width of the terminal.
+  printf "%*s\n" "$(((${#1}+${COLS})/2))" "$1"
+}
+
+center 'Love Unix & Linux'
+
+
+
+    printf "\n| $len |\n"
+    for (( i = 0; i < len + 4; ++i )); do
+       printf '-'
+    done
+    echo
+
+
+
+
+
+
+
+
+
+mysql -uroot -pNewPass1234 -N -e  'show databases;' | GREP_COLOR='01;36' grep --color=always -e "^" -e "^tradenet_com" | sed 's/\t/|/g' | column -s ',' -t
+
+
+username=root
+
+mysql -uroot -pNewPass1234 -N -e  'SELECT User,Host FROM mysql.user;' | grep --color=always -e "^" -e "^$username\|localhost$" | sed 's/\t/,|,/g' | column -s ',' -t
+
+ grep "Access denied" | wc -l
+
+x=`mysql -uroot -pNewPass1234 -N -e 'SELECT User,Host FROM mysql.user;' | grep localhost | wc -l`
+
+echo "$x"
+
+
+y="$(echo $x | grep denied | wc -l)"
+
+echo "$y"
+
+y="$(echo $x | grep denied | wc -l)"
+
+echo "$y"
+
+function showdate  (){
+  #!/bin/bash
+str='somet.extwithinit'
+if [[ $str == *['!'@#\ $%^\&.*()+]* ]]
+then
+  echo "It contains one of those"
+fi
+}
+
+             
+showdate 
+
+
+str=yyy.com
+function charvalidator_ (){
+case $str in
+  *['!'@#$%^&*()_+]* ) echo yup ;;
+esac
+}
+charvalidator_ 
+
+
+
+dbname=yyWRTTy.com
+
+echo $dbname | grep -q "[a-z].*[A-Z]" || FAIL=no | wc -l  matched
+
+
+
+dbname=yyfsadfy.com
+
+echo $dbname | grep -q "[a-z].*[A-Z]" || FAIL=yes | wc -l  not matched
+
+
+
+
+function charvalidator_ (){
+ 
+local C1="$(printf "${menu}Enter Database name user like ${green}dbname_com ${normal}\n")"
+read -p "$C1" dbname
+
+while true;
+ do 
+    clear
+if [[ $dbname == *['!'@#\ $%^\&*()+]* ]]
+then
+  echo "It contains one of those"
+  echo "Please enter valid Database name without spesial  characters"
+	sleep 3
+	clear
+	else
+	
+	return 0
+fi
+done
+}
+
+
+
+
+
+
+
+
+
+
+
+function charvalidator_ () 
+{
+#local C1="$(printf "${menu}Enter Database name:")"
+while true;
+ do 
+    clear
+    echo
+    echo -e "Please enter valid Database name without spesial characters"
+    read -p "Enter db: " dbname
+    echo
+
+    FAIL=no
+[[ ${#dbname} == *['!'@#\$%^\&*()+]* ]] || FAIL=yes
+	
+      # Must contain 2 upper case letters
+    echo $dbname | grep -q '['!'@#\$%^\.&*()+] ]' || FAIL=yes
+
+    # Must contain 2 digits
+  # echo $dbname | grep -q "[0-9].*[0-9]" || FAIL=no
+
+    # Must contain one non-alphanumeric character (no spaces)
+    echo $dbname | grep -q "[a-zA-Z0-9 ]" || FAIL=no
+    [[ ${FAIL} == "no" ]] && break
+
+    echo "Database name is invalid"
+	sleep 1
+	
+done
+
+echo -e "Database name "$dbname" is valid"
+}
+
+
+charvalidator_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\\Mt4bridgenl01\pbxalertmt4bnl$
+
+\\
+valhalla\pbxalert
+xvZhLPYBxK2F43Me
+
+ mount -t cifs -o user=samba_user1,password=password123 //samba-storage.local/export_rw /mnt/export/
+
+
+mount -t cifs -o user,uid=500,rw,suid,username=pbxalert@valhalla.local,password=xvZhLPYBxK2F43Me //192.168.60.14/pbxalertmt4bnl$/ /prodsrvalerts/mt4bnl01
+
+
+
+while true; do 
+    # do some work
+    # write to tmp_output.txt etc.                      
+    WATCHER=`ls /prodsrvalerts/mt4bnl01/ | wc -l `
+if [ "$WATCHER" != 0 ];
+then 
+echo "Have Problem. Start calling ......."
+
+rm -rf /prodsrvalerts/mt4bnl01/*.*
+break;
+fi
+              # display it
+    sleep 2                        # sleep and repeat
+done
+
+
+
+
+
+
+
+
+
+
+
+C:\ProgramData\IT\%hostname 
+\\192.168.60.15\%hostname$  RW 
+
+\\
+valhalla\pbxalert
+xvZhLPYBxK2F43Me
+
+
+
+
+FILENAME=calldown.call 
+echo "Channel: SIP/6633/972547844865" >> /tmp/$FILENAME 
+echo "Callerid: zabix" >> /tmp/$FILENAME 
+echo "Application: Playback" >> /tmp/$FILENAME 
+echo "Data: hello-world" >> /tmp/$FILENAME 
+echo "MaxRetries: 1" >> /tmp/$FILENAME 
+echo "RetryTime: 20" >> /tmp/$FILENAME 
+echo "WaitTime: 10" >> /tmp/$FILENAME 
+echo "Context: call_down" >> /tmp/$FILENAME 
+echo "Extension: s" >> /tmp/$FILENAME 
+echo "Priority: 1" >> /tmp/$FILENAME 
+chown asterisk:asterisk /tmp/$FILENAME 
+mv /tmp/$FILENAME /var/spool/asterisk/outgoing/
+
+
+
+
+
+
+$body = "file=$(get-content "C:\ProgramData\IT\PBXALERTMT4BNL\11111111.txt" -raw)"
+Invoke-RestMethod -uri http://192.168.60.54 -method POST -body $body
+
+
+
+"C:\ProgramData\IT\PBXALERTMT4BNL\11111111.txt"
+
+$curls = "E:\path\to\program\curl.exe"
+$PDFdir = "C:\ProgramData\IT\PBXALERTMT4BNL\11111111.txt"
+$uri = "http://192.168.60.54/web"
+& curl --request POST $uri --header "Accept: application/pdf" --form file=@<path to newly created file> -o  "$PDFdir\<name of newly created file>.pdf"
+
+
+
+
+
+
+$dir = "C:\ProgramData\IT\PBXALERTMT4BNL"
+$Header = @{ "Accept" = "application/txt" }
+$latest = Get-ChildItem -Path $dir | Sort-Object LastAccessTime -Descending | Select-Object -First 1;
+$Uri = 'http://api.labelary.com/v1/printers/8dpmm/labels/5x3/0'
+
+Invoke-WebRequest -Method Post -Uri http://192.168.60.54/web -ContentType "multipart/form-data" -InFile "C:\ProgramData\IT\PBXALERTMT4BNL"
+
+
+
+$usercreds = Get-Credential
+$picPath = "\\server\share\pic.jpg"
+$uri = http://website/sub/destination
+
+Invoke-WebRequest -uri http://192.168.60.54/web -Method Put -Infile C:\ProgramData\IT\PBXALERTMT4BNL\11111111.txt -ContentType 'text/txt' -Credential $usercreds
+
+
+curl --insecure -T monit-5.25.1.tar.gz https://bckp.pro-wiki.com:44443/webbckp/
+
+
+curl -T anaconda-ks.cfg http://127.0.0.1/web/
+
+
+param($printer)
+$ZPLdir = "E:\Path\to\$printer\ZPL"
+$PDFdir = "E:\Path\to\$printer\PDF"
+$Header = @{ "Accept" = "application/pdf" }
+$latest = Get-ChildItem -Path $ZPLdir | Sort-Object LastAccessTime -Descending | Select-Object -First 1;
+$Uri = 'http://api.labelary.com/v1/printers/8dpmm/labels/5x3/0'
+
+Invoke-WebRequest -Method Post -ContentType "application/x-www-form-urlencoded" -Headers $header -InFile "$ZPLdir\$latest" -OutFile "$PDFdir\$latest.pdf" | & "C:\Program Files\SumatraPDF\SumatraPDF.exe" -print-to \\Printserver\$printer -print-settings "fit" -silent "$PDFdir\$latest.pdf"
+
+
+
+
+
+
+$PDFdir = "E:\path\to\specific\printer\pdf\files"
+
+$uri = "http://api.labelary.com/v1/printers/8dpmm/labes/5x3/0"
+
+curl --request POST http://192.168.60.54/web --header "Accept: application/txt" --form file=@C:\ProgramData\IT\PBXALERTMT4BNL -o  "C:\ProgramData\IT\PBXALERTMT4BNL\11111111.txt"
+
+
+
+
+curl --verbose --data-binary @C:\ProgramData\IT\PBXALERTMT4BNL\11111111.txt http://192.168.60.54/web
+
+
+Invoke-RestMethod -Uri http://192.168.60.54/web -Method Post -InFile "C:\ProgramData\IT\PBXALERTMT4BNL\11111111.txt"
+
+
+
+
+curl --insecure -X MKCOL "http://192.168.60.54/web/you_new_folder"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$uri = "https://192.168.99.210/webbckp"
+$txtpath="C:\ProgramData\IT\PBXALERTMT4BNL\11111111.txt"
+I  -Uri $uri -Method  post  -InFile $txtpath
+
+
+if (-not ([System.Management.Automation.PSTypeName]'ServerCertificateValidationCallback').Type)
+{
+$certCallback = @"
+    using System;
+    using System.Net;
+    using System.Net.Security;
+    using System.Security.Cryptography.X509Certificates;
+    public class ServerCertificateValidationCallback
+    {
+        public static void Ignore()
+        {
+            if(ServicePointManager.ServerCertificateValidationCallback ==null)
+            {
+                ServicePointManager.ServerCertificateValidationCallback += 
+                    delegate
+                    (
+                        Object obj, 
+                        X509Certificate certificate, 
+                        X509Chain chain, 
+                        SslPolicyErrors errors
+                    )
+                    {
+                        return true;
+                    };
+            }
+        }
+    }
+"@
+    Add-Type $certCallback
+ }
+[ServerCertificateValidationCallback]::Ignore()
+
+$uri = "http://192.168.60.54/web"
+$txtpath="C:\ProgramData\IT\PBXALERTMT4BNL\11111111.txt"
+Invoke-RestMethod -Uri $uri -Method  Post  -InFile $txtpath -UseDefaultCredentials
+
+
+
+
+
+
+
+
+$client = New-Object System.Net.WebClient
+$client.Credentials = New-Object System.Net.NetworkCredential("alerter", "!qazxsw2")
+$client.UploadFile("ftp://ftp.example.com/remote/path/file.zip", "C:\local\path\file.zip")
+
+
+
+
+
+
+delete C:\ProgramData\IT\DiskSpace-Alert\$H
+
+
+$H = hostname
+echo huy > C:\ProgramData\IT\DiskSpace-Alert\$H
+$File = "C:\ProgramData\IT\DiskSpace-Alert\$H";
+$H = hostname
+$ftp = "ftp://alerter:KQFErEPkyYBXnbmWna8NVgPW@192.168.60.54/$H";
+Write-Host -Object "ftp url: $ftp";
+$webclient = New-Object -TypeName System.Net.WebClient;
+$uri = New-Object -TypeName System.Uri -ArgumentList $ftp;
+Write-Host -Object "Uploading $File...";
+$webclient.UploadFile($uri, $File);
+
+
+
+
+
+
+delete C:\ProgramData\IT\DiskSpace-Alert\$H
+$H = hostname
+echo huy > C:\ProgramData\IT\DiskSpace-Alert\$H
+
+$H = hostname
+$ftp = "ftp://alerter:KQFErEPkyYBXnbmWna8NVgPW@192.168.60.54/$H";
+Write-Host -Object "ftp url: $ftp";
+$webclient = New-Object -TypeName System.Net.WebClient;
+$uri = New-Object -TypeName System.Uri -ArgumentList $ftp;
+Write-Host -Object "Uploading $File...";
+$webclient.UploadFile($uri);
+
+
+
+
+
+
+
+
+
+
+
+

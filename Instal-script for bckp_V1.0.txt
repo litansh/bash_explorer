@@ -1,0 +1,575 @@
+#!/bin/bash
+#!/bin/sh -
+# A menu driven shell script sample template 
+## ----------------------------------
+# Step #1: Define variables
+# ----------------------------------
+EDITOR=vim
+#PASSWD=/etc/passwd
+RED='\033[0;41;30m'
+STD='\033[0;0;39m'
+mkdir -p /tmp/mysql-tmp
+chmod 777 /tmp/mysql-tmp
+#Tmp for pass
+TMP=/tmp/mysql-tmp/mysql-tmp23455.log
+#Tmp for user
+TMP0=/tmp/mysql-tmp/mysql-tmp-validator.log
+TMP1=/tmp/mysql-tmp/mysql-tmp455.log
+TMP2=/tmp/mysql-tmp
+HISTORY=/tmp/mysql-tmp/script_history
+#TMPPASSWD="$(cat $TMP)" 
+#TMPUSR="$(cat $TMP1)"
+#TIMER="/tmp/mysql-tmp/timer-tmp23455.sh"
+normal=`echo "\033[m"`
+menu=`echo "\033[36m"` #Blue
+number=`echo "\033[33m"` #yellow
+bgred=`echo "\033[41m"`
+fgred=`echo "\033[31m"`
+green=`echo "\033[32m"`
+blink=`echo "\033[5m" `
+whoami=`whoami`
+h1=`date +%R:%M%p`
+#true > script_history
+history -w script_history
+hostname=`hostname | cut -d"." -f1`
+
+sed -i '/install_bckp_curl_srv.sh/d' /etc/rc.d/rc.local
+
+function httpd_configuration_ () {
+
+logo_
+echo "Now we will configure all requiremets for HTTPD"
+echo "SSL certificate"
+echo "Binding"
+echo " "
+confirm_
+cp /etc/httpd//conf/httpd.conf /etc/httpd//conf/httpd.conf-original #Backup original file
+
+cat /etc/httpd//conf/httpd.conf <<- "EOF"
+Listen 80
+ServerName hostname
+Include conf.modules.d/*.conf
+User apache
+Group apache
+ServerAdmin root@localhost
+<Directory />
+    AllowOverride All
+    Require all denied
+</Directory>
+DocumentRoot "/var/www"
+<Directory "/var/www">
+    AllowOverride All
+    # Allow open access:
+    Require all granted
+</Directory>
+<Directory "/var/www-downloads">
+    AllowOverride All
+    # Allow open access:
+    Require all granted
+</Directory>
+<Directory "/var/www/html">
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+</Directory>
+
+<IfModule dir_module>
+    DirectoryIndex index.html index.php
+</IfModule>
+
+<Files ".ht*">
+    Require all denied
+</Files>
+
+ErrorLog "logs/error_log"
+LogLevel warn
+<IfModule log_config_module>
+    LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+    LogFormat "%h %l %u %t \"%r\" %>s %b" common
+    <IfModule logio_module>
+      # You need to enable mod_logio.c to use %I and %O
+      LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %I %O" combinedio
+    </IfModule>
+    #CustomLog "logs/access_log" common
+    CustomLog "logs/access_log" combined
+</IfModule>
+<IfModule alias_module>
+    ScriptAlias /cgi-bin/ "/var/www/cgi-bin/"
+</IfModule>
+<Directory "/var/www/cgi-bin">
+    AllowOverride None
+    Options None
+    Require all granted
+</Directory>
+<IfModule mime_module>
+    TypesConfig /etc/mime.types
+    AddType application/x-compress .Z
+    AddType application/x-gzip .gz .tgz
+
+    AddType text/html .shtml
+    AddOutputFilter INCLUDES .shtml
+</IfModule>
+AddDefaultCharset UTF-8
+<IfModule mime_magic_module>
+ MIMEMagicFile conf/magic
+</IfModule>
+#-----------------------For CURL----------------------------------
+EnableSendfile on
+#for curl backup
+Alias /webbckp "/home/bckp"
+  <Directory "/home/bckp">
+      Options Indexes MultiViews FollowSymLinks Includes ExecCGI
+      AllowOverride None
+      Allow from all
+      Require all granted
+  </Directory>
+
+
+<Location /webbckp>
+     Dav On
+     <LimitExcept GET HEAD OPTIONS PUT>
+        Order Allow,Deny
+        Allow from all
+     </LimitExcept>
+  </Location>
+#-----------------------For CURL----------------------------------
+
+
+IncludeOptional conf.d/*.conf
+<VirtualHost  *:443>
+SSLEngine On
+SSLCertificateFile /etc/SSLtoWWW/server.crt
+SSLCertificateKeyFile /etc/SSLtoWWW/server.key
+SSLProtocol all -SSLv2 -SSLv3
+SSLHonorCipherOrder on
+SSLCipherSuite "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS"
+DocumentRoot "/webbckp"
+ServerName bckp.pro-wiki.com
+Header always edit Set-Cookie "(?i)^((?:(?!;\s?HttpOnly).)+)$" "$1; HttpOnly"
+Header always edit Set-Cookie "(?i)^((?:(?!;\s?secure).)+)$" "$1; secure"
+<Directory "/webbckp">
+</Directory>
+</VirtualHost>
+EOF
+
+cat /etc/SSLtoWWW/server.crt <<- "EOF"
+-----BEGIN CERTIFICATE-----
+MIIEojCCA4qgAwIBAgIUH+x5tlUkswEEQSpDpD0BwsgtniEwDQYJKoZIhvcNAQEL
+BQAwgYsxCzAJBgNVBAYTAlVTMRkwFwYDVQQKExBDbG91ZEZsYXJlLCBJbmMuMTQw
+MgYDVQQLEytDbG91ZEZsYXJlIE9yaWdpbiBTU0wgQ2VydGlmaWNhdGUgQXV0aG9y
+aXR5MRYwFAYDVQQHEw1TYW4gRnJhbmNpc2NvMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+MB4XDTIwMDMwNTExNDYwMFoXDTM1MDMwMjExNDYwMFowYjEZMBcGA1UEChMQQ2xv
+dWRGbGFyZSwgSW5jLjEdMBsGA1UECxMUQ2xvdWRGbGFyZSBPcmlnaW4gQ0ExJjAk
+BgNVBAMTHUNsb3VkRmxhcmUgT3JpZ2luIENlcnRpZmljYXRlMIIBIjANBgkqhkiG
+9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsLdo4Iw+qaTIGSp5K3QRyPqIb+SQdf47BZlZ
+22SRnGZo//+VotzbG08iGFgCqh7p0fI87HCRcm8KhtrjlX21R2zi4WtpG3lO5eRU
+gUbQQijG0NdfkKd+7DVAYN1MuF0wn28K8Pi56RUCHF2/LJcPayt/focx+TC5JsG4
+z0qQbGmvsUqzzbdXmfN137dOBCoTA7nng/hDevxuXkDEKKVK5R52dQd6ZmAvBQUJ
+W/s10YTWgxKgphL20D7OWwcyzog7J89YDSSk0szoeoVFdzBnkjtQp/uCUj1lln+H
+00UC+2C1T+HR8dLSFsZ+sbLsma+0uoBPs6oxBr3261fC6NgHZQIDAQABo4IBJDCC
+ASAwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcD
+ATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBRRUf1MLGnKSXKN0iTcDPpsQmZXETAf
+BgNVHSMEGDAWgBQk6FNXXXw0QIep65TbuuEWePwppDBABggrBgEFBQcBAQQ0MDIw
+MAYIKwYBBQUHMAGGJGh0dHA6Ly9vY3NwLmNsb3VkZmxhcmUuY29tL29yaWdpbl9j
+YTAlBgNVHREEHjAcgg0qLnNnbGNvcmUuY29tggtzZ2xjb3JlLmNvbTA4BgNVHR8E
+MTAvMC2gK6AphidodHRwOi8vY3JsLmNsb3VkZmxhcmUuY29tL29yaWdpbl9jYS5j
+cmwwDQYJKoZIhvcNAQELBQADggEBACeNzhz/K/WDz1DVC01WkO/qY9PGmEXK3r5c
+EibS/KjhOVIfdzYsoeCJDA/9qbkHovKEW0rbVukjbH6eVfnuVnIb7PcaNrk9u0GV
+CKy/x8LjMTgYb3hEmaSCaFYJsQdAe5kP6oiWqN6qL6i04ARblCCptiFiSU1wu5p2
+OBLgsblddsftenUXVpyxETXi6rzhqOhEuK/BksbqJVMKuzJfyt0PDzPjsF+dlnD/
+OeNKEKDsutT5rLwvQ7Bjjxa895ZBQhca8vREs4/ga4ilccFqsxuUvNo5sX+MlXII
+zt9yTAzCVD3W5J9iyQ1sn02HijlwH0uft5jWgtlnP3wD1w1SoQs=
+-----END CERTIFICATE-----
+EOF
+
+cat /etc/SSLtoWWW/server.key <<- "EOF"
+-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCwt2jgjD6ppMgZ
+KnkrdBHI+ohv5JB1/jsFmVnbZJGcZmj//5Wi3NsbTyIYWAKqHunR8jzscJFybwqG
+2uOVfbVHbOLha2kbeU7l5FSBRtBCKMbQ11+Qp37sNUBg3Uy4XTCfbwrw+LnpFQIc
+Xb8slw9rK39+hzH5MLkmwbjPSpBsaa+xSrPNt1eZ83Xft04EKhMDueeD+EN6/G5e
+QMQopUrlHnZ1B3pmYC8FBQlb+zXRhNaDEqCmEvbQPs5bBzLOiDsnz1gNJKTSzOh6
+hUV3MGeSO1Cn+4JSPWWWf4fTRQL7YLVP4dHx0tIWxn6xsuyZr7S6gE+zqjEGvfbr
+V8Lo2AdlAgMBAAECggEAAPbeugKzgxsDqXUYT7aPVicQpKvwM1dNlki8HVzPxBMG
+l9wawoExkMQm8y3KtJjjMFxGFKMG410CfrrDyvidE7vwFJ2Qq8U1zD5+5p/3RMWw
+hrlK9C3DJaY8nCItSjwiWheT72g8mRTJGcvtTS19uIx+/B01fNZmMh/7GwhZGb7g
+fulo54A7ReGukBCzySaXY/Rtrc8hE7fPu85BKPlH406Zlxr988FysH0EZ2vcmYEk
+B8fxsHyqpbMZn3NkDKO/jdXEoDvzXf8qTH/0FYQSUhahMv35nN7l2Zy7MOtsY+Uv
+3PQq3lLh7FsI6Z+hI59H8xRRbTuR1CfITdI4VKQ6GwKBgQDuMrHLc87I3mRLvyZ6
+LDwupiB0LcDD1dkZoTbFgijREqN7MpUuMG8hrjVi9zn5i9GaS9h+QOi8q+Fne7O5
+E3HO/5k2P5j/VOrspleiU2WdUSnPOleJlkegs3t0yQFHQEbDTaCDB/NCjDGDUs/2
+DVXdLFpNP/9vMu/GT47iclVHhwKBgQC97Gxrh2iiyj3vcbd4D8eExWEdjhenmgDc
+/mzr2hFABEk78RIfS3zRo0eOBzjbeGYXyfbF9gGXiFq8u+g+/Pfirzj5vUoTnz2Q
+UHRS5RIVRs59ece2FTDhdurHoNB60RfgG6spYx670rf13WOZJReBitrkZh3pdzfr
+1v1JBgncswKBgF3hcR3E6Q1WSaVpE1s3sAiaxVPE7KLC2Cw31ASIRloQxIo753wq
+7sIRjU0SL7FhIB12Iz+viYtDGzXUFYOuXD6/kr1E16Ja77SR4xxBTl1wrc/VKMc7
+icOWuePPjUdt1/YF1GuQaJoj8yfVLc3Gd78SSg0EWkKTitlYZfJuKZplAoGAU9OM
+LxG/D0rwd0Tb07QzPdjYenEC48jHZMMvVBIV1wmNQVWvx/xLhUPqCzgI0mWbuhg8
+QTfJkBZw5iiR42tIBdeM8D2p+msogw/fp87PYnC0JxGfIjDMOFeCXMYP/oVXYmUT
+8Np88C2bYHtswGVssJKW9oRT433pQsDLXnW52J0CgYEA6NSOas8Yl4jmxLWd2dN4
+ZlEJzPh41S/tDJaZjPHv/ihaK/rvA6agVOgfWVVE5qppoROfpANuK1Q/i4iE+6PW
+xP9wJ010BZF/QoluVzHEwRM2i8MjOF39upTjPo7GDkNota3/Ziz2phZm96MISkUt
+UompvjK+0BLMaY+YWdEZ+wc=
+-----END PRIVATE KEY-----
+
+EOF
+
+chmod -R 640 /etc/SSLtoWWW/*
+
+
+sed -i "s/bckp.pro-wiki.com/$domain/g" /etc/httpd//conf/httpd.conf
+sed -i "s/bckp.pro-wiki.com/$domain/g" /etc/httpd//conf/httpd.conf
+
+
+}
+
+function logo_ () {
+clear && echo "" && clear
+cat << "EOF"
+
+ Hi Admin ! Welcom to instalation for web backup server
+ ------------------------------------------------------
+   \
+    \
+        .--.
+       |o_o |
+       |:_/ |
+      //   \ \
+     (|     | )
+    /'\_   _/`\
+    \___)=(___/
+	
+	
+
+EOF
+ 
+}
+
+function counter_ () {
+echo
+secs=$((1 * 10))
+while [ $secs -gt 0 ]; do
+  
+   echo -ne "   Checking ......  " && echo -ne "$secs\033[0K\r"
+   sleep 1
+   : $((secs--))
+done
+
+}
+
+function counter_buy_ () {
+echo
+secs=$((1 * 20))
+while [ $secs -gt 0 ]; do
+  
+   echo -ne "Buy my friend :( ......  " && echo -ne "$secs\033[0K\r"
+   sleep 1
+   : $((secs--))
+done
+
+}
+
+
+function confirm_ () {
+echo 
+read -p "Please Confirm (y/n) or [Enter] to Y : " confirmn
+if [ -n "$confirmn" ];
+then
+confirm=$confirmn
+printf "$confirm"
+else
+confirm=y
+fi
+}
+
+
+
+
+#Check and Install updates und upgrades - done
+function install_updates_ () {
+
+echo "\n Instaling updates ....\n"
+sleep 5
+yum upgrade -y 
+sleep 1
+yum update -y
+
+echo "\n All done .... Enjoy\n "
+sleep 2
+}
+
+#Check and Install apache and ssl mod 
+function install_httpd_ () {
+local chk1=`systemctl status httpd | grep "active (running)"  | wc -l` #check httpd if runing or not
+local chk2=`systemctl status httpd | grep "Active: inactive (dead)"  | wc -l` #check httpd if runing or not
+
+if [ "$chk1" != 0 ];
+then
+echo "\n Nothing to do\n"
+echo "\n Apache server alredy installed and running  :) \n"
+sleep 3
+elif [ "$chk2" != 0 ];
+then
+echo "\n Nothing to do\n"
+echo "\n Apache server alredy installed and running  :) \n"
+sleep 3
+else
+echo "\n Instaling httpd .... \n"
+sleep 5
+yum install -y httpd
+sleep 1 
+yum install -y mod_ssl
+
+echo "\n Enabling httpd services .... \n"
+sleep 5
+systemctl enable httpd 
+sleep 2
+systemctl start httpd
+sleep 2
+fi
+
+if [ "$chk1" != 0 ];
+then
+echo "\n Apache server installed, checked and running  :) \n"
+sleep 4
+else
+echo "\n Somthing went wrong please check  ( systemctl status httpd )\n"
+fi
+}
+
+#Check and Insatll PHP 7.4
+install_php_ () {
+local SPEC8=`php -v | grep -o -h 'Zend' | wc -l`
+if [ "$SPEC8" == 0 ] ;
+then
+
+echo "Instaling PHP .... "
+sleep 5
+yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+sleep 1
+yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+sleep 1
+yum -y install yum-util
+sleep 1
+yum-config-manager --enable remi-php74
+sleep 1
+yum install php php-opcache php-cli php-common php-gd php-ldap php-mysql php-odbc php-pdo php-pear php-pecl-apc php-pecl-memcache php-pgsql php-soap php-xml php-xmlrpc php-mbstring php-mcrypt -y
+sleep 1
+php -v 
+counter_
+else
+echo "\n Ops you alredy have PHP instaled\n"
+echo
+#echo "\n We will exclude it from list :)\n"
+counter_
+fi
+}
+
+#Check and Disable firewalld
+function firewalld_ () {
+local chk3=`systemctl status firewalld | grep "Active: inactive (dead)" | wc -l`
+echo "\n Disabling firewall .... \n"
+sleep 5
+systemctl stop firewalld 
+systemctl disable firewalld
+if [ "$chk2" != 0 ];
+then
+echo "\n Firewall is disabled and not will be enabled after reboot \n"
+fi
+}
+
+function install_iptables () {
+local chkipt1=`systemctl status iptables | grep "Active: active"  | wc -l` #check httpd if runing or not
+local chkipt2=`systemctl status iptables | grep "Active: inactive (dead)"  | wc -l` #check httpd if runing or not
+if [ "$chkipt1" != 0 ] ;
+then
+echo "\n Ops you alredy have Iptables instaled \n"
+echo
+counter_
+elif [ "$chkipt2" != 0 ] ;
+echo "\n Ops you alredy have Iptables instaled \n"
+echo
+counter_
+else
+echo "\n Instaling Iptables ..... \n"
+sleep 4
+yum install iptables-services
+echo "\n Starting Iptables service ..... \n"
+sleep 2
+systemctl start iptables
+echo "\n Enabling Iptables service ..... \n"
+sleep 2
+systemctl enable iptables
+fi
+#Choise to configure Iptables now or disable
+if [ "$chkipt1" != 0 ] ;
+then
+echo "\n Iptables instaled and runing on your system .... \n"
+fi
+echo "\ni If your server is not in cloud and in local net you can disable iptables \n"
+echo  "\n Did you wish to configure the iptables now ? or disable for now? "
+read -e -p "To configure press [ C ] to disable press [ D ] :" iptchoice
+echo
+if [ "$iptcoice" == "D" ];
+then
+echo "\n Stoping Iptables service ..... \n"
+sleep 2
+systemctl stop iptables
+echo "\n Disabling Iptables service ..... \n"
+sleep 2
+systemctl disable iptables
+fi
+if [ "$iptcoice" == "C" ];
+then
+echo "\n This function is in development :) \n"
+fi
+}
+
+
+function selinux_ () {
+clear
+logo_
+local SE=`sestatus | grep enforcing | wc -l`
+if [ "$SE" != 0 ];
+then
+clear
+logo_
+echo
+echo "Ups :) ... Selinux is enabled on this machine we must to disable it first of all "
+echo "For this operasion we must to reboot server"
+echo "Please confirm before"
+confirm_
+sed -i "s/SELINUX=enforcing/SELINUX=permissive/g" /etc/sysconfig/selinux #Change selinux from enforcing to less aggresive ---permisive
+#sed -i "s/SELINUX=permissive/SELINUX=disabled/g" /etc/sysconfig/selinux
+local folder="pwd"
+chmod +x /etc/rc.d/rc.local
+cp /etc/rc.d/rc.local /etc/rc.d/rc.local-original
+systemctl enable rc-local && systemctl start rc-local && systemctl restart rc-local #Enable rc.local for restart install script after reboot
+sed -i '1 i\#!/bin/sh -' /etc/rc.d/rc.local
+local folder=`pwd`
+cp $folder/install_bckp_curl_srv.sh $folder/install_bckp-tmp.sh
+echo "(cd $folder && ./install_bckp_curl_srv.sh) && exit 0" >> /etc/rc.d/rc.local #Add to the end of file
+reboot
+else
+clear
+logo_
+echo "All done you dont have enabled Selinux on board :)"
+counter_
+fi
+}
+
+function check_all_installs_ () {
+logo_
+echo -e "\n We satrting! Be ready......\n"
+sleep 2
+echo "    Check list of Instalations  "
+echo "+----------------------------------+"
+echo "| 1. Install Updates               |"
+echo "| 2. Install Apache                |"
+echo "| 3. Install PHP 7.4.X             |"
+echo "| 4. Install Iptables              |"
+echo "| 5. Install SSL mode for apache   |"
+echo "| 6. Disable Firewall              |"
+echo "| 7. Disable SeLinux               |"
+echo "| 8. Configure Iptables (up to you)|"
+echo "| 9. Configure httpd and binding   |"
+echo "| 10. Secure apache                |"
+echo "| 11. Create folder for Backups    |"
+echo "| 12. Create Folder for ssl        |"
+echo "| 13. Create Folder for ssl        |"
+echo "+----------------------------------+"
+echo
+echo
+sleep 10
+counter_
+confirm_
+#Install updates
+logo_
+install_updates_
+
+logo_
+#Install PHP 7.4.X
+logo_
+echo "\n Checking PHP instalation ....\n " 
+sleep 3
+if [ "$SPEC8" == 0 ] ;
+then
+logo_
+echo "All good you dont have on board PHP so now we will check internet connectivity"
+echo
+counter_
+else
+echo "Ops you alredy have PHP instaled"
+echo
+echo "We will exclud it from list :)"
+counter_
+
+echo -e "Now i will check your internet conectivity"
+echo
+fi
+if [ "$SPEC10" != 0 ];  #check ping to 8.8.8.8
+then
+clear
+logo_
+echo  "All done we can start Boss!"
+echo
+echo
+echo "We will be installed the following:"
+echo "PHP 7.4  "
+echo "Apache last version"
+echo "ssl_mod for ssl certificate"
+echo "Full configuration of apache with SSL and bainding"
+echo
+counter_
+echo -e "Please Confirm (y/n) or [Enter] to Y : "
+counter_
+echo
+selinux_
+confirm_
+install_php_ 
+httpd_
+else
+echo "You have problem with internet connection. "
+echo "Please fix and rerun me again" 
+counter_
+fi
+httpd_
+}
+
+
+function centos_ () {
+#local SPEC8=`php -v | grep -o -h 'Zend' | wc -l`
+#local SPEC9=`php -v | head -n 1 | cut -d " " -f 2`
+#local SPEC10`ping -c 2 8.8.8.8 | grep "0 received"  | wc -l`
+logo_
+echo
+echo -e  "This instalation bot can run only on Centos 7 or 8 only!"
+confirm_
+
+main_
+}
+centos_ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

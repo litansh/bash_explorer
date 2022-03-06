@@ -1,0 +1,68 @@
+function asterisk_log_parser_ () {
+asterisktmplog=/root/asterisklog.log
+cat pbxoutput.log > $asterisktmplog && sed -i '$!N; /^\(.*\)\n\1$/!P; D'  $asterisktmplog
+sed -i '/from-trunk/i\             \n------------------Incomming Call log------------------\n******************************************************' $asterisktmplog
+sed -i '/language/d' $asterisktmplog
+sed -n -i  '/Wait_For/{x;n;d;};1h;1!{x;p;};${x;p;}' $asterisktmplog
+sed -n -i  '/OUTBOUND_GROUP/{x;n;};1h;1!{x;p;};${x;p;}' $asterisktmplog   #Delete line before and after pattern
+sed -i '/"")/,+1 d' $asterisktmplog #remove whole line if match pattern
+sed -i 's+__RECORD_ID=SIP/+Incoming Trunk______________[+g' $asterisktmplog
+sed -i '/?start")/d' $asterisktmplog 
+sed -i "s/]//g" $asterisktmplog
+sed -i '/"0?customtrunk")/d' $asterisktmplog 
+sed -i '/"AMPUSERCIDNAME=")/d' $asterisktmplog
+sed -i '/startrec/d' $asterisktmplog
+sed -i '/Hidden/d' $asterisktmplog                                              #If pattern matche remove whole line
+sed -i "s/]//g" $asterisktmplog
+sed -i '/php/d' $asterisktmplog                                                 #Find pattern and delete whole line
+sed -i "s/'//g" $asterisktmplog
+sed -i 's/simple_bridge/Call reached destination!!!/g' $asterisktmplog
+sed -i 's/__DIRECTION=/Direction___________________[/g' $asterisktmplog
+sed -i 's/"CONNECTEDLINE(name)=/Outbound CID (Rep Number)___[/g' $asterisktmplog
+sed -i 's/)")/]/g' $asterisktmplog
+sed -i 's/")/]/g' $asterisktmplog
+sed -i 's/,1//' $asterisktmplog
+sed -i 's/,2//' $asterisktmplog
+sed -i "s/,//g" $asterisktmplog
+sed -i 's+"CONNECTEDLINE(numi)=+In call belong to ext_______[+g' $asterisktmplog
+sed -i 's/start/User dialing now ..../g' $asterisktmplog
+sed -i 's/(CONNECTEDLINE(numi)=/Destination (Client Number)_[/g' $asterisktmplog
+sed -i 's/(CONNECTEDLINE(namei)=CID:/Outbound User Number________[/g' $asterisktmplog
+sed -i 's/"//g' $asterisktmplog
+sed -i 's/TECH=/Driver______________________[/g' $asterisktmplog
+sed -i "/MASTER_CHANNEL(CFIGNORE)=]/d" $asterisktmplog
+sed -i 's/MASTER_CHANNEL(FORWARD_CONTEXT)=/Called from Context_________[/g' $asterisktmplog
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(num))=/Call answared by ext________[/g" $asterisktmplog
+sed -i "/CONNECTEDLINE(name))/ s/$/]/" $asterisktmplog                                                        #find pattern and append somthing to end of line
+sed -i "/In call belong to user/ s/$/]/" $asterisktmplog 
+sed -i "s/0?Set(MASTER_CHANNEL(CONNECTEDLINE(name))=/Call answared by user_______[/g" $asterisktmplog
+sed -i 's/RECMODE=/Record Mode_________________[/g' $asterisktmplog
+sed -i 's/(TRUNKCIDOVERRIDE=/User Caller ID______________[/g' $asterisktmplog
+sed -i 's/AMPUSERCID=/Now calling ext_____________[/g' $asterisktmplog
+sed -i 's/AMPUSERCIDNAME=/Now calling user____________[/g' $asterisktmplog
+sed -i 's/from-trunk/Incomming Client Number_____[/g' $asterisktmplog
+sed -i "/Now calling user/i\      \n         \n------------------Outgoing Call log------------------\n******************************************************" $asterisktmplog   #Add line after before pattern match #Add lane after pattern is mattch
+sed -i '/Now calling user/ s/$/]/' $asterisktmplog 
+sed -i "s+0?Set++g" $asterisktmplog
+sed -i "s+]]+]+g" $asterisktmplog
+sed -i 's/1?Set//g' $asterisktmplog
+sed -i 's+custom=IAX2/+Outbound Trunk______________[+g' $asterisktmplog
+sed -i 's+custom=SIP/+Outbound Trunk______________[+g' $asterisktmplog
+sed -i 's+IVR_MSG=custom/+IVR Recording file__________[+g' $asterisktmplog
+sed -i 's/completed/Call to IVR or Group________[Answared by user]/g' $asterisktmplog
+sed -i '/OUTBOUND_GROUP/d' $asterisktmplog 
+sed -i '/__RECORD_ID=/d' $asterisktmplog
+sed -i '/1?New call is starting now ....]/d' $asterisktmplog
+sed -i '/0?New call is starting now ....]/d' $asterisktmplog
+sed -i '/GROUP/d' $asterisktmplog && echo
+sed -i 's/\(.*\RandomCID\).*/\1/g' $asterisktmplog
+sed -i '/Background/d' $asterisktmplog
+sed -i 's/-RandomCID/________________[Used Random Call]/g' $asterisktmplog
+sed -i 's/TRUNKCIDOVERRIDE=/Used Number from roulette____[/g' $asterisktmplog && echo
+sed -i '/CRM_DIRECTION/d' $asterisktmplog
+#cat $asterisktmplog | tee > asterisk-full.log
+}
+
+
+stdbuf -o0 tail -f /var/log/asterisk/full.PBXTRSAIL |  while read a;  do echo "$a"  | awk '/CONNECTEDLINE|AMPUSERCID|AMPUSERCIDNAME|RECORD_ID|start|left|from-trunk-sip|TECH|custom|TRUNKCIDOVERRIDE|Random|DIRECTION|RECMODE|MASTER_CHANNEL|OUTBOUND_GROUP/ {print $2, "|", $8 } ' >>  pbxoutput.log  | asterisk_log_parser_ && cat asterisklog.log >> asterisk-full.log  ; done
+

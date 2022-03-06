@@ -1,0 +1,213 @@
+
+#!/bin/bash
+
+
+PWD=`pwd`
+#LS2=`ls / > /tmp/dirs1.txt`
+#S3=`ls -F /$DIR | grep \/$ `
+
+
+function title_ () {
+clear
+ echo "----------------"
+  echo "    Go To path: "
+  echo "----------------"
+  echo ""
+}
+
+ 
+ 
+function main_list_dir_ () {
+local LS1=`ls / > /tmp/dirs.txt`
+eval $LS1
+DIRL=/tmp/dirs.txt
+  title_
+  IFS=$'\n'       # make newlines the only separator
+  set -f          # disable globbing
+
+
+#######################1#######################
+  count=0
+  for DIR in $(cat < "$DIRL"); 
+  do
+    count=$((count+1))
+   if [[ ( "$count"  -lt "100" ) ]] ; 
+   then
+     printf " "
+    fi
+    echo " $count.  /$DIR"
+  done
+
+  
+  printf "\n"
+  read -e -p "Enter choice:" itemChoice
+
+
+title_
+ count=0
+  for DIR in $(cat < "$DIRL"); do
+    count=$((count+1))
+    if [[ ( "$count"  -eq "$itemChoice" ) ]] ; 
+	then
+      echo "Current dir 1 is : /$DIR" 
+	  echo "/$DIR" > /tmp/dirs-0.txt #<------------1---------------------
+	  ls /$DIR  > /tmp/dirs1.txt
+	   fi
+	   done
+######################1#######################
+
+
+
+######################2#######################
+DIRL1=/tmp/dirs1.txt 
+count=0
+  for DIR1 in $(cat < "$DIRL1"); 
+  do
+    count=$((count+1))
+   if [[ ( "$count"  -lt "1" ) ]] ; 
+   then
+     printf " "
+    fi
+    echo " $count.  /$DIR1" 
+  done
+ 
+#-----------------------------------------    
+  local DIR=`cat /tmp/dirs-0.txt`  #<-----------------1----------------1 echo "/$DIR" > /tmp/dirs-0.txt
+  printf "\n"
+  read -e -p "Enter choice:" itemChoice1  
+	 count=0
+  for DIR1 in $(cat < "$DIRL1"); 
+  do
+    count=$((count+1))
+    if [ "$itemChoice1" == b ] || [ "$itemChoice1" == B ] ; 
+	then
+	echo "huy"
+	main_list_dir_
+	elif [[ ( "$count"  -eq "$itemChoice1" ) ]] ;
+	then
+	echo "Current dir 2 is : /$DIR1" 
+	echo "/$DIR1" > /tmp/dirs1-0.txt #<------------2---------------------2
+	    ls $DIR/$DIR1 > /tmp/dirs2.txt #<-----------------1----------------1
+	   list_1_dir1_ 
+    fi
+  done
+#####################2#####################
+  }
+
+
+function list_1_dir1_ () {
+######################3#######################
+title_
+DIRL2=/tmp/dirs2.txt 
+count=0
+  for DIR2 in $(cat < "$DIRL2"); 
+  do
+    count=$((count+1))
+   if [[ ( "$count"  -lt "10" ) ]] ; 
+   then
+     printf " "
+    fi
+    echo " $count.  /$DIR2 " 
+  done
+ 
+#-----------------------------------------    
+  local DIR1=`cat /tmp/dirs1-0.txt`   #<------------2---------------------2 echo "/$DIR1" > /tmp/dirs1-0.txt
+  printf "\n"
+  read -e -p "Enter choice:" itemChoice1
+	   
+	 count=0
+  for DIR2 in $(cat < "$DIRL2"); do
+    count=$((count+1))
+	
+	    if [ "$itemChoice1" == b ] || [ "$itemChoice1" == B ] ; 
+	then
+	main_list_dir_
+	
+elif [[ ( "$count"  -eq "$itemChoice1" ) ]] ; 
+	then
+      echo "Current dir 3 is : /$DIR2" 
+	  echo "/$DIR2" > /tmp/dirs2-0.txt #<------------3---------------------3
+	   ls $DIR/$DIR1/$DIR2 > /tmp/dirs3.txt #<------------2---------------------2	  
+         list_2_dir2_
+    fi
+  done
+#####################3#####################
+
+}
+ 
+ 
+ function list_2_dir2_ () {
+######################4#######################
+title_
+DIRL3=/tmp/dirs3.txt 
+count=0
+  for DIR3 in $(cat < "$DIRL3"); 
+  do
+    count=$((count+1))
+   if [[ ( "$count"  -lt "10" ) ]] ; 
+   then
+     printf " "
+    fi
+    echo " $count.  /$DIR3"
+  done
+ 
+#-----------------------------------------    
+local DIR2=`cat /tmp/dirs2-0.txt`   #<------------3---------------------3 echo "/$DIR2" > /tmp/dirs2-0.txt
+  printf "\n"
+  read -e -p "Enter choice:" itemChoice1
+	   
+	 count=0
+  for DIR3 in $(cat < "$DIRL3"); do
+  
+    count=$((count+1))
+    if [[ ( "$count"  -eq "$itemChoice1" ) ]] ; 
+	then
+      echo "Current dir 4 is : /$DIR3"  
+	   echo "/$DIR3" >  /tmp/dirs3-0.txt #<------------4---------------------4 echo "/$DIR3" >  /tmp/dirs3-0.txt
+	   ls $DIR/$DIR1/$DIR2/$DIR3 > /tmp/dirs4.txt #<------------3---------------------3
+	    list_3_dir3_ 
+     
+    fi
+  done
+#####################4#####################
+
+}
+
+function list_3_dir3_ () {
+######################5#######################
+title_
+DIRL3=/tmp/dirs4.txt 
+count=0
+  for DIR4 in $(cat < "$DIRL4"); 
+  do
+    count=$((count+1))
+   if [[ ( "$count"  -lt "10" ) ]] ; 
+   then
+     printf " "
+    fi
+    echo " $count.  /$DIR4"
+  done
+ 
+#-----------------------------------------    
+local DIR3=`cat /tmp/dirs3-0.txt` #<------------4---------------------4 
+  printf "\n"
+  read -e -p "Enter choice:" itemChoice1
+	   
+	 count=0
+  for DIR3 in $(cat < "$DIRL4"); do
+    count=$((count+1))
+    if [[ ( "$count"  -eq "$itemChoice1" ) ]] ; 
+	then
+      echo "Current dir 5 is : /$DIR4" 
+	  echo "/$DIR4" >  /tmp/dirs4-0.txt #<------------5---------------------5
+	   ls $DIR3/$DIR4  > /tmp/dirs5.txt #<------------4---------------------4 
+	  main_list_dir_
+
+    fi
+  done
+#####################5#####################
+
+}
+
+
+main_list_dir_
